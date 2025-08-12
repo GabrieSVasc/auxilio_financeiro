@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iu.viewController.GerenciarGastosViewController">
+   <children>
+      <Label layoutX="158.0" layoutY="34.0" prefHeight="63.0" prefWidth="964.0" style="-fx-alignment: center;" text="Seus Gastos Mensais" textAlignment="CENTER">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgVoltar" fitHeight="40.0" fitWidth="40.0" layoutX="19.0" layoutY="14.0" onMouseClicked="#btnVoltarAction">
+         <image>
+            <Image url="@../../files/Voltar.png" />
+         </image>
+      </ImageView>
+      <PieChart layoutX="423.0" layoutY="143.0" prefHeight="435.0" prefWidth="435.0" />
+      <Button fx:id="btnResumosGastos" layoutX="240.0" layoutY="608.0" mnemonicParsing="false" onAction="#btnResumosGastosAction" prefHeight="39.0" prefWidth="120.0" text="Resumos de Gastos" />
+      <Button fx:id="btnGastos" layoutX="750.0" layoutY="608.0" mnemonicParsing="false" onAction="#btnGastosAction" prefHeight="39.0" prefWidth="120.0" text="Gastos" />
+      <Button fx:id="btnMetas" layoutX="580.0" layoutY="608.0" mnemonicParsing="false" onAction="#btnMetasAction" prefHeight="39.0" prefWidth="120.0" text="Metas" />
+      <Button fx:id="btnLimites" layoutX="410.0" layoutY="608.0" mnemonicParsing="false" onAction="#btnLimitesAction" prefHeight="39.0" prefWidth="120.0" text="Limites de Gastos" />
+      <Button fx:id="btnCategorias" layoutX="920.0" layoutY="608.0" mnemonicParsing="false" onAction="#btnCategoriasAction" prefHeight="39.0" prefWidth="120.0" text="Categorias" />
+      <Button fx:id="btnVoltar" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="40.0" prefWidth="40.0" />
+   </children>
+</Pane>

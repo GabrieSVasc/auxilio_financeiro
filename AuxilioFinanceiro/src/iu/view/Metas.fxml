@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #ffffff; -fx-border-image-width: 2;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iu.viewController.MetasViewController">
+   <children>
+      <ImageView fx:id="imgVoltar" fitHeight="40.0" fitWidth="40.0" layoutX="19.0" layoutY="14.0" onMouseClicked="#btnVoltarAction">
+         <image>
+            <Image url="@../../files/Voltar.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnVoltar" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="40.0" prefWidth="40.0" />
+      <Pane fx:id="pnListaMetas" layoutX="103.0" layoutY="129.0" prefHeight="463.0" prefWidth="1074.0" style="-fx-border-color: #000000; -fx-border-width: 2;" />
+      <Label alignment="CENTER" layoutX="158.0" layoutY="34.0" prefHeight="63.0" prefWidth="964.0" text="Suas Metas" textAlignment="CENTER">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnNovaMeta" layoutX="540.0" layoutY="624.0" mnemonicParsing="false" onAction="#btnNovaMetaAction" prefHeight="40.0" prefWidth="200.0" text="Nova Meta" />
+   </children>
+</Pane>
