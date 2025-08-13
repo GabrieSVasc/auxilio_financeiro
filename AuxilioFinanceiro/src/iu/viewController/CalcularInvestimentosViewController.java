@@ -17,13 +17,31 @@ public class CalcularInvestimentosViewController implements Initializable{
 		@FXML
 		private Button btnVoltar;
 		
+		@FXML
+		private ImageView imgTutoriais;
+
+		@FXML
+		private Button btnTutoriais;
+		
 		@Override
 		public void initialize(URL location, ResourceBundle rb) {
 			btnVoltar.setGraphic(imgVoltar);
+			btnTutoriais.setGraphic(imgTutoriais);
 		}
 		
 		@FXML
 		protected void btnVoltarAction(ActionEvent e) {
 			Main.mudarTela("inicial");
 		}
+		
+		@FXML
+		protected void btnAction(ActionEvent e) {
+			Main.mudarTela("investimento");
+		}
+		
+		@FXML
+		protected void btnTutoriaisAction(ActionEvent e) {
+			Main.mudarTela("tutoriais");
+		}
+		
 }

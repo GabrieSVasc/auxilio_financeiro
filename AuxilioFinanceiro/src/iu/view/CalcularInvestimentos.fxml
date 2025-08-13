@@ -26,19 +26,20 @@
             <Image url="@../../files/Carteira.png" />
          </image>
       </ImageView>
-      <Button layoutX="336.0" layoutY="169.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="149.0" text="Juros Simples" />
-      <Button layoutX="336.0" layoutY="287.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="149.0" text="Juros Compostos" />
-      <Button layoutX="336.0" layoutY="523.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="149.0" text="Equivalência Financeira" />
-      <Button layoutX="567.0" layoutY="552.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="149.0" text="Descontos Simples e Compostos" textAlignment="CENTER" wrapText="true" />
-      <Button layoutX="795.0" layoutY="523.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="149.0" text="Deflação" />
-      <Button layoutX="795.0" layoutY="405.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="149.0" text="Inflação" />
-      <Button layoutX="795.0" layoutY="287.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="149.0" text="Capitalização" />
-      <Button layoutX="795.0" layoutY="169.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="149.0" text="Taxa Interna de Retorno" />
-      <Button layoutX="336.0" layoutY="405.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="149.0" text="Sistema de Amortização" />
-      <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="1193.0" layoutY="634.0">
+      <Button layoutX="336.0" layoutY="169.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="43.0" prefWidth="149.0" text="Juros Simples" />
+      <Button layoutX="336.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="43.0" prefWidth="149.0" text="Juros Compostos" />
+      <Button layoutX="336.0" layoutY="523.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="43.0" prefWidth="149.0" text="Equivalência Financeira" />
+      <Button layoutX="567.0" layoutY="552.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="43.0" prefWidth="149.0" text="Descontos Simples e Compostos" textAlignment="CENTER" wrapText="true" />
+      <Button layoutX="795.0" layoutY="523.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="43.0" prefWidth="149.0" text="Deflação" />
+      <Button layoutX="795.0" layoutY="405.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="43.0" prefWidth="149.0" text="Inflação" />
+      <Button layoutX="795.0" layoutY="287.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="43.0" prefWidth="149.0" text="Capitalização" />
+      <Button layoutX="795.0" layoutY="169.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="43.0" prefWidth="149.0" text="Taxa Interna de Retorno" />
+      <Button layoutX="336.0" layoutY="405.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="43.0" prefWidth="149.0" text="Sistema de Amortização" />
+      <ImageView fx:id="imgTutoriais" fitHeight="70.0" fitWidth="70.0" layoutX="1183.0" layoutY="634.0">
          <image>
             <Image url="@../../files/Tutoriais.png" />
          </image>
       </ImageView>
+      <Button fx:id="btnTutoriais" layoutX="1183.0" layoutY="634.0" mnemonicParsing="false" onAction="#btnTutoriaisAction" prefHeight="70.0" prefWidth="70.0" />
    </children>
 </Pane>

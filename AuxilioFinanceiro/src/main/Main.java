@@ -28,6 +28,8 @@ public class Main extends Application {
 	private static Scene cenaEditarLimite;
 	private static Scene cenaEditarMeta;
 	private static Scene cenaEditarCategoria;
+	private static Scene cenaInvestimento;
+	private static Scene cenaTutoriais;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -92,6 +94,12 @@ public class Main extends Application {
 			
 			Parent editarCategoria = FXMLLoader.load(getClass().getResource("/iu/view/EditarCategoria.fxml"));
 			cenaEditarCategoria= new Scene(editarCategoria);
+			
+			Parent investimento = FXMLLoader.load(getClass().getResource("/iu/view/Investimento.fxml"));
+			cenaInvestimento = new Scene(investimento);
+			
+			Parent tutoriais = FXMLLoader.load(getClass().getResource("/iu/view/Tutoriais.fxml"));
+			cenaTutoriais = new Scene(tutoriais);
 			
 			primaryStage.setScene(cenaInicial);
 			primaryStage.show();
@@ -160,6 +168,12 @@ public class Main extends Application {
 				break;
 			case "editarCategoria":
 				stage.setScene(cenaEditarCategoria);
+				break;
+			case "investimento":
+				stage.setScene(cenaInvestimento);
+				break;
+			case "tutoriais":
+				stage.setScene(cenaTutoriais);
 				break;
 			default:
 				System.out.println("Tela inexistente");
