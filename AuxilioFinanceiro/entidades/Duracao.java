@@ -6,7 +6,9 @@ public class Duracao {
     
     Duracao(int tipo, double tempo){
         this.tipo = tipo;
-        this.tempo = tempo;
+        if (tipo == 0) this.tempo = tempo;
+        else if (tipo == 1) this.tempo = tempo*12;
+
     }
 
     // Getters
