@@ -1,7 +1,7 @@
 package entidades.tiposdesconto;
 
-import entidades.Desconto;
 import entidades.Duracao;
+import entidades.Desconto;
 
 public class DescontoSimples extends Desconto {
     public DescontoSimples(double valorNominal, double taxa, Duracao duracao){
@@ -15,15 +15,15 @@ public class DescontoSimples extends Desconto {
     }
 
     @Override
-    public void calcularValorAtual(){
+    public void calcularValorPresente(){
         double a = this.getTaxa();
         if (a >= 1) a = a/100;
-        this.valorAtual = this.valorNominal*(1 - a*this.duracao.getTempo());
+        this.valorPresente = this.valorNominal*(1 - a*this.duracao.getTempo());
     }
     
     @Override
     public void calcularDesconto(){
-        calcularValorAtual();
-        this.desconto = this.valorNominal - this.valorAtual;
+        calcularValorPresente();
+        this.desconto = this.valorNominal - this.valorPresente;
     }
 }
