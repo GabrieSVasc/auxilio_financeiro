@@ -20,11 +20,12 @@ public class Gastos {
         setCategoria(categoria);
     }
 
-    private Gastos(int id, String nome, double valor, String data, Categoria categoria){
+    private Gastos(int id, String nome, double valor, String data, Categoria categoria) {
         this.id = id;
         setNome(nome);
         setValor(valor);
-        this.data = LocalDate.parse(data);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        this.data = LocalDate.parse(data, formatter); // Formato consistente
         setCategoria(categoria);
         if (id >= contadorId) {
             contadorId = id + 1;
@@ -63,26 +64,42 @@ public class Gastos {
     }
 
     public String toArquivo() {
-        String nomeSan = nome == null ? "" : nome.replace(";", ",");
-        String valorStr = Double.toString(valor);
-        String dataStr = data == null ? "" : data.toString();
-        String catStr = categoria == null ? "" : categoria.getNome();
-        return id + ";" + nomeSan + ";" + valorStr + ";" + dataStr + ";" + catStr;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    String dataStr = data.format(formatter); // Formata como "21-11-2022"
+    
+    return String.join(";",
+        String.valueOf(id),
+        nome.replace(";", ","),
+        String.valueOf(valor),
+        dataStr, // Data no formato dd-MM-yyyy
+        categoria.getNome()
+    );
+}
+
+public static Gastos fromArquivo(String linha) {
+    linha = linha.trim();
+    System.out.println("Linha sendo processada: '" + linha + "'");
+
+    String[] partes = linha.split(";");
+    if (partes.length != 5) {
+        throw new IllegalArgumentException("Linha mal formatada. Esperado 5 campos. Recebido: " + linha);
     }
 
-    public static Gastos fromArquivo(String linha) {
-        String[] partes = linha.split(";", -1);
-        if (partes.length < 5) {
-            throw new IllegalArgumentException("Linha inválida: " + linha);
-        }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    try {
         int id = Integer.parseInt(partes[0].trim());
-        String nome = partes[1];
-        double valor = Double.parseDouble(partes[2]);
-        LocalDate data = LocalDate.parse(partes[3], formatter);
-        Categoria categoria = partes[4].isBlank() ? null : new Categoria(partes[4]);
-        return new Gastos(id, nome, valor, data.format(formatter), categoria);
+        String nome = partes[1].trim();
+        double valor = Double.parseDouble(partes[2].trim());
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate data = LocalDate.parse(partes[3].trim(), formatter);
+        
+        Categoria categoria = new Categoria(partes[4].trim());
+
+        return new Gastos(id, nome, valor, partes[3].trim(), categoria); // Passe a string original da data
+    } catch (Exception e) {
+        throw new IllegalArgumentException("Falha ao processar linha: '" + linha + "'. Erro: " + e.getMessage());
     }
+}
 
     public static void ajustarProximoId(int proximo) {
         if (proximo > contadorId) {
