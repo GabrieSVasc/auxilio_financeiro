@@ -4,7 +4,7 @@ public class Duracao {
     private int tipo;
     private double tempo;
     
-    Duracao(int tipo, double tempo){
+    public Duracao(int tipo, double tempo){
         this.tipo = tipo;
         if (tipo == 0) this.tempo = tempo;
         else if (tipo == 1) this.tempo = tempo*12;
