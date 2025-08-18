@@ -13,13 +13,9 @@ public class amortPrice extends Amortizacao {
 
 
     @Override
-    public void calcularParcelas(){
-        parcela = montante * (Math.pow(1+taxa, numParcelas)*taxa) / (Math.pow(1+taxa, numParcelas) - 1);
-    }
-
-    @Override
-    public void calcularResto(){
-        juros = saldoDevedor*taxa;
-        amortizacao = parcela - juros;
+    public void calcularTudo(){
+        this.parcela = montante * (Math.pow(1+taxa, numParcelas)*taxa) / (Math.pow(1+taxa, numParcelas) - 1);
+        this.juros = saldoDevedor*taxa;
+        this.amortizacao = parcela - juros;
     }
 }

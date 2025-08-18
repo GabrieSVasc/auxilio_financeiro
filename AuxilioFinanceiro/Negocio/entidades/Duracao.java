@@ -11,6 +11,7 @@ public class Duracao {
 
     }
 
+    
     // Getters
     public int getTipo(){ return tipo; }
     public double getTempo(){ return tempo; }

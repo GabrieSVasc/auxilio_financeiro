@@ -7,7 +7,7 @@ public abstract  class Amortizacao {
     public Amortizacao(double montante, double taxa, int numParcelas) {
         this.montante = montante;
         this.saldoDevedor = montante;
-        this.taxa = taxa;
+        this.taxa = taxa/100;
         this.numParcelas = numParcelas;
         this.amortizacao = 0;
         this.parcela = 0;
@@ -23,6 +23,7 @@ public abstract  class Amortizacao {
         this.juros = 0;
     }
 
+    
     // Getters
     public double getAmortizacao(){ return this.amortizacao; }
     public double getParcela(){ return this.parcela; }
@@ -38,8 +39,5 @@ public abstract  class Amortizacao {
     public void setNumParcela(int novoNumParcela){ this.numParcelas = novoNumParcela; }
 
     
-    public abstract void calcularParcelas();
-    public abstract void calcularResto();
-    
-
+    public abstract void calcularTudo();
 }

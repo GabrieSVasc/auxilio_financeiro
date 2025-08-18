@@ -6,7 +6,7 @@ public abstract class Desconto {
 
     public Desconto(double valorNominal, double taxa, Duracao duracao){
         this.valorNominal = valorNominal;
-        this.taxa = taxa;
+        this.taxa = taxa/100;
         this.duracao = duracao;
         this.desconto = 0;
         this.valorPresente = 0;
@@ -26,7 +26,7 @@ public abstract class Desconto {
         this.valorPresente = 0;
     }
 
-
+    
     // Getters
     public double getValorNominal() { return valorNominal; }
     public double getValorPresente(){ return valorPresente; }

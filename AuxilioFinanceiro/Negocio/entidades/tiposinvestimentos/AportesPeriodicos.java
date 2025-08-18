@@ -16,12 +16,7 @@ public class AportesPeriodicos extends Investimento {
 
     @Override
     public void calcularMontante(){
-        double taxa = getTaxa();
-        if (taxa >= 1) taxa = taxa/100;
-
-        double capital = getCapital();
-        double tempo = this.getDuracao().getTempo();
-
+        double tempo = duracao.getTempo();
         this.montante = (1 + taxa)*capital * (Math.pow(1+taxa, tempo) - 1)/taxa;
     }
 }

@@ -4,16 +4,17 @@ public abstract class Investimento {
     protected String nome; // Talvez? pode ser útil em organização, caso criemos uma interface de investimentos criados. No momento inútil
     protected double capital, taxa, montante; 
     protected Duracao duracao;
+    // protected VariacaoDePreco; ?
 
     public Investimento(double capital, double taxa, Duracao duracao){
         this.capital = capital;
-        this.taxa = taxa;
+        this.taxa = taxa/100;
         this.duracao = duracao;
         this.montante = 0;
     }
     public Investimento(double capital, double taxa, int tipo, double tempo){
         this.capital = capital;
-        this.taxa = taxa;
+        this.taxa = taxa/100;
         this.duracao = new Duracao(tipo, tempo);
         this.montante = 0;
     }
@@ -23,6 +24,7 @@ public abstract class Investimento {
         this.duracao = null;
         this.montante = 0;
     }
+
 
     // Getters
     public double getCapital() { return capital; }
@@ -39,6 +41,8 @@ public abstract class Investimento {
         this.duracao.setTempo(tempo); 
     }
 
+
     public abstract void calcularMontante();
 
+    // public abstract void calcularMontanteReal(); ?
 }
