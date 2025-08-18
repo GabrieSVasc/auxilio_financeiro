@@ -37,6 +37,7 @@ public abstract  class Amortizacao {
     public void setTaxa(double novaTaxa){ this.taxa = novaTaxa; }
     public void setNumParcela(int novoNumParcela){ this.numParcelas = novoNumParcela; }
 
+    
     public abstract void calcularParcelas();
     public abstract void calcularResto();
     

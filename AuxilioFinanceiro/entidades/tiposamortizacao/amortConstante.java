@@ -10,4 +10,14 @@ public class amortConstante extends Amortizacao {
         super();
     }
     
+    @Override
+    public void calcularParcelas(){
+        this.parcela = this.amortizacao + this.juros;
+    }
+
+    @Override
+    public void calcularResto(){
+        this.amortizacao = saldoDevedor/numParcelas;
+        this.juros = saldoDevedor*taxa;
+    }
 }
