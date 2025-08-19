@@ -2,12 +2,12 @@ package entidades.tiposamortizacao;
 
 import entidades.Amortizacao;
 
-public class amortConstante extends Amortizacao {
-    public amortConstante(double montante, double taxa, int numParcelas) {
+public class AmortConstante extends Amortizacao {
+    public AmortConstante(double montante, double taxa, int numParcelas) {
         super(montante, taxa, numParcelas);
     }
     
-    public amortConstante(){
+    public AmortConstante(){
         super();
     }
 

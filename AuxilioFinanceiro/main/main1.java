@@ -1,4 +1,5 @@
 package main;
+import entidades.Investimento;
 import entidades.ValorPresenteLiquido;
 import entidades.tiposVPL.TaxaInternaRetorno;
 import entidades.tiposdesconto.*;
@@ -18,16 +19,16 @@ public class main1 {
         System.out.println(desc2.getDesconto());
         System.out.println(desc2.getValorPresente());
         */  
-        AportesPeriodicos apo1 = new AportesPeriodicos(100, 1, 0, 10);
+        Investimento apo1 = new AportesPeriodicos(100, 1, 0, 10);
         apo1.calcularMontante();
         System.out.println(apo1.getMontante());
         
 
-        JurosComposto teste2 = new JurosComposto(100, 1,  0, 10.5);
+        Investimento teste2 = new JurosComposto(100, 1,  0, 10.5);
         teste2.calcularMontante();
         System.out.println(teste2.getMontante());
 
-        JurosSimples teste1 = new JurosSimples(100, 1, 0, 10);
+        Investimento teste1 = new JurosSimples(100, 1, 0, 10);
         teste1.calcularMontante();
         System.out.println(teste1.getMontante());
 

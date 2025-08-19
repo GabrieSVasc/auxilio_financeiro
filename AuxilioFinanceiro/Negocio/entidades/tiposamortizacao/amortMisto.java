@@ -2,19 +2,19 @@ package entidades.tiposamortizacao;
 
 import entidades.Amortizacao;
 
-public class amortMisto extends Amortizacao {
-    public amortMisto(double montante, double taxa, int numParcelas) {
+public class AmortMisto extends Amortizacao {
+    public AmortMisto(double montante, double taxa, int numParcelas) {
         super(montante, taxa, numParcelas);
     }
 
-    public amortMisto() {
+    public AmortMisto() {
         super();
     }
     
     @Override
     public void calcularTudo(){
-        amortConstante amort1 = new amortConstante(montante, taxa, numParcelas);
-        amortPrice amort2 = new amortPrice(montante, taxa, numParcelas);
+        AmortConstante amort1 = new AmortConstante(montante, taxa, numParcelas);
+        AmortPrice amort2 = new AmortPrice(montante, taxa, numParcelas);
         amort1.calcularTudo();
         amort2.calcularTudo();
 

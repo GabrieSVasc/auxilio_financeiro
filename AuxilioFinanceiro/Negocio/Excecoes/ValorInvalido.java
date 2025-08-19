@@ -1,5 +1,5 @@
 package Excecoes;
 
-public class ValorInvalido {
+public class ValorInvalido extends Exception {
     // Negativo, zero, vazio ou letra/palavra
 }
