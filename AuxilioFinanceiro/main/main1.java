@@ -1,7 +1,6 @@
 package main;
 import entidades.Investimento;
 import entidades.ValorPresenteLiquido;
-import entidades.tiposVPL.TaxaInternaRetorno;
 import entidades.tiposdesconto.*;
 import entidades.tiposinvestimentos.AportesPeriodicos;
 import entidades.tiposinvestimentos.JurosComposto;
@@ -32,12 +31,10 @@ public class main1 {
         teste1.calcularMontante();
         System.out.println(teste1.getMontante());
 
-        TaxaInternaRetorno gato = new TaxaInternaRetorno(1000, 0, 3);
-        gato.calcularTIR();
-        System.out.printf("%.2f%%\n", gato.getTaxa()*100);
-
         ValorPresenteLiquido cat = new ValorPresenteLiquido(1000, 5, 0, 3);
         cat.calcularVPL();
+        cat.calcularTIR();
         System.out.println(cat.getVpl());
+        System.out.println(cat.getTir()*100);
     }
 }

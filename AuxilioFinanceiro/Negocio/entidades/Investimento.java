@@ -1,10 +1,8 @@
 package entidades;
 
 public abstract class Investimento {
-    protected String nome; // Talvez? pode ser útil em organização, caso criemos uma interface de investimentos criados. No momento inútil
     protected double capital, taxa, montante; 
     protected Duracao duracao;
-    // protected VariacaoDePreco; ?
 
     public Investimento(double capital, double taxa, Duracao duracao){
         this.capital = capital;
@@ -27,7 +25,7 @@ public abstract class Investimento {
 
 
     // Getters
-    public double getCapital() { return capital; }
+    public double getCapital() {     return capital; }
     public double getTaxa(){ return taxa; }
     public double getMontante(){ return montante; }
     public Duracao getDuracao(){ return duracao; }
@@ -43,6 +41,4 @@ public abstract class Investimento {
 
 
     public abstract void calcularMontante();
-
-    // public abstract void calcularMontanteReal(); ?
 }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ValorPresenteLiquido {
-    protected double custoInicial, vpl, taxa;
+    protected double custoInicial, vpl, taxa, tir;
     protected ArrayList<Double> arrecadacao;
     protected Duracao duracao;
 
@@ -18,6 +18,7 @@ public class ValorPresenteLiquido {
             System.out.printf("Adicione o valor de entrada n° %d: ", i+1);
             arrecadacao.add(input.nextDouble());
         }
+        this.tir = 0;
     }
     public ValorPresenteLiquido(double custoInicial, double taxa, int tipo, double tempo) {
         this.arrecadacao = new ArrayList<>();
@@ -30,6 +31,7 @@ public class ValorPresenteLiquido {
             System.out.printf("Adicione o valor de entrada n° %d: ", i+1);
             arrecadacao.add(input.nextDouble());
         }
+        this.tir = 0;
     }
     public ValorPresenteLiquido(){
         this.custoInicial = 0;
@@ -37,6 +39,7 @@ public class ValorPresenteLiquido {
         this.taxa = 0;
         this.arrecadacao = new ArrayList<>();
         this.duracao = null;
+        this.tir = 0;
     }
 
 
@@ -46,7 +49,7 @@ public class ValorPresenteLiquido {
     public double getCustoInicial(){ return custoInicial; }
     public double getVpl(){ return vpl; }
     public double getTaxa(){ return taxa; }
-    
+    public double getTir(){ return tir; }
     // Setters
     public void setArrecadacao(ArrayList<Double> novaArrecadacao){ this.arrecadacao = novaArrecadacao; }
     public void setCustoInicial(double novoCustoInicial){ this.custoInicial = novoCustoInicial; }
@@ -61,5 +64,28 @@ public class ValorPresenteLiquido {
             this.vpl += arrecadacao.get(i)/Math.pow(1+this.taxa, i+1);
         }
         return this.vpl;
+    }
+
+    public void calcularTIR() {
+        this.tir = 0.0;
+        double tolerancia = 0.0001;
+        int numRepeticoes = 1000;
+
+        for (int iter = 0; iter < numRepeticoes; iter++) {
+            double vplAtual = -1*custoInicial;
+            double derivada = 0;
+
+            for (int t = 0; t < arrecadacao.size(); t++) {
+                double ft = arrecadacao.get(t);
+                vplAtual += ft / Math.pow(1 + this.tir, t + 1);
+                derivada += - (t + 1) * ft / Math.pow(1 + this.tir, t + 2);
+            }
+
+            if (Math.abs(vplAtual) < tolerancia) {
+                return;
+            }
+            this.tir = this.tir - vplAtual / derivada;
+        }
+        System.out.println("Num deu.");
     }
 }
