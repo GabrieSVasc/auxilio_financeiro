@@ -1,6 +1,6 @@
 package util;
 import java.util.Scanner;
-/** Utilitário para leitura segura no console. */
+/** Utilitário para leitura segura no console.*/
 public final class ConsoleIO {
     private ConsoleIO() {}
     public static String readOption(Scanner sc, String prompt, String regexValid) {

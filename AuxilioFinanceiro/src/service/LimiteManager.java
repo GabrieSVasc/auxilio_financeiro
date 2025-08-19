@@ -1,20 +1,26 @@
 package service;
-import model.Categoria;
-import model.Limite;
-import exceptions.ObjetoNuloException;
 import exceptions.ObjetoNaoEncontradoException;
+import exceptions.ObjetoNuloException;
 import exceptions.ValorNegativoException;
-import util.ConsoleIO;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import model.Categoria;
+import model.Limite;
+import util.ConsoleIO;
 /** Serviço para CRUD de Limite via console. */
+
 public class LimiteManager implements CrudMenu {
-    private final List<Limite> limites = new ArrayList<>();
+    private final List<Limite> limites;
     private final List<Categoria> categorias;
     private final Scanner scanner = new Scanner(System.in);
-    public LimiteManager(List<Categoria> categorias) { this.categorias = categorias; }
-    @Override public void menu() {
+
+    public LimiteManager(List<Categoria> categorias, List<Limite> limites) {
+        this.categorias = categorias;
+        this.limites = limites;
+    }
+
+    @Override
+    public void menu() {
         String opcao;
         do {
             System.out.println("\n--- Menu Limite ---");
@@ -37,6 +43,7 @@ public class LimiteManager implements CrudMenu {
             }
         } while (!"0".equals(opcao));
     }
+
     private void criar() throws ObjetoNaoEncontradoException, ValorNegativoException, ObjetoNuloException {
         if (categorias.isEmpty()) { System.out.println("Crie categorias primeiro."); return; }
         System.out.println("Escolha uma categoria:");
@@ -46,14 +53,15 @@ public class LimiteManager implements CrudMenu {
         Categoria categoriaSelecionada = categorias.stream().filter(c -> c.getId() == idCat).findFirst().orElse(null);
         if (categoriaSelecionada == null) throw new ObjetoNaoEncontradoException("Categoria", idCat);
         double valor = ConsoleIO.readDouble(scanner, "Valor do limite: ");
-        if (valor < 0) throw new ValorNegativoException("Valor do limite");
         limites.add(new Limite(categoriaSelecionada, valor));
         System.out.println("Limite criado.");
     }
+
     private void listar() {
         if (limites.isEmpty()) { System.out.println("Nenhum limite cadastrado."); return; }
         limites.forEach(l -> System.out.println(l.exibir()));
     }
+
     private void editar() throws ObjetoNaoEncontradoException, ValorNegativoException {
         listar(); if (limites.isEmpty()) return;
         int id = ConsoleIO.readInt(scanner, "ID do limite a editar: ");
@@ -64,6 +72,7 @@ public class LimiteManager implements CrudMenu {
         limite.setValor(novoValor);
         System.out.println("Limite atualizado.");
     }
+
     private void deletar() throws ObjetoNaoEncontradoException, ValorNegativoException {
         listar(); if (limites.isEmpty()) return;
         int id = ConsoleIO.readInt(scanner, "ID do limite a deletar: ");
@@ -72,5 +81,6 @@ public class LimiteManager implements CrudMenu {
         if (!removido) throw new ObjetoNaoEncontradoException("Limite", id);
         System.out.println("Limite removido.");
     }
+
     public List<Limite> getLimites() { return limites; }
 }

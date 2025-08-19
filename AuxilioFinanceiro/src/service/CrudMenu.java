@@ -1,3 +1,3 @@
 package service;
-/** Interface que padroniza um menu CRUD no console. */
+/** Interface que padroniza um menu CRUD no console.*/
 public interface CrudMenu { void menu(); }

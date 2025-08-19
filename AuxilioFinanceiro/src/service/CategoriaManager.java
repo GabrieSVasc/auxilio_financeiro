@@ -1,17 +1,24 @@
 package service;
-import model.Categoria;
 import exceptions.CampoVazioException;
 import exceptions.ObjetoNaoEncontradoException;
 import exceptions.ValorNegativoException;
-import util.ConsoleIO;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import model.Categoria;
+import util.ConsoleIO;
 /** Serviço para CRUD de Categoria via console. */
+
 public class CategoriaManager implements CrudMenu {
-    private final List<Categoria> categorias = new ArrayList<>();
+    private final List<Categoria> categorias;
     private final Scanner scanner = new Scanner(System.in);
-    @Override public void menu() {
+
+    // Recebe lista carregada
+    public CategoriaManager(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
+    @Override
+    public void menu() {
         String opcao;
         do {
             System.out.println("\n--- Menu Categoria ---");
@@ -36,15 +43,18 @@ public class CategoriaManager implements CrudMenu {
             }
         } while (!"0".equals(opcao));
     }
+
     private void criar() throws CampoVazioException {
         String nome = ConsoleIO.readNonEmpty(scanner, "Nome da categoria: ");
         categorias.add(new Categoria(nome));
         System.out.println("Categoria adicionada.");
     }
+
     private void listar() {
         if (categorias.isEmpty()) { System.out.println("Nenhuma categoria."); return; }
         categorias.forEach(c -> System.out.println(c.exibir()));
     }
+
     private void editar() throws ValorNegativoException, ObjetoNaoEncontradoException, CampoVazioException {
         listar(); if (categorias.isEmpty()) return;
         int id = ConsoleIO.readInt(scanner, "ID da categoria a editar: ");
@@ -55,6 +65,7 @@ public class CategoriaManager implements CrudMenu {
         encontrada.setNome(novoNome);
         System.out.println("Categoria atualizada.");
     }
+
     private void deletar() throws ValorNegativoException, ObjetoNaoEncontradoException {
         listar(); if (categorias.isEmpty()) return;
         int id = ConsoleIO.readInt(scanner, "ID da categoria a deletar: ");
@@ -63,5 +74,6 @@ public class CategoriaManager implements CrudMenu {
         if (!removido) throw new ObjetoNaoEncontradoException("Categoria", id);
         System.out.println("Categoria removida.");
     }
+
     public List<Categoria> getCategorias() { return categorias; }
 }

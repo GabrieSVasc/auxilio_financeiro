@@ -1,17 +1,23 @@
 package service;
-import model.Meta;
 import exceptions.CampoVazioException;
 import exceptions.ObjetoNaoEncontradoException;
 import exceptions.ValorNegativoException;
-import util.ConsoleIO;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import model.Meta;
+import util.ConsoleIO;
 /** Serviço para CRUD de Meta via console. */
+
 public class MetaManager implements CrudMenu {
-    private final List<Meta> metas = new ArrayList<>();
+    private final List<Meta> metas;
     private final Scanner scanner = new Scanner(System.in);
-    @Override public void menu() {
+
+    public MetaManager(List<Meta> metas) {
+        this.metas = metas;
+    }
+
+    @Override
+    public void menu() {
         String opcao;
         do {
             System.out.println("\n--- Menu Meta ---");
@@ -34,17 +40,19 @@ public class MetaManager implements CrudMenu {
             }
         } while (!"0".equals(opcao));
     }
+
     private void criar() throws CampoVazioException, ValorNegativoException {
         String descricao = ConsoleIO.readNonEmpty(scanner, "Descrição da meta: ");
         double valor = ConsoleIO.readDouble(scanner, "Valor da meta: ");
-        Meta meta = new Meta(valor, descricao);
-        metas.add(meta);
+        metas.add(new Meta(valor, descricao));
         System.out.println("Meta adicionada.");
     }
+
     private void listar() {
         if (metas.isEmpty()) { System.out.println("Nenhuma meta cadastrada."); return; }
         metas.forEach(m -> System.out.println(m.exibir()));
     }
+
     private void editar() throws ObjetoNaoEncontradoException, CampoVazioException, ValorNegativoException {
         listar(); if (metas.isEmpty()) return;
         int id = ConsoleIO.readInt(scanner, "ID da meta a editar: ");
@@ -57,6 +65,7 @@ public class MetaManager implements CrudMenu {
         meta.setValor(novoValor);
         System.out.println("Meta atualizada.");
     }
+
     private void deletar() throws ObjetoNaoEncontradoException, ValorNegativoException {
         listar(); if (metas.isEmpty()) return;
         int id = ConsoleIO.readInt(scanner, "ID da meta a deletar: ");
@@ -65,5 +74,6 @@ public class MetaManager implements CrudMenu {
         if (!removido) throw new ObjetoNaoEncontradoException("Meta", id);
         System.out.println("Meta removida.");
     }
+
     public List<Meta> getMetas() { return metas; }
 }
