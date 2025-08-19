@@ -5,6 +5,8 @@ import model.Categoria;
 import model.Limite;
 import model.Meta;
 import service.CategoriaManager;
+import service.LembreteLimiteManager;
+import service.LembreteMetaManager;
 import service.LimiteManager;
 import service.MetaManager;
 
@@ -19,6 +21,8 @@ public class Main {
         CategoriaManager categoriaManager = new CategoriaManager(categorias);
         MetaManager metaManager = new MetaManager(metas);
         LimiteManager limiteManager = new LimiteManager(categorias, limites);
+        LembreteMetaManager lembrenteMetaManager = new LembreteMetaManager(metas);
+        LembreteLimiteManager lembrenteLimiteManager = new LembreteLimiteManager(limites);
 
         java.util.Scanner sc = new java.util.Scanner(System.in);
         String op;
@@ -28,6 +32,8 @@ public class Main {
             System.out.println("1 - Gerenciar Categorias");
             System.out.println("2 - Gerenciar Metas");
             System.out.println("3 - Gerenciar Limites");
+            System.out.println("4 - Gerenciar Lembretes de Metas");
+            System.out.println("5 - Gerenciar Lembretes de Limites");
             System.out.println("0 - Sair");
             System.out.print("Escolha: ");
             op = sc.nextLine().trim();
@@ -36,6 +42,8 @@ public class Main {
                 case "1" -> categoriaManager.menu();
                 case "2" -> metaManager.menu();
                 case "3" -> limiteManager.menu();
+                case "4" -> lembrenteMetaManager.menu();
+                case "5" -> lembrenteLimiteManager.menu();
                 case "0" -> System.out.println("Encerrando...");
                 default -> System.out.println("Opção inválida.");
             }

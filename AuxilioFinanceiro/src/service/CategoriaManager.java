@@ -63,6 +63,7 @@ public class CategoriaManager implements CrudMenu {
         if (encontrada == null) throw new ObjetoNaoEncontradoException("Categoria", id);
         String novoNome = ConsoleIO.readNonEmpty(scanner, "Novo nome: ");
         encontrada.setNome(novoNome);
+        Categoria.salvarTodas(categorias);
         System.out.println("Categoria atualizada.");
     }
 
@@ -72,6 +73,7 @@ public class CategoriaManager implements CrudMenu {
         if (id <= 0) throw new ValorNegativoException("ID");
         boolean removido = categorias.removeIf(c -> c.getId() == id);
         if (!removido) throw new ObjetoNaoEncontradoException("Categoria", id);
+        Categoria.salvarTodas(categorias);
         System.out.println("Categoria removida.");
     }
 

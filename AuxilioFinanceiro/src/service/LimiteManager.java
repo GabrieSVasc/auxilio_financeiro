@@ -1,4 +1,5 @@
 package service;
+
 import exceptions.ObjetoNaoEncontradoException;
 import exceptions.ObjetoNuloException;
 import exceptions.ValorNegativoException;
@@ -7,8 +8,8 @@ import java.util.Scanner;
 import model.Categoria;
 import model.Limite;
 import util.ConsoleIO;
-/** Serviço para CRUD de Limite via console. */
 
+/** Serviço para CRUD de Limite via console. */
 public class LimiteManager implements CrudMenu {
     private final List<Limite> limites;
     private final List<Categoria> categorias;
@@ -53,7 +54,9 @@ public class LimiteManager implements CrudMenu {
         Categoria categoriaSelecionada = categorias.stream().filter(c -> c.getId() == idCat).findFirst().orElse(null);
         if (categoriaSelecionada == null) throw new ObjetoNaoEncontradoException("Categoria", idCat);
         double valor = ConsoleIO.readDouble(scanner, "Valor do limite: ");
-        limites.add(new Limite(categoriaSelecionada, valor));
+        Limite l = new Limite(categoriaSelecionada, valor);
+        limites.add(l);
+        Limite.salvarTodos(limites);
         System.out.println("Limite criado.");
     }
 
@@ -70,6 +73,7 @@ public class LimiteManager implements CrudMenu {
         if (limite == null) throw new ObjetoNaoEncontradoException("Limite", id);
         double novoValor = ConsoleIO.readDouble(scanner, "Novo valor do limite: ");
         limite.setValor(novoValor);
+        Limite.salvarTodos(limites);
         System.out.println("Limite atualizado.");
     }
 
@@ -79,6 +83,7 @@ public class LimiteManager implements CrudMenu {
         if (id <= 0) throw new ValorNegativoException("ID");
         boolean removido = limites.removeIf(l -> l.getId() == id);
         if (!removido) throw new ObjetoNaoEncontradoException("Limite", id);
+        Limite.salvarTodos(limites);
         System.out.println("Limite removido.");
     }
 

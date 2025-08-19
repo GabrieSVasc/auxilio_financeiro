@@ -1,4 +1,7 @@
 package util;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 /** Utilitário para leitura segura no console.*/
 public final class ConsoleIO {
@@ -34,5 +37,19 @@ public final class ConsoleIO {
             if (!s.isEmpty()) return s;
             System.out.println("Entrada vazia. Tente novamente.");
         }
+    }
+
+    public static LocalDate readLocalDate(Scanner sc, String msg) {
+    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    while (true) {
+        System.out.print(msg);
+        String input = sc.nextLine().trim();
+        if (input.isEmpty()) return null;
+        try {
+            return LocalDate.parse(input, fmt);
+        } catch (DateTimeParseException e) {
+            System.out.println("Formato inválido. Use dd-MM-yyyy ou deixe vazio.");
+        }
+    }
     }
 }
