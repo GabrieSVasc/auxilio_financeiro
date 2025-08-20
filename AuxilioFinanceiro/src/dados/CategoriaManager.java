@@ -1,10 +1,11 @@
-package service;
-import exceptions.CampoVazioException;
-import exceptions.ObjetoNaoEncontradoException;
-import exceptions.ValorNegativoException;
+package dados;
 import java.util.List;
 import java.util.Scanner;
-import model.Categoria;
+
+import negocio.entidades.Categoria;
+import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.ObjetoNaoEncontradoException;
+import negocio.exceptions.ValorNegativoException;
 import util.ConsoleIO;
 /** Serviço para CRUD de Categoria via console. */
 

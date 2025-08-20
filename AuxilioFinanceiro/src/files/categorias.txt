@@ -1,0 +1,2 @@
+1;Jogos
+2;Lazer

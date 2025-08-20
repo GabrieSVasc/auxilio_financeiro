@@ -1,11 +1,16 @@
 package util;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 /* Utilitário para criação e leitura de arquivos txt que armazenam os dados criados*/
 public class arquivoUtils {
 
-    private static final String PASTA_DADOS = "C:\\Users\\Usuario\\Documents\\GitHub\\AuxilioFinanceiro\\src/dados/";
+    private static final String PASTA_DADOS = ".\\src/files/";
 
     // Salvar com append = true por padrão
     public static void salvarEmArquivo(String nomeArquivo, String conteudo) {
@@ -14,7 +19,7 @@ public class arquivoUtils {
 
     public static void salvarEmArquivo(String nomeArquivo, String conteudo, boolean append) {
         // Cria a pasta caso não exista
-        java.io.File pasta = new java.io.File(PASTA_DADOS);
+        File pasta = new File(PASTA_DADOS);
         if (!pasta.exists()) pasta.mkdir();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PASTA_DADOS + nomeArquivo, append))) {

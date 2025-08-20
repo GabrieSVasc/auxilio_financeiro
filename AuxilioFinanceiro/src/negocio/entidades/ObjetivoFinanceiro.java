@@ -1,5 +1,5 @@
-package model;
-import exceptions.ValorNegativoException;
+package negocio.entidades;
+import negocio.exceptions.ValorNegativoException;
 
 /** Classe base para objetivos financeiros (herança). */
 public abstract class ObjetivoFinanceiro implements Exibivel {

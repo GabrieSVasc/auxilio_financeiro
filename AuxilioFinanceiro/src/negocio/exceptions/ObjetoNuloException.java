@@ -1,4 +1,4 @@
-package exceptions;
+package negocio.exceptions;
 /*Exceção lançada quando um objeto obrigatório foi fornecido como null.*/
 public class ObjetoNuloException extends Exception {
     public ObjetoNuloException(String objeto) {

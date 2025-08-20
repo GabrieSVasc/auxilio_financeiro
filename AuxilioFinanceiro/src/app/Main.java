@@ -1,12 +1,13 @@
 package app;
 
 import java.util.List;
-import model.Categoria;
-import model.Limite;
-import model.Meta;
-import service.CategoriaManager;
-import service.LimiteManager;
-import service.MetaManager;
+
+import dados.CategoriaManager;
+import dados.LimiteManager;
+import dados.MetaManager;
+import negocio.entidades.Categoria;
+import negocio.entidades.Limite;
+import negocio.entidades.Meta;
 
 public class Main {
     public static void main(String[] args) throws Exception {

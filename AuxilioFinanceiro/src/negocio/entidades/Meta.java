@@ -1,8 +1,9 @@
-package model;
-import exceptions.CampoVazioException;
-import exceptions.ValorNegativoException;
+package negocio.entidades;
 import java.util.ArrayList;
 import java.util.List;
+
+import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.ValorNegativoException;
 import util.arquivoUtils;
 
 /** Representa uma meta financeira. */

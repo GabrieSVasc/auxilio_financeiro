@@ -1,11 +1,12 @@
 package app;
-import exceptions.CampoVazioException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Categoria;
-import model.Gastos;
-import service.ArquivoGastosManager;
+
+import dados.ArquivoGastosManager;
+import negocio.entidades.Categoria;
+import negocio.entidades.Gastos;
+import negocio.exceptions.CampoVazioException;
 
 public class MainTeste {
     public static void main(String[] args) throws CampoVazioException {

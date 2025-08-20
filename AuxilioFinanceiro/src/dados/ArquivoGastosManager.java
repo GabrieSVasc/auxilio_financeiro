@@ -1,10 +1,11 @@
-package service;
+package dados;
 import java.io.*;
 import java.nio.file.*;
 import java.time.LocalDate;
 import java.util.*;
-import model.Categoria;
-import model.Gastos;
+
+import negocio.entidades.Categoria;
+import negocio.entidades.Gastos;
 
 public class ArquivoGastosManager {
     private static final String CAMINHO_ARQUIVO = "../dados/gastos.txt";
