@@ -1,0 +1,57 @@
+package iu.viewController;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import main.Main;
+
+public class ValorPresenteLiquidoViewController implements Initializable{
+	@FXML
+	private ImageView imgVoltar;
+
+	@FXML
+	private Button btnVoltar;
+	
+	@FXML
+	private ImageView imgTutoriais;
+
+	@FXML
+	private Button btnTutoriais;
+	
+	@FXML
+	private Button btnPadrao;
+	
+	@FXML
+	private Button btnTaxaInternaRetorno;
+	
+	@Override
+	public void initialize(URL location, ResourceBundle rb) {
+		btnVoltar.setGraphic(imgVoltar);
+		btnTutoriais.setGraphic(imgTutoriais);
+	}
+	
+	@FXML
+	protected void btnVoltarAction(ActionEvent e) {
+		Main.mudarTela("principalInvestimentos");
+	}
+	
+	@FXML
+	protected void btnTutoriaisAction(ActionEvent e) {
+		Main.mudarTela("tutoriais");
+	}
+	
+	@FXML
+	protected void btnPadraoAction(ActionEvent e) {
+		Main.mudarTela("dadosVPLPadrao");
+	}
+	
+	@FXML
+	protected void btnTaxaInternaRetornoAction(ActionEvent e) {
+		Main.mudarTela("dadosTaxaInternaRetorno");
+	}
+}

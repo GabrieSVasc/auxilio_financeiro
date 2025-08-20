@@ -17,7 +17,6 @@ public class Main extends Application {
 	private static Scene cenaMetas;
 	private static Scene cenaGastos;
 	private static Scene cenaCategorias;
-	private static Scene cenaCalcularInvestimentos;
 	private static Scene cenaNovoLembrete;
 	private static Scene cenaNovoGasto;
 	private static Scene cenaNovoLimite;
@@ -28,8 +27,20 @@ public class Main extends Application {
 	private static Scene cenaEditarLimite;
 	private static Scene cenaEditarMeta;
 	private static Scene cenaEditarCategoria;
-	private static Scene cenaInvestimento;
 	private static Scene cenaTutoriais;
+	private static Scene cenaPrincipalInvestimentos;
+	private static Scene cenaInvestimentos;
+	private static Scene cenaDadosInvestimento;
+	private static Scene cenaAmortizacao;
+	private static Scene cenaDadosAmortizacao;
+	private static Scene cenaVariacao;
+	private static Scene cenaDadosVariacao;
+	private static Scene cenaValorPresenteLiquido;
+	private static Scene cenaDadosTaxaInternaRetorno;
+	private static Scene cenaDadosVPLPadrao;
+	private static Scene cenaDescontoTitulo;
+	private static Scene cenaDadosDesconto;
+	
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -62,9 +73,6 @@ public class Main extends Application {
 			Parent categorias = FXMLLoader.load(getClass().getResource("/iu/view/Categorias.fxml"));
 			cenaCategorias = new Scene(categorias);
 			
-			Parent calcularInvestimentos = FXMLLoader.load(getClass().getResource("/iu/view/CalcularInvestimentos.fxml"));
-			cenaCalcularInvestimentos = new Scene(calcularInvestimentos);
-			
 			Parent novoLembrete = FXMLLoader.load(getClass().getResource("/iu/view/NovoLembrete.fxml"));
 			cenaNovoLembrete = new Scene(novoLembrete);
 			
@@ -95,11 +103,44 @@ public class Main extends Application {
 			Parent editarCategoria = FXMLLoader.load(getClass().getResource("/iu/view/EditarCategoria.fxml"));
 			cenaEditarCategoria= new Scene(editarCategoria);
 			
-			Parent investimento = FXMLLoader.load(getClass().getResource("/iu/view/Investimento.fxml"));
-			cenaInvestimento = new Scene(investimento);
-			
 			Parent tutoriais = FXMLLoader.load(getClass().getResource("/iu/view/Tutoriais.fxml"));
 			cenaTutoriais = new Scene(tutoriais);
+			
+			Parent principalInvestimentos = FXMLLoader.load(getClass().getResource("/iu/view/PrincipalInvestimentos.fxml"));
+			cenaPrincipalInvestimentos = new Scene(principalInvestimentos);
+			
+			Parent investimentos = FXMLLoader.load(getClass().getResource("/iu/view/Investimentos.fxml"));
+			cenaInvestimentos = new Scene(investimentos);
+			
+			Parent dadosInvestimento = FXMLLoader.load(getClass().getResource("/iu/view/DadosInvestimento.fxml"));
+			cenaDadosInvestimento = new Scene(dadosInvestimento);
+			
+			Parent amortizacao = FXMLLoader.load(getClass().getResource("/iu/view/Amortizacao.fxml"));
+			cenaAmortizacao = new Scene(amortizacao);
+			
+			Parent dadosAmortizacao = FXMLLoader.load(getClass().getResource("/iu/view/DadosAmortizacao.fxml"));
+			cenaDadosAmortizacao = new Scene(dadosAmortizacao);
+			
+			Parent variacao = FXMLLoader.load(getClass().getResource("/iu/view/Variacao.fxml"));
+			cenaVariacao = new Scene(variacao);
+			
+			Parent dadosVariacao = FXMLLoader.load(getClass().getResource("/iu/view/DadosVariacao.fxml"));
+			cenaDadosVariacao = new Scene(dadosVariacao);
+			
+			Parent valorPresenteLiquido = FXMLLoader.load(getClass().getResource("/iu/view/ValorPresenteLiquido.fxml"));
+			cenaValorPresenteLiquido = new Scene(valorPresenteLiquido);
+			
+			Parent dadosTaxaInternaRetorno = FXMLLoader.load(getClass().getResource("/iu/view/DadosTaxaInternaRetorno.fxml"));
+			cenaDadosTaxaInternaRetorno = new Scene(dadosTaxaInternaRetorno);
+			
+			Parent dadosVPLPadrao = FXMLLoader.load(getClass().getResource("/iu/view/DadosVPLPadrao.fxml"));
+			cenaDadosVPLPadrao = new Scene(dadosVPLPadrao);
+			
+			Parent descontoTitulo = FXMLLoader.load(getClass().getResource("/iu/view/DescontoTitulo.fxml"));
+			cenaDescontoTitulo = new Scene(descontoTitulo);
+			
+			Parent dadosDesconto = FXMLLoader.load(getClass().getResource("/iu/view/DadosDesconto.fxml"));
+			cenaDadosDesconto = new Scene(dadosDesconto);
 			
 			primaryStage.setScene(cenaInicial);
 			primaryStage.show();
@@ -136,9 +177,6 @@ public class Main extends Application {
 			case "categorias":
 				stage.setScene(cenaCategorias);
 				break;
-			case "calcularInvestimentos":
-				stage.setScene(cenaCalcularInvestimentos);
-				break;
 			case "novoLembrete":
 				stage.setScene(cenaNovoLembrete);
 				break;
@@ -169,14 +207,47 @@ public class Main extends Application {
 			case "editarCategoria":
 				stage.setScene(cenaEditarCategoria);
 				break;
-			case "investimento":
-				stage.setScene(cenaInvestimento);
-				break;
 			case "tutoriais":
 				stage.setScene(cenaTutoriais);
 				break;
+			case "principalInvestimentos":
+				stage.setScene(cenaPrincipalInvestimentos);
+				break;
+			case "investimento":
+				stage.setScene(cenaInvestimentos);
+				break;
+			case "dadosInvestimento":
+				stage.setScene(cenaDadosInvestimento);
+				break;
+			case "amortizacao":
+				stage.setScene(cenaAmortizacao);
+				break;
+			case "dadosAmortizacao":
+				stage.setScene(cenaDadosAmortizacao);
+				break;
+			case "variacao":
+				stage.setScene(cenaVariacao);
+				break;
+			case "dadosVariacao":
+				stage.setScene(cenaDadosVariacao);
+				break;
+			case "valorPresenteLiquido":
+				stage.setScene(cenaValorPresenteLiquido);
+				break;
+			case "dadosTaxaInternaRetorno":
+				stage.setScene(cenaDadosTaxaInternaRetorno);
+				break;
+			case "dadosVPLPadrao":
+				stage.setScene(cenaDadosVPLPadrao);
+				break;
+			case "descontoTitulo":
+				stage.setScene(cenaDescontoTitulo);
+				break;
+			case "dadosDesconto":
+				stage.setScene(cenaDadosDesconto);
+				break;
 			default:
-				System.out.println("Tela inexistente");
+				System.out.println("Tela "+nome+" inexistente");
 		}
 	}
 	

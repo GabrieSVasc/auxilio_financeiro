@@ -8,10 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import main.Main;
 
-public class TutoriaisViewController implements Initializable{
+public class AmortizacaoViewController implements Initializable{
 	@FXML
 	private ImageView imgVoltar;
 
@@ -19,14 +18,38 @@ public class TutoriaisViewController implements Initializable{
 	private Button btnVoltar;
 	
 	@FXML
-	private Pane pnListaTutoriais;
+	private ImageView imgTutoriais;
+
+	@FXML
+	private Button btnTutoriais;
+	
+	@FXML
+	private Button btnAmortPrice;
+	
+	@FXML
+	private Button btnAmortMista;
+	
+	@FXML
+	private Button btnAmortConstante;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle rb) {
 		btnVoltar.setGraphic(imgVoltar);
+		btnTutoriais.setGraphic(imgTutoriais);
 	}
+	
 	@FXML
 	protected void btnVoltarAction(ActionEvent e) {
 		Main.mudarTela("principalInvestimentos");
+	}
+	
+	@FXML
+	protected void btnTutoriaisAction(ActionEvent e) {
+		Main.mudarTela("tutoriais");
+	}
+	
+	@FXML
+	protected void btnCalculoAction(ActionEvent e) {
+		Main.mudarTela("dadosAmortizacao");
 	}
 }

@@ -1,9 +1,8 @@
 /app/
 /dados/
 /fachada/
-/files/
-/iu/
 /main/
-/module-info.class
 /negocio/
 /util/
+/iu/
+/module-info.class

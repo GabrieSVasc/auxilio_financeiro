@@ -39,7 +39,7 @@ public class InicialViewController {
 	
 	@FXML
 	protected void btnCalcularInvestimentosAction(ActionEvent e) {
-		Main.mudarTela("calcularInvestimentos");
+		Main.mudarTela("principalInvestimentos");
 	}
 	
 }

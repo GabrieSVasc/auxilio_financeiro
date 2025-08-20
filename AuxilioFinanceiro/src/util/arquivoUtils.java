@@ -7,7 +7,7 @@ import java.util.List;
 /** Utilitário para criação e leitura de arquivos txt que armazenam os dados criados, sempre em UTF-8 */
 public class arquivoUtils {
 
-    private static final String PASTA_DADOS = "C:\\Users\\Usuario\\Documents\\GitHub\\AuxilioFinanceiro\\src/dados/";
+    private static final String PASTA_DADOS = ".\\src/files/";
 
     /** Salva conteúdo em arquivo, append=true por padrão */
     public static void salvarEmArquivo(String nomeArquivo, String conteudo) {

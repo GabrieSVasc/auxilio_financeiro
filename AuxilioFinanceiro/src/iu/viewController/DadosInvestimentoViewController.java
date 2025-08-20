@@ -5,14 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import main.Main;
 
-public class InvestimentoViewController {
-	
+public class DadosInvestimentoViewController {
 	@FXML
 	private Button btnVoltar;
-
+	
 	@FXML
 	protected void btnVoltarAction(ActionEvent e) {
-		Main.mudarTela("calcularInvestimentos");
+		Main.mudarTela("investimento");
 	}
-
 }
