@@ -40,6 +40,20 @@ public class Categoria implements Exibivel {
         List<Categoria> categorias = new ArrayList<>();
         List<String> linhas = arquivoUtils.lerDoArquivo("categorias.txt");
 
+         if (linhas.isEmpty()) {
+            // Criar categorias padrão
+            String[] padrao = {"Comida", "Transporte", "Lazer", "Aluguel", "Saúde", "Educação"};
+            for (String nome : padrao) {
+                try {
+                    categorias.add(new Categoria(nome));
+                } catch (CampoVazioException e) {
+                    System.out.println("Erro ao criar categoria padrão: " + e.getMessage());
+                }
+            }
+            salvarTodas(categorias);
+            return categorias;
+        }
+        
         for (String linha : linhas) {
             try {
                 String[] partes = linha.split(";");
