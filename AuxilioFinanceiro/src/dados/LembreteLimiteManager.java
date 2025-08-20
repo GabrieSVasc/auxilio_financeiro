@@ -1,11 +1,12 @@
-package service;
+package dados;
 
-import exceptions.ObjetoNaoEncontradoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import model.LembreteLimite;
-import model.Limite;
+
+import negocio.entidades.LembreteLimite;
+import negocio.entidades.Limite;
+import negocio.exceptions.ObjetoNaoEncontradoException;
 import util.ConsoleIO;
 import util.arquivoUtils;
 

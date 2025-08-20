@@ -1,9 +1,10 @@
-package model;
+package negocio.entidades;
 
-import exceptions.ObjetoNuloException;
-import exceptions.ValorNegativoException;
 import java.util.ArrayList;
 import java.util.List;
+
+import negocio.exceptions.ObjetoNuloException;
+import negocio.exceptions.ValorNegativoException;
 import util.arquivoUtils;
 
 /** Representa um limite de gasto associado a uma Categoria. */

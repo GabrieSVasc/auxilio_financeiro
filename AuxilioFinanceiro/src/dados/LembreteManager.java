@@ -1,8 +1,9 @@
-package service;
+package dados;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.LembreteBase;
+
+import negocio.entidades.LembreteBase;
 
 public class LembreteManager {
     private List<LembreteBase> lembrentes;

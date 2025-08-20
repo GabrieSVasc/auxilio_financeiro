@@ -1,9 +1,10 @@
-package service;
+package dados;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
-import model.Meta;
+
+import negocio.entidades.Meta;
 import util.ConsoleIO;
 
 public class MetaManager implements CrudMenu {
