@@ -1,10 +1,11 @@
-package service;
-import exceptions.ObjetoNaoEncontradoException;
+package dados;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import model.LembreteMeta;
-import model.Meta;
+
+import negocio.entidades.LembreteMeta;
+import negocio.entidades.Meta;
+import negocio.exceptions.ObjetoNaoEncontradoException;
 import util.ConsoleIO;
 import util.arquivoUtils;
 /** 

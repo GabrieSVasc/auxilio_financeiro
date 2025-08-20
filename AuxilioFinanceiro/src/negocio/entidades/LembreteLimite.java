@@ -1,4 +1,4 @@
-package model;
+package negocio.entidades;
 import java.util.List;
 /**
  * Representa um lembrete ligado a um limite de gasto.

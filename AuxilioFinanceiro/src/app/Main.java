@@ -3,16 +3,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
-import model.Categoria;
-import model.Gastos;
-import model.Limite;
-import model.Meta;
-import service.ArquivoGastosManager;
-import service.CategoriaManager;
-import service.LembreteLimiteManager;
-import service.LembreteMetaManager;
-import service.LimiteManager;
-import service.MetaManager;
+
+import dados.ArquivoGastosManager;
+import dados.CategoriaManager;
+import dados.LembreteLimiteManager;
+import dados.LembreteMetaManager;
+import dados.LimiteManager;
+import dados.MetaManager;
+import negocio.entidades.Categoria;
+import negocio.entidades.Gastos;
+import negocio.entidades.Limite;
+import negocio.entidades.Meta;
 import util.ConsoleIO;
 
 public class Main {

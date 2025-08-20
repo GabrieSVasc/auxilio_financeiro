@@ -1,12 +1,13 @@
-package service;
-import exceptions.ObjetoNaoEncontradoException;
-import exceptions.ObjetoNuloException;
-import exceptions.ValorNegativoException;
+package dados;
 import java.util.List;
 import java.util.Scanner;
-import model.Categoria;
-import model.Gastos;
-import model.Limite;
+
+import negocio.entidades.Categoria;
+import negocio.entidades.Gastos;
+import negocio.entidades.Limite;
+import negocio.exceptions.ObjetoNaoEncontradoException;
+import negocio.exceptions.ObjetoNuloException;
+import negocio.exceptions.ValorNegativoException;
 import util.ConsoleIO;
 /** 
  * Serviço para CRUD de Limite via console. 

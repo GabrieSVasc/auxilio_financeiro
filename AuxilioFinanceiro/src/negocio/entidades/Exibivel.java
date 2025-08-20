@@ -1,4 +1,4 @@
-package model;
+package negocio.entidades;
 /** 
  * Interface para exibição amigável.
  * 
