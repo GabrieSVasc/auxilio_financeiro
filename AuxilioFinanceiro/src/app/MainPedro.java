@@ -16,7 +16,7 @@ import negocio.entidades.Limite;
 import negocio.entidades.Meta;
 import util.ConsoleIO;
 
-public class Main {
+public class MainPedro {
     public static void main(String[] args) throws Exception {
         // Carrega dados do arquivo
         List<Categoria> categorias = Categoria.carregarCategorias();
