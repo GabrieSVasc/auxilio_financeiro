@@ -1,17 +1,14 @@
-package dados;
+package service;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
-
-import negocio.entidades.Meta;
-import negocio.exceptions.CampoVazioException;
-import negocio.exceptions.ObjetoNaoEncontradoException;
-import negocio.exceptions.ValorNegativoException;
+import model.Meta;
 import util.ConsoleIO;
-/** Serviço para CRUD de Meta via console. */
 
 public class MetaManager implements CrudMenu {
     private final List<Meta> metas;
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     public MetaManager(List<Meta> metas) {
         this.metas = metas;
@@ -19,62 +16,68 @@ public class MetaManager implements CrudMenu {
 
     @Override
     public void menu() {
-        String opcao;
+        String op;
         do {
-            System.out.println("\n--- Menu Meta ---");
+            System.out.println("\n--- Menu Metas ---");
             System.out.println("1 - Criar");
             System.out.println("2 - Listar");
             System.out.println("3 - Editar");
             System.out.println("4 - Excluir");
             System.out.println("0 - Sair");
-            opcao = ConsoleIO.readOption(scanner, "Escolha: ", "[0-4]");
-            try {
-                switch (opcao) {
-                    case "1" -> criar();
-                    case "2" -> listar();
-                    case "3" -> editar();
-                    case "4" -> deletar();
-                    case "0" -> System.out.println("Saindo do menu de metas.");
-                }
-            } catch (Exception e) {
-                System.out.println("[ERRO] " + e.getMessage());
+            op = ConsoleIO.readOption(sc, "Escolha: ", "[0-4]");
+
+            switch (op) {
+                case "1" -> criar();
+                case "2" -> listar();
+                case "3" -> editar();
+                case "4" -> deletar();
+                case "0" -> System.out.println("Saindo do menu de metas.");
             }
-        } while (!"0".equals(opcao));
+        } while (!"0".equals(op));
     }
 
-    private void criar() throws CampoVazioException, ValorNegativoException {
-        String descricao = ConsoleIO.readNonEmpty(scanner, "Descrição da meta: ");
-        double valor = ConsoleIO.readDouble(scanner, "Valor da meta: ");
-        metas.add(new Meta(valor, descricao));
-        System.out.println("Meta adicionada.");
+    private void criar() {
+        String desc = ConsoleIO.readNonEmpty(sc, "Descrição da meta: ");
+        double objetivo = ConsoleIO.readDouble(sc, "Valor objetivo: ");
+        double atual = ConsoleIO.readDouble(sc, "Valor atual: ");
+        LocalDate prazo = ConsoleIO.readLocalDate(sc, "Prazo (dd-MM-yyyy) ou vazio: ");
+        Meta m = new Meta(desc, objetivo, atual, prazo);
+        metas.add(m);
+        Meta.salvarLista(metas);
+        System.out.println("Meta criada.");
     }
 
     private void listar() {
         if (metas.isEmpty()) { System.out.println("Nenhuma meta cadastrada."); return; }
-        metas.forEach(m -> System.out.println(m.exibir()));
+        metas.forEach(System.out::println);
     }
 
-    private void editar() throws ObjetoNaoEncontradoException, CampoVazioException, ValorNegativoException {
+    private void editar() {
         listar(); if (metas.isEmpty()) return;
-        int id = ConsoleIO.readInt(scanner, "ID da meta a editar: ");
-        if (id <= 0) throw new ValorNegativoException("ID");
-        Meta meta = metas.stream().filter(m -> m.getId() == id).findFirst().orElse(null);
-        if (meta == null) throw new ObjetoNaoEncontradoException("Meta", id);
-        String novaDescricao = ConsoleIO.readNonEmpty(scanner, "Nova descrição: ");
-        double novoValor = ConsoleIO.readDouble(scanner, "Novo valor: ");
-        meta.setDescricao(novaDescricao);
-        meta.setValor(novoValor);
+        int id = ConsoleIO.readInt(sc, "ID da meta: ");
+        Meta m = metas.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+        if (m == null) { System.out.println("Meta não encontrada."); return; }
+
+        System.out.println("1 - Alterar descrição");
+        System.out.println("2 - Alterar valores");
+        System.out.println("3 - Alterar prazo");
+        String op = ConsoleIO.readOption(sc, "Escolha: ", "[1-3]");
+
+        switch (op) {
+            case "1" -> { String nova = ConsoleIO.readNonEmpty(sc, "Nova descrição: "); m.setDescricao(nova); }
+            case "2" -> { m.setValorObjetivo(ConsoleIO.readDouble(sc, "Novo valor objetivo: ")); 
+                          m.setValorAtual(ConsoleIO.readDouble(sc, "Novo valor atual: ")); }
+            case "3" -> { m.setDataPrazo(ConsoleIO.readLocalDate(sc, "Novo prazo (dd-MM-yyyy) ou vazio: ")); }
+        }
+        Meta.salvarLista(metas);
         System.out.println("Meta atualizada.");
     }
 
-    private void deletar() throws ObjetoNaoEncontradoException, ValorNegativoException {
+    private void deletar() {
         listar(); if (metas.isEmpty()) return;
-        int id = ConsoleIO.readInt(scanner, "ID da meta a deletar: ");
-        if (id <= 0) throw new ValorNegativoException("ID");
-        boolean removido = metas.removeIf(m -> m.getId() == id);
-        if (!removido) throw new ObjetoNaoEncontradoException("Meta", id);
-        System.out.println("Meta removida.");
+        int id = ConsoleIO.readInt(sc, "ID da meta a deletar: ");
+        boolean ok = metas.removeIf(m -> m.getId() == id);
+        if (!ok) System.out.println("Meta não encontrada.");
+        else { Meta.salvarLista(metas); System.out.println("Meta removida."); }
     }
-
-    public List<Meta> getMetas() { return metas; }
 }

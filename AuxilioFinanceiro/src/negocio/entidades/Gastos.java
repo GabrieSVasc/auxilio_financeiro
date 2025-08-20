@@ -1,4 +1,5 @@
-package negocio.entidades;
+package model;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

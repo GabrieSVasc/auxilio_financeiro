@@ -53,4 +53,13 @@ public class Categoria implements Exibivel {
         }
         return categorias;
     }
+
+    public static void salvarTodas(List<Categoria> categorias) {
+    List<String> linhas = new ArrayList<>();
+    for (Categoria c : categorias) {
+        linhas.add(c.getId() + ";" + c.getNome());
+    }
+    arquivoUtils.salvarListaEmArquivo("categorias.txt", linhas);
+}
+
 }
