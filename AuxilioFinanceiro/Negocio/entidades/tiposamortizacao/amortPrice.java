@@ -1,16 +1,12 @@
 package entidades.tiposamortizacao;
 
+import Excecoes.ValorInvalidoException;
 import entidades.Amortizacao;
 
 public class AmortPrice extends Amortizacao {
-    public AmortPrice(double montante, double taxa, int numParcelas) {
+    public AmortPrice(double montante, double taxa, int numParcelas) throws ValorInvalidoException{
         super(montante, taxa, numParcelas);
     }
-
-    public AmortPrice(){
-        super();
-    }
-
 
     @Override
     public void calcularTudo(){

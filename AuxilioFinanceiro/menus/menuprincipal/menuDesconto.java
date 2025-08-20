@@ -1,12 +1,12 @@
 package menus.menuprincipal;
 
-import Excecoes.OpcaoInvalida;
+import Excecoes.OpcaoInvalidaException;
 import entidades.Desconto;
 import entidades.tiposdesconto.DescontoComposto;
 import entidades.tiposdesconto.DescontoSimples;
 
 public class menuDesconto {
-    public Desconto inputMenuDesconto(int input2, double montante, double taxa, int tipo, double tempo) throws OpcaoInvalida {
+    public Desconto inputMenuDesconto(int input2, double montante, double taxa, int tipo, double tempo) throws OpcaoInvalidaException {
         Desconto descon;
         switch (input2){
             case 1:
@@ -16,7 +16,7 @@ public class menuDesconto {
                 descon = new DescontoComposto(montante, taxa, tipo, tempo);
                 break;
             default:
-                throw new OpcaoInvalida();
+                throw new OpcaoInvalidaException();
         }
         descon.calcularValorPresente();
         descon.calcularDesconto();

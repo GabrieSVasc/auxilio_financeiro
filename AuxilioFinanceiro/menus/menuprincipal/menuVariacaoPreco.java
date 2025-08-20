@@ -1,10 +1,10 @@
 package menus.menuprincipal;
 
-import Excecoes.OpcaoInvalida;
+import Excecoes.OpcaoInvalidaException;
 import entidades.VariacaoDePreco;
 
 public class menuVariacaoPreco {
-    public double inputMenuVariacaoPreco(int input2, double valor, double taxa) throws OpcaoInvalida{
+    public double inputMenuVariacaoPreco(int input2, double valor, double taxa) throws OpcaoInvalidaException{
         VariacaoDePreco preco = new VariacaoDePreco(valor, taxa);
         switch (input2){
             case 1:
@@ -15,7 +15,7 @@ public class menuVariacaoPreco {
                 preco.calcularTaxaReal();
                 return preco.getTaxaReal();
             default:
-                throw new OpcaoInvalida();
+                throw new OpcaoInvalidaException();
         }
     }
 }

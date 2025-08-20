@@ -1,17 +1,16 @@
 package entidades.tiposdesconto;
 
+import Excecoes.OpcaoInvalidaException;
 import entidades.Duracao;
+import Excecoes.ValorInvalidoException;
 import entidades.Desconto;
 
 public class DescontoSimples extends Desconto {
-    public DescontoSimples(double valorNominal, double taxa, Duracao duracao){
+    public DescontoSimples(double valorNominal, double taxa, Duracao duracao) throws ValorInvalidoException{
         super(valorNominal, taxa, duracao);
     }
-    public DescontoSimples(double valorNominal, double taxa, int tipo, double tempo){
+    public DescontoSimples(double valorNominal, double taxa, int tipo, double tempo) throws ValorInvalidoException, OpcaoInvalidaException{
         super(valorNominal, taxa, tipo, tempo);
-    }
-    public DescontoSimples(){
-        super();
     }
 
     @Override

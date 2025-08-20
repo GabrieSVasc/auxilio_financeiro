@@ -1,47 +1,58 @@
 package entidades;
+import Excecoes.OpcaoInvalidaException;
+import Excecoes.TIRImpossivelException;
+import Excecoes.ValorInvalidoException;
+import utils.ValidarValor;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ValorPresenteLiquido {
     protected double custoInicial, vpl, taxa, tir;
-    protected ArrayList<Double> arrecadacao;
+    protected ArrayList<Double> arrecadacao; // not ok
     protected Duracao duracao;
 
-    public ValorPresenteLiquido(double custoInicial, double taxa, Duracao duracao) {
-        this.arrecadacao = new ArrayList<>();
-        Scanner input = new Scanner(System.in);
-        this.custoInicial = custoInicial;
-        this.vpl = 0;
-        this.taxa = taxa/100;
-        this.duracao = duracao;
-        for (int i = 0; i < duracao.getTempo(); i++){
+    // Constructors
+    public ValorPresenteLiquido(double custoInicial, double taxa, Duracao duracao) throws ValorInvalidoException {
+        // Validando as opções
+        if (!ValidarValor.ehPositivo(custoInicial) || !ValidarValor.ehPositivo(taxa)){
+            throw new ValorInvalidoException();
+        } 
+        // Ta safe padrin
+        else{
+            this.arrecadacao = new ArrayList<>();
+            Scanner input = new Scanner(System.in);
+            this.custoInicial = custoInicial;
+            this.vpl = 0;
+            this.taxa = taxa/100;
+            this.duracao = duracao;
+            for (int i = 0; i < duracao.getTempo(); i++){
+                System.out.printf("Adicione o valor de entrada n° %d: ", i+1);
+                arrecadacao.add(input.nextDouble());
+            }
+            this.tir = 0;
+        }
+    }
+    public ValorPresenteLiquido(double custoInicial, double taxa, int tipo, double tempo) throws ValorInvalidoException, OpcaoInvalidaException {
+        // Validando as opções
+        if (!ValidarValor.ehPositivo(custoInicial) || !ValidarValor.ehPositivo(taxa)){
+            throw new ValorInvalidoException();
+        }
+        // Safe
+        else{
+            this.arrecadacao = new ArrayList<>();
+            Scanner input = new Scanner(System.in);
+            this.custoInicial = custoInicial;
+            this.vpl = 0;
+            this.taxa = taxa/100;
+            this.duracao = new Duracao(tipo, tempo);
+            for (int i = 0; i < duracao.getTempo(); i++){
             System.out.printf("Adicione o valor de entrada n° %d: ", i+1);
             arrecadacao.add(input.nextDouble());
         }
-        this.tir = 0;
-    }
-    public ValorPresenteLiquido(double custoInicial, double taxa, int tipo, double tempo) {
-        this.arrecadacao = new ArrayList<>();
-        Scanner input = new Scanner(System.in);
-        this.custoInicial = custoInicial;
-        this.vpl = 0;
-        this.taxa = taxa/100;
-        this.duracao = new Duracao(tipo, tempo);
-        for (int i = 0; i < duracao.getTempo(); i++){
-            System.out.printf("Adicione o valor de entrada n° %d: ", i+1);
-            arrecadacao.add(input.nextDouble());
+            this.tir = 0;
         }
-        this.tir = 0;
     }
-    public ValorPresenteLiquido(){
-        this.custoInicial = 0;
-        this.vpl = 0;
-        this.taxa = 0;
-        this.arrecadacao = new ArrayList<>();
-        this.duracao = null;
-        this.tir = 0;
-    }
-
 
     // Getters
     public ArrayList<Double> getArrecadacao() { return arrecadacao; }
@@ -50,14 +61,29 @@ public class ValorPresenteLiquido {
     public double getVpl(){ return vpl; }
     public double getTaxa(){ return taxa; }
     public double getTir(){ return tir; }
-    // Setters
-    public void setArrecadacao(ArrayList<Double> novaArrecadacao){ this.arrecadacao = novaArrecadacao; }
-    public void setCustoInicial(double novoCustoInicial){ this.custoInicial = novoCustoInicial; }
-    public void setTaxa(double novaTaxa){ this.taxa = novaTaxa; }
-    public void setDuracao(Duracao novaDuracao){ this.duracao = novaDuracao; }
-    public void setDuracao(int novoTipo, double novoTempo){ this.duracao = new Duracao(novoTipo, novoTempo); }
 
-    
+    // Setters
+    public void setArrecadacao(ArrayList<Double> novaArrecadacao){ this.arrecadacao = novaArrecadacao; } // not ok
+
+    public void setCustoInicial(double novoCustoInicial) throws ValorInvalidoException {
+        if (!ValidarValor.ehPositivo(novoCustoInicial)) throw new ValorInvalidoException();
+        else this.custoInicial = novoCustoInicial; 
+    }
+    public void setTaxa(double novaTaxa) throws ValorInvalidoException { 
+        if (!ValidarValor.ehPositivo(novaTaxa)) throw new ValorInvalidoException();
+        else this.taxa = novaTaxa; 
+    }
+    public void setDuracao(Duracao novaDuracao) {
+        this.duracao = novaDuracao; 
+    }
+    public void setTipo(int novoTipo) throws OpcaoInvalidaException{
+        this.duracao.setTipo(novoTipo);
+    }
+    public void setTempo(double novoTempo) throws ValorInvalidoException {
+        this.duracao.setTempo(novoTempo);
+    }
+
+
     public double calcularVPL(){
         this.vpl = this.custoInicial*-1;
         for (int i = 0; i < this.duracao.getTempo(); i++){
@@ -66,7 +92,7 @@ public class ValorPresenteLiquido {
         return this.vpl;
     }
 
-    public void calcularTIR() {
+    public void calcularTIR() throws TIRImpossivelException {
         this.tir = 0.0;
         double tolerancia = 0.0001;
         int numRepeticoes = 1000;
@@ -86,6 +112,6 @@ public class ValorPresenteLiquido {
             }
             this.tir = this.tir - vplAtual / derivada;
         }
-        System.out.println("Num deu.");
+        throw new TIRImpossivelException();
     }
 }

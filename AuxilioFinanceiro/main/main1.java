@@ -1,6 +1,9 @@
 package main;
+import Excecoes.TIRImpossivelException;
+import Excecoes.ValorInvalidoException;
 import entidades.Investimento;
 import entidades.ValorPresenteLiquido;
+import entidades.VariacaoDePreco;
 import entidades.tiposdesconto.*;
 import entidades.tiposinvestimentos.AportesPeriodicos;
 import entidades.tiposinvestimentos.JurosComposto;
@@ -31,10 +34,24 @@ public class main1 {
         teste1.calcularMontante();
         System.out.println(teste1.getMontante());
 
-        ValorPresenteLiquido cat = new ValorPresenteLiquido(1000, 5, 0, 3);
+        try{
+            VariacaoDePreco teste3 = new VariacaoDePreco(2, 2);
+        } catch (ValorInvalidoException e){
+            System.out.println(e.getMessage());
+        }
+
+
+        /*ValorPresenteLiquido cat = new ValorPresenteLiquido(100000, 5, 0, 3);
+        try {
+            cat.calcularTIR();
+            System.out.println(cat.getTir()*100);
+        } catch(TIRImpossivelException e){
+            System.out.println(e.getMessage());
+        }
+        
         cat.calcularVPL();
-        cat.calcularTIR();
         System.out.println(cat.getVpl());
-        System.out.println(cat.getTir()*100);
+        */
+
     }
 }

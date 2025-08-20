@@ -1,13 +1,13 @@
 package menus.menuprincipal;
 
-import Excecoes.OpcaoInvalida;
+import Excecoes.OpcaoInvalidaException;
 import entidades.Amortizacao;
 import entidades.tiposamortizacao.AmortConstante;
 import entidades.tiposamortizacao.AmortMisto;
 import entidades.tiposamortizacao.AmortPrice;
 
 public class menuAmortizacao {
-    public Amortizacao inputMenuAmortizacao(int input2, double montante, double taxa, int numParcelas) throws OpcaoInvalida {
+    public Amortizacao inputMenuAmortizacao(int input2, double montante, double taxa, int numParcelas) throws OpcaoInvalidaException {
         Amortizacao amort;
         switch (input2){
             case 1: {
@@ -23,7 +23,7 @@ public class menuAmortizacao {
                 break;
             }
             default:
-                throw new OpcaoInvalida();
+                throw new OpcaoInvalidaException();
         }
         amort.calcularTudo();
         return amort;

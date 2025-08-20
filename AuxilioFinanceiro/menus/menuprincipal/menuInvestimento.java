@@ -1,13 +1,13 @@
 package menus.menuprincipal;
 
-import Excecoes.OpcaoInvalida;
+import Excecoes.OpcaoInvalidaException;
 import entidades.Investimento;
 import entidades.tiposinvestimentos.AportesPeriodicos;
 import entidades.tiposinvestimentos.JurosComposto;
 import entidades.tiposinvestimentos.JurosSimples;
 
 public class menuInvestimento {
-    public Investimento inputMenuInvestimento(int input2, double montante, double taxa, int tipo, double tempo) throws OpcaoInvalida{
+    public Investimento inputMenuInvestimento(int input2, double montante, double taxa, int tipo, double tempo) throws OpcaoInvalidaException{
         Investimento invest;
         switch (input2){
             case 1:
@@ -20,7 +20,7 @@ public class menuInvestimento {
                 invest = new AportesPeriodicos(montante, taxa, tipo, tempo);
                 break;
             default:
-                throw new OpcaoInvalida();
+                throw new OpcaoInvalidaException();
         }
         invest.calcularMontante();
         return invest;

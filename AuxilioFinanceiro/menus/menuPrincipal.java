@@ -1,6 +1,6 @@
 package menus;
 
-import Excecoes.OpcaoInvalida;
+import Excecoes.OpcaoInvalidaException;
 import menus.menuprincipal.menuAmortizacao;
 import menus.menuprincipal.menuDesconto;
 import menus.menuprincipal.menuInvestimento;
@@ -8,7 +8,7 @@ import menus.menuprincipal.menuVPL;
 import menus.menuprincipal.menuVariacaoPreco;
 
 public class menuPrincipal {
-    public void inputMenu(int input1, int input2, double valor, double taxa, int numParcelas, int tipo, double tempo) throws OpcaoInvalida{
+    public void inputMenu(int input1, int input2, double valor, double taxa, int numParcelas, int tipo, double tempo) throws OpcaoInvalidaException{
         switch(input1){
             case 1: {
                 menuInvestimento menu = new menuInvestimento();
@@ -36,7 +36,7 @@ public class menuPrincipal {
                 break;
             }
             default:
-                throw new OpcaoInvalida();
+                throw new OpcaoInvalidaException();
         }
     }
 }

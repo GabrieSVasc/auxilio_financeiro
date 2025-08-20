@@ -1,17 +1,16 @@
 package entidades.tiposinvestimentos;
 
+import Excecoes.OpcaoInvalidaException;
+import Excecoes.ValorInvalidoException;
 import entidades.Duracao;
 import entidades.Investimento;
 
 public class AportesPeriodicos extends Investimento {
-    public AportesPeriodicos(double capital, double taxa, Duracao duracao){
+    public AportesPeriodicos(double capital, double taxa, Duracao duracao) throws ValorInvalidoException{
         super(capital, taxa, duracao);
     }
-    public AportesPeriodicos(double capital, double taxa, int tipo, double tempo){
+    public AportesPeriodicos(double capital, double taxa, int tipo, double tempo) throws ValorInvalidoException, OpcaoInvalidaException{
         super(capital, taxa, tipo, tempo);
-    }
-    public AportesPeriodicos(){
-        super();
     }
 
     @Override
