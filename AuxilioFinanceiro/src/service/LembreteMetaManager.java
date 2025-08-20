@@ -1,5 +1,4 @@
 package service;
-
 import exceptions.ObjetoNaoEncontradoException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +7,11 @@ import model.LembreteMeta;
 import model.Meta;
 import util.ConsoleIO;
 import util.arquivoUtils;
-
+/** 
+ * Serviço para CRUD de Categoria via console. 
+ * 
+ * @author Pedro Farias
+ */
 public class LembreteMetaManager implements CrudMenu {
     private final List<LembreteMeta> lembretes = new ArrayList<>();
     private final List<Meta> metas;

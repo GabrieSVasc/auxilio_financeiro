@@ -1,9 +1,12 @@
 package service;
-
 import java.util.ArrayList;
 import java.util.List;
 import model.LembreteBase;
-
+/**
+ * Gerencia lembretes genéricos (LembreteBase).
+ * 
+ * @author Pedro Farias
+ */
 public class LembreteManager {
     private List<LembreteBase> lembrentes;
 

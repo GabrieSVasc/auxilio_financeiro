@@ -1,8 +1,9 @@
 package model;
-
 import java.time.LocalDate;
-
-/** Classe base para lembretes. */
+/** Classe base para lembretes. 
+*
+* @author Pedro Farias 
+*/
 public abstract class LembreteBase implements Exibivel {
     protected final int id;
     protected String descricao;

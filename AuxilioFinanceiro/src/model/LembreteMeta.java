@@ -1,10 +1,13 @@
 package model;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-
-/** Lembrete associado a uma Meta. */
+/**
+ * Representa um lembrete associado a uma Meta financeira.
+ * O lembrete calcula notificações de progresso e prazo com base na meta vinculada.
+ * 
+ * @author Pedro Farias
+ */
 public class LembreteMeta extends LembreteBase {
     private static int contadorMeta = 1; // contador próprio de LembreteMeta
     private Meta meta;
@@ -27,6 +30,12 @@ public class LembreteMeta extends LembreteBase {
     public Meta getMeta() { return meta; }
     public void setMeta(Meta meta) { this.meta = meta; }
 
+     /**
+     * Gera uma notificação detalhada sobre o progresso da meta,
+     * incluindo status de prazo, porcentagem concluída e mensagens motivacionais.
+     *
+     * @return Mensagem de notificação do lembrete
+     */
     @Override
     public String gerarNotificacao() {
         if (meta == null) return "LembreteMeta #" + id + " - (meta não encontrada) | " + descricao;
@@ -59,7 +68,6 @@ public class LembreteMeta extends LembreteBase {
         return base + " | Status: " + (ativo ? "Ativo" : "Inativo");
     }
 
-    /** Serializa para arquivo: id;metaId;descricao;ativo */
     public String toArquivo() { 
         int metaId = (meta == null ? -1 : meta.getId());
         return id + ";" + metaId + ";" + descricao.replace(";", ",") + ";" + ativo;

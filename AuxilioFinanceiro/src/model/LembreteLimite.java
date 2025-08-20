@@ -1,11 +1,14 @@
 package model;
-
 import java.util.List;
-
+/**
+ * Representa um lembrete ligado a um limite de gasto.
+ * Mostra status do limite e percentual de gasto atual.
+ * 
+ * @author Pedro Farias
+ */
 public class LembreteLimite extends LembreteBase {
     private static int contadorLimite = 1;
     private Limite limite;
-    private double gastoAtual = 0.0;
 
     public LembreteLimite(Limite limite, String descricao) {
         super(descricao, contadorLimite++);
@@ -23,14 +26,18 @@ public class LembreteLimite extends LembreteBase {
     public Limite getLimite() { return limite; }
     public void setLimite(Limite limite) { this.limite = limite; }
 
-    public double getGastoAtual() { return gastoAtual; }
-    public void setGastoAtual(double gastoAtual) { this.gastoAtual = Math.max(0, gastoAtual); }
-
     public String toArquivo() {
         int limId = (limite == null ? -1 : limite.getId());
         return id + ";" + limId + ";" + descricao.replace(";", ",") + ";" + ativo;
     }
-
+     
+    /**
+     * Constrói um LembreteLimite a partir de uma linha do arquivo.
+     * 
+     * @param linha Linha do arquivo
+     * @param limites Lista de limites existentes
+     * @return Objeto LembreteLimite
+     */
     public static LembreteLimite fromArquivo(String linha, List<Limite> limites) {
         String[] p = linha.split(";", 4);
         if (p.length < 4) throw new IllegalArgumentException("Formato inválido: " + linha);
@@ -41,17 +48,24 @@ public class LembreteLimite extends LembreteBase {
         return new LembreteLimite(id, limId, desc, ativo, limites);
     }
 
+     /**
+     * Retorna uma string formatada indicando o status atual do limite.
+     * 
+     * @return String com notificação do limite
+     */
     @Override
     public String gerarNotificacao() {
-        String base;
-        if (limite == null) return "LembreteLimite #" + id + " - (limite não encontrado) | " + descricao;
+        if (limite == null) 
+            return "LembreteLimite #" + id + " - (limite não encontrado) | " + descricao;
 
+        double gastoAtual = limite.getTotalGastos();  // pega dinamicamente do limite
         double limiteValor = limite.getValorLimite();
         String cat = (limite.getCategoria() == null ? "(sem categoria)" : limite.getCategoria().getNome());
 
         if (limiteValor <= 0) return "Limite inválido para categoria " + cat + ".";
 
         double percentual = gastoAtual / limiteValor;
+        String base;
         if (percentual >= 1.0) {
             base = String.format("Ultrapassou o limite de %s: R$ %.2f / R$ %.2f.", cat, gastoAtual, limiteValor);
         } else if (percentual >= 0.8) {
@@ -62,7 +76,6 @@ public class LembreteLimite extends LembreteBase {
 
         return base + " | Status: " + (ativo ? "Ativo" : "Inativo");
     }
-
 
     @Override
     public String toString() { return gerarNotificacao(); }

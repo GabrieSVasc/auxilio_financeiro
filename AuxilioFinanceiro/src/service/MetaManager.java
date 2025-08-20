@@ -1,11 +1,14 @@
 package service;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import model.Meta;
 import util.ConsoleIO;
-
+/** 
+ * Serviço para CRUD de Meta via console. 
+ * 
+ * @author Pedro Farias
+ */
 public class MetaManager implements CrudMenu {
     private final List<Meta> metas;
     private final Scanner sc = new Scanner(System.in);

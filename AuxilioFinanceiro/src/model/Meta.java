@@ -1,19 +1,22 @@
 package model;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import util.arquivoUtils;
-
+/**
+ * Representa uma meta financeira do usuário.
+ * Pode ter um valor alvo e acompanhamento de progresso.
+ * 
+ * @author Pedro Farias
+ */
 public class Meta {
     private static int contador = 1;
-
     private final int id;
     private String descricao;
     private double valorObjetivo;
     private double valorAtual;
-    private LocalDate dataPrazo; // pode ser null
+    private LocalDate dataPrazo;
 
     private static final DateTimeFormatter FORMATO = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final String ARQUIVO = "metas.txt";
@@ -35,7 +38,6 @@ public class Meta {
         if (id >= contador) contador = id + 1;
     }
 
-    // Getters e setters
     public int getId() { return id; }
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
@@ -46,12 +48,17 @@ public class Meta {
     public LocalDate getDataPrazo() { return dataPrazo; }
     public void setDataPrazo(LocalDate dataPrazo) { this.dataPrazo = dataPrazo; }
 
-    /** Serializa para arquivo: id;descricao;valorObjetivo;valorAtual;dataPrazo */
     public String toArquivo() {
         String prazo = (dataPrazo == null ? "" : dataPrazo.format(FORMATO));
         return id + ";" + descricao.replace(";", ",") + ";" + valorObjetivo + ";" + valorAtual + ";" + prazo;
     }
 
+    /**
+     * Constrói uma Meta a partir de uma linha do arquivo.
+     * 
+     * @param linha Linha do arquivo
+     * @return Objeto Meta correspondente
+     */
     public static Meta fromArquivo(String linha) {
         String[] p = linha.split(";", 5);
         int id = Integer.parseInt(p[0].trim());

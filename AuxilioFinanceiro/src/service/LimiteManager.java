@@ -1,23 +1,52 @@
 package service;
-
 import exceptions.ObjetoNaoEncontradoException;
 import exceptions.ObjetoNuloException;
 import exceptions.ValorNegativoException;
 import java.util.List;
 import java.util.Scanner;
 import model.Categoria;
+import model.Gastos;
 import model.Limite;
 import util.ConsoleIO;
-
-/** Serviço para CRUD de Limite via console. */
+/** 
+ * Serviço para CRUD de Limite via console. 
+ * 
+ * @author Pedro Farias
+ */
 public class LimiteManager implements CrudMenu {
     private final List<Limite> limites;
     private final List<Categoria> categorias;
+    private LembreteLimiteManager lembreteLimiteManager;
     private final Scanner scanner = new Scanner(System.in);
 
     public LimiteManager(List<Categoria> categorias, List<Limite> limites) {
         this.categorias = categorias;
         this.limites = limites;
+        this.lembreteLimiteManager = lembreteLimiteManager;
+    }
+
+     public void atualizarTotais(Categoria cat) {
+        if (cat == null) return;
+
+        try {
+            List<Gastos> todosGastos = ArquivoGastosManager.listar(categorias);
+            double total = todosGastos.stream()
+                    .filter(g -> g.getCategoria().getId() == cat.getId())
+                    .mapToDouble(Gastos::getValor)
+                    .sum();
+
+            Limite lim = limites.stream()
+                    .filter(l -> l.getCategoria().getId() == cat.getId())
+                    .findFirst()
+                    .orElse(null);
+
+            if (lim != null) {
+                lim.setTotalGastos(total);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Erro ao atualizar totais da categoria " + cat.getNome() + ": " + e.getMessage());
+        }
     }
 
     @Override

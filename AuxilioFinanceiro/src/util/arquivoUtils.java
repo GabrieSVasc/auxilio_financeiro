@@ -1,15 +1,20 @@
 package util;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
-/** Utilitário para criação e leitura de arquivos txt que armazenam os dados criados, sempre em UTF-8 */
+/** 
+ * Utilitário para criação e leitura de arquivos txt que armazenam os dados criados, sempre em UTF-8.
+ * Garante que a pasta de dados exista antes de salvar arquivos.
+ * Permite salvar conteúdo único, listas de linhas e ler arquivos completos. 
+ * 
+ * @author Pedro Farias
+ */
 public class arquivoUtils {
 
+    /** Caminho da pasta onde os arquivos serão salvos */
     private static final String PASTA_DADOS = "C:\\Users\\Usuario\\Documents\\GitHub\\AuxilioFinanceiro\\src/dados/";
 
-    /** Salva conteúdo em arquivo, append=true por padrão */
+    /** Salva conteúdo em arquivo */
     public static void salvarEmArquivo(String nomeArquivo, String conteudo) {
         salvarEmArquivo(nomeArquivo, conteudo, true);
     }
@@ -27,7 +32,7 @@ public class arquivoUtils {
         }
     }
 
-    /** Salva lista inteira no arquivo, sobrescrevendo (append=false) */
+    /** Salva uma lista de linhas em arquivo, sobrescrevendo qualquer conteúdo anterior. */
     public static void salvarListaEmArquivo(String nomeArquivo, List<String> linhas) {
         criarPastaSeNecessario();
 
@@ -42,7 +47,7 @@ public class arquivoUtils {
         }
     }
 
-    /** Lê todas as linhas de um arquivo UTF-8 */
+    /** Lê todas as linhas de um arquivo UTF-8 e retorna lista vazia se o arquivo não existir. */
     public static List<String> lerDoArquivo(String nomeArquivo) {
         List<String> linhas = new ArrayList<>();
         File file = new File(PASTA_DADOS + nomeArquivo);
@@ -52,7 +57,7 @@ public class arquivoUtils {
                 new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
-                linhas.add(linha.replace("\uFEFF", "")); // remove BOM se existir
+                linhas.add(linha.replace("\uFEFF", ""));
             }
         } catch (IOException e) {
             System.out.println("Erro ao ler do arquivo: " + e.getMessage());

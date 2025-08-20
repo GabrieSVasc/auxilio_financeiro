@@ -1,7 +1,10 @@
 package model;
 import exceptions.ValorNegativoException;
-
-/** Classe base para objetivos financeiros (herança). */
+/** 
+ * Classe base para objetivos financeiros (herança). 
+ * 
+ * @author Pedro Farias
+ */
 public abstract class ObjetivoFinanceiro implements Exibivel {
     protected final int id;
     protected double valor;

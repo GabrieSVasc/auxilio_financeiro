@@ -1,5 +1,4 @@
 package service;
-
 import exceptions.ObjetoNaoEncontradoException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +7,11 @@ import model.LembreteLimite;
 import model.Limite;
 import util.ConsoleIO;
 import util.arquivoUtils;
-
-/** Serviço de CRUD e persistência para LembreteLimite. */
+/** 
+ * Serviço para CRUD de LembreteLimite via console. 
+ * 
+ * @author Pedro Farias
+ */
 public class LembreteLimiteManager implements CrudMenu {
     private final List<LembreteLimite> lembretes = new ArrayList<>();
     private final List<Limite> limites;
@@ -49,7 +51,10 @@ public class LembreteLimiteManager implements CrudMenu {
     }
 
     private void criar() throws ObjetoNaoEncontradoException {
-        if (limites.isEmpty()) { System.out.println("Crie limites primeiro."); return; }
+        if (limites.isEmpty()) { 
+            System.out.println("Crie limites primeiro."); 
+            return; 
+        }
 
         System.out.println("Escolha o limite:");
         limites.forEach(l -> {
@@ -69,14 +74,18 @@ public class LembreteLimiteManager implements CrudMenu {
     }
 
     private void listar() {
-        if (lembretes.isEmpty()) { System.out.println("Nenhum lembrete de limite."); return; }
+        if (lembretes.isEmpty()) { 
+            System.out.println("Nenhum lembrete de limite."); 
+            return; 
+        }
         for (LembreteLimite l : lembretes) {
             System.out.println("ID: " + l.getId() + " | " + l.getDescricao() + " | " + l.gerarNotificacao());
         }
     }
 
     private void editar() throws ObjetoNaoEncontradoException {
-        listar(); if (lembretes.isEmpty()) return;
+        listar(); 
+        if (lembretes.isEmpty()) return;
         int id = ConsoleIO.readInt(scanner, "ID do lembrete: ");
         LembreteLimite ll = lembretes.stream().filter(l -> l.getId() == id).findFirst().orElse(null);
         if (ll == null) throw new ObjetoNaoEncontradoException("Lembrete de Limite", id);
@@ -96,7 +105,8 @@ public class LembreteLimiteManager implements CrudMenu {
     }
 
     private void deletar() throws ObjetoNaoEncontradoException {
-        listar(); if (lembretes.isEmpty()) return;
+        listar(); 
+        if (lembretes.isEmpty()) return;
         int id = ConsoleIO.readInt(scanner, "ID do lembrete a deletar: ");
         boolean ok = lembretes.removeIf(l -> l.getId() == id);
         if (!ok) throw new ObjetoNaoEncontradoException("Lembrete de Limite", id);
@@ -128,4 +138,17 @@ public class LembreteLimiteManager implements CrudMenu {
     }
 
     public List<LembreteLimite> getLembretes() { return lembretes; }
+
+    public void atualizarTotalGastos(Limite limite, double total) {
+        limite.setTotalGastos(total);
+        System.out.println("Status do limite '" + limite.getCategoria().getNome() + "': " + (limite.estaAtingido() ? "ATINGIDO!" : "Ainda não atingido"));
+    }
+
+    public void atualizarStatusDeTodos() {
+        for (LembreteLimite ll : lembretes) {
+            Limite l = ll.getLimite();
+            System.out.println("Lembrete: " + ll.getDescricao() + " | "
+                + (l.estaAtingido() ? "Limite ATINGIDO!" : "Limite OK"));
+        }
+    }
 }
