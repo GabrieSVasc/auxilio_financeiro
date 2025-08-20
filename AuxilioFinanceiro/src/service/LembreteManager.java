@@ -12,15 +12,16 @@ public class LembreteManager {
     }
 
     public void adicionarLembrente(LembreteBase l) { lembrentes.add(l); }
+
     public void removerLembrente(int id) { lembrentes.removeIf(l -> l.getId() == id); }
 
     public void listarLembrentes() {
         if (lembrentes.isEmpty()) {
-            System.out.println("Nenhum lembrente cadastrada.");
+            System.out.println("Nenhum lembrente cadastrado.");
             return;
         }
         for (LembreteBase l : lembrentes) {
-            System.out.println(l);
+            System.out.println("ID: " + l.getId() + " | " + l.getDescricao() + " | " + l.gerarNotificacao());
         }
     }
 
@@ -28,22 +29,22 @@ public class LembreteManager {
         for (LembreteBase l : lembrentes) {
             if (l.getId() == id) {
                 l.setAtivo(true);
-                System.out.println("Lembrente ativado!");
+                System.out.println("Lembrete ativado!");
                 return;
             }
         }
-        System.out.println("Lembrente não encontrado.");
+        System.out.println("Lembrete não encontrado.");
     }
 
     public void desativarLembrente(int id) {
         for (LembreteBase l : lembrentes) {
             if (l.getId() == id) {
                 l.setAtivo(false);
-                System.out.println("Lembrente desativado!");
+                System.out.println("Lembrete desativado!");
                 return;
             }
         }
-        System.out.println("Lembrente não encontrada.");
+        System.out.println("Lembrete não encontrado.");
     }
 
     public void verificarLembrente() {

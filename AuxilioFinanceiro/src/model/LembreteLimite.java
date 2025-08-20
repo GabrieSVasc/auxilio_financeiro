@@ -43,7 +43,9 @@ public class LembreteLimite extends LembreteBase {
 
     @Override
     public String gerarNotificacao() {
+        String base;
         if (limite == null) return "LembreteLimite #" + id + " - (limite não encontrado) | " + descricao;
+
         double limiteValor = limite.getValorLimite();
         String cat = (limite.getCategoria() == null ? "(sem categoria)" : limite.getCategoria().getNome());
 
@@ -51,13 +53,16 @@ public class LembreteLimite extends LembreteBase {
 
         double percentual = gastoAtual / limiteValor;
         if (percentual >= 1.0) {
-            return String.format("Ultrapassou o limite de %s: R$ %.2f / R$ %.2f.", cat, gastoAtual, limiteValor);
+            base = String.format("Ultrapassou o limite de %s: R$ %.2f / R$ %.2f.", cat, gastoAtual, limiteValor);
         } else if (percentual >= 0.8) {
-            return String.format("%s em %d%% do limite (R$ %.2f / R$ %.2f).", cat, Math.round(percentual * 100), gastoAtual, limiteValor);
+            base = String.format("%s em %d%% do limite (R$ %.2f / R$ %.2f).", cat, Math.round(percentual * 100), gastoAtual, limiteValor);
         } else {
-            return String.format("%s sob controle: R$ %.2f de R$ %.2f.", cat, gastoAtual, limiteValor);
+            base = String.format("%s sob controle: R$ %.2f de R$ %.2f.", cat, gastoAtual, limiteValor);
         }
+
+        return base + " | Status: " + (ativo ? "Ativo" : "Inativo");
     }
+
 
     @Override
     public String toString() { return gerarNotificacao(); }

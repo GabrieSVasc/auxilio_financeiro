@@ -36,7 +36,9 @@ public abstract class LembreteBase implements Exibivel {
     public abstract String gerarNotificacao();
 
     @Override
-    public String exibir() { return gerarNotificacao(); }
+    public String exibir() { 
+        return gerarNotificacao() + " | Status: " + (ativo ? "Ativo" : "Inativo"); 
+    }
 
     @Override
     public String toString() { return gerarNotificacao(); }

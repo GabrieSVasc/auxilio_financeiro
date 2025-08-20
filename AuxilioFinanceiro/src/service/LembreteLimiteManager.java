@@ -71,7 +71,7 @@ public class LembreteLimiteManager implements CrudMenu {
     private void listar() {
         if (lembretes.isEmpty()) { System.out.println("Nenhum lembrete de limite."); return; }
         for (LembreteLimite l : lembretes) {
-            System.out.println("ID: " + l.getId() + " | Descrição: " + l.getDescricao() + " | " + l.gerarNotificacao());
+            System.out.println("ID: " + l.getId() + " | " + l.getDescricao() + " | " + l.gerarNotificacao());
         }
     }
 
