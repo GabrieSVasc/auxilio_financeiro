@@ -1,8 +1,9 @@
-package negocio.entidades;
-
+package model;
 import java.time.LocalDate;
-
-/** Classe base para lembretes. */
+/** Classe base para lembretes. 
+*
+* @author Pedro Farias 
+*/
 public abstract class LembreteBase implements Exibivel {
     protected final int id;
     protected String descricao;
@@ -36,7 +37,9 @@ public abstract class LembreteBase implements Exibivel {
     public abstract String gerarNotificacao();
 
     @Override
-    public String exibir() { return gerarNotificacao(); }
+    public String exibir() { 
+        return gerarNotificacao() + " | Status: " + (ativo ? "Ativo" : "Inativo"); 
+    }
 
     @Override
     public String toString() { return gerarNotificacao(); }

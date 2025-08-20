@@ -7,10 +7,13 @@ import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ValorNegativoException;
 import util.ConsoleIO;
-/** Serviço para CRUD de Categoria via console. */
-
+/** 
+ * Serviço para CRUD de Categoria via console. 
+ * 
+ * @author Pedro Farias
+ */
 public class CategoriaManager implements CrudMenu {
-    private final List<Categoria> categorias;
+    private final List<Categoria> categorias; // Lista de categorias carregadas no sistema
     private final Scanner scanner = new Scanner(System.in);
 
     // Recebe lista carregada

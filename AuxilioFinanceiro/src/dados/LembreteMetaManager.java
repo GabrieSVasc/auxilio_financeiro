@@ -1,15 +1,17 @@
-package dados;
-
+package service;
+import exceptions.ObjetoNaoEncontradoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import negocio.entidades.LembreteMeta;
-import negocio.entidades.Meta;
-import negocio.exceptions.ObjetoNaoEncontradoException;
+import model.LembreteMeta;
+import model.Meta;
 import util.ConsoleIO;
 import util.arquivoUtils;
-
+/** 
+ * Serviço para CRUD de Categoria via console. 
+ * 
+ * @author Pedro Farias
+ */
 public class LembreteMetaManager implements CrudMenu {
     private final List<LembreteMeta> lembretes = new ArrayList<>();
     private final List<Meta> metas;
@@ -64,10 +66,10 @@ public class LembreteMetaManager implements CrudMenu {
 
     private void listar() {
         if (lembretes.isEmpty()) { System.out.println("Nenhum lembrete de meta."); return; }
-        lembretes.forEach(l -> {
-        System.out.println("ID " + l.getId() + " | " + l.gerarNotificacao());
-    });
-}
+        for (LembreteMeta l : lembretes) {
+            System.out.println("ID: " + l.getId() + " | " + l.getDescricao() + " | " + l.gerarNotificacao());
+        }
+    }
 
     private void editar() throws ObjetoNaoEncontradoException {
         listar(); if (lembretes.isEmpty()) return;
@@ -79,8 +81,12 @@ public class LembreteMetaManager implements CrudMenu {
         System.out.println("2 - Alternar ativo/inativo");
         String es = ConsoleIO.readOption(sc, "Escolha: ", "[1-2]");
 
-        if ("1".equals(es)) { String nova = ConsoleIO.readNonEmpty(sc, "Nova descrição: "); lm.setDescricao(nova); }
-        else { lm.setAtivo(!lm.isAtivo()); }
+        if ("1".equals(es)) { 
+            String nova = ConsoleIO.readNonEmpty(sc, "Nova descrição: "); 
+            lm.setDescricao(nova); 
+        } else { 
+            lm.setAtivo(!lm.isAtivo()); 
+        }
 
         salvarTudo();
         System.out.println("Lembrete atualizado.");

@@ -1,16 +1,19 @@
-package negocio.entidades;
-
+package model;
+import exceptions.ObjetoNuloException;
+import exceptions.ValorNegativoException;
 import java.util.ArrayList;
 import java.util.List;
-
-import negocio.exceptions.ObjetoNuloException;
-import negocio.exceptions.ValorNegativoException;
 import util.arquivoUtils;
-
-/** Representa um limite de gasto associado a uma Categoria. */
+/**
+ * Representa um limite de gasto associado a uma categoria.
+ * Permite acompanhar o total gasto e definir alertas via lembretes.
+ * 
+ * @author Pedro Farias
+ */
 public class Limite extends ObjetivoFinanceiro {
     private Categoria categoria;
     private static int contadorLimite = 1; // contador próprio da classe
+    private double totalGasto = 0; // total de gastos atuais da categoria
 
     // Construtor para criação normal (salva no arquivo)
     public Limite(Categoria categoria, double valor) throws ObjetoNuloException, ValorNegativoException {
@@ -45,9 +48,26 @@ public class Limite extends ObjetivoFinanceiro {
         this.valor = valor;
     }
 
+    public double getTotalGastos() { return totalGasto; }
+     /**
+     * Atualiza o valor total de gastos registrado neste limite.
+     * 
+     * @param totalGastos Novo total de gastos
+     */
+    public void setTotalGastos(double totalGasto) { this.totalGasto = totalGasto; }
+
+ /**
+     * Verifica se o limite foi atingido.
+     * 
+     * @return true se total de gastos >= valor do limite, false caso contrário
+     */
+    public boolean estaAtingido() { return totalGasto >= valor; }
+
     @Override
     public String exibir() {
-        return "Limite #" + id + " - " + categoria.getNome() + ": R$" + String.format("%.2f", valor);
+        return "Limite #" + id + " - " + categoria.getNome() + ": R$" + String.format("%.2f", valor)
+                + " | Gasto Atual: R$" + String.format("%.2f", totalGasto)
+                + (estaAtingido() ? " [ATINGIDO]" : "");
     }
 
     // Recarrega limites do arquivo

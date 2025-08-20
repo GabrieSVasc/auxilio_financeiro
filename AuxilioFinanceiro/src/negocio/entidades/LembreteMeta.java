@@ -1,10 +1,13 @@
-package negocio.entidades;
-
+package model;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-
-/** Lembrete associado a uma Meta. */
+/**
+ * Representa um lembrete associado a uma Meta financeira.
+ * O lembrete calcula notificações de progresso e prazo com base na meta vinculada.
+ * 
+ * @author Pedro Farias
+ */
 public class LembreteMeta extends LembreteBase {
     private static int contadorMeta = 1; // contador próprio de LembreteMeta
     private Meta meta;
@@ -27,6 +30,12 @@ public class LembreteMeta extends LembreteBase {
     public Meta getMeta() { return meta; }
     public void setMeta(Meta meta) { this.meta = meta; }
 
+     /**
+     * Gera uma notificação detalhada sobre o progresso da meta,
+     * incluindo status de prazo, porcentagem concluída e mensagens motivacionais.
+     *
+     * @return Mensagem de notificação do lembrete
+     */
     @Override
     public String gerarNotificacao() {
         if (meta == null) return "LembreteMeta #" + id + " - (meta não encontrada) | " + descricao;
@@ -40,28 +49,26 @@ public class LembreteMeta extends LembreteBase {
         double progresso = (objetivo == 0) ? 0.0 : (atual / objetivo) * 100; // porcentagem
         long diasRestantes = (prazo == null) ? Long.MAX_VALUE : ChronoUnit.DAYS.between(LocalDate.now(), prazo);
 
-        String base = String.format("Meta '%s': %s | R$ %.2f de R$ %.2f (%.0f%%)",
-                meta.getDescricao(), descricao, atual, objetivo, progresso);
+        String base = String.format("Meta '%s': %s | R$ %.2f de R$ %.2f (%.0f%%)", meta.getDescricao(), descricao, atual, objetivo, progresso);
 
         if (prazo == null) {
-            return base + " - Meta sem Prazo!";
+            base += " - Meta sem Prazo!";
+        } else if (progresso >= 100) {
+            base = "Meta '" + meta.getDescricao() + "' atingida! " + base;
+        } else if (diasRestantes < 0) {
+            base = "Prazo expirado para '" + meta.getDescricao() + "'. " + base;
+        } else if (diasRestantes <= 7) {
+            base = "Faltam " + diasRestantes + " dias para '" + meta.getDescricao() + "'. " + base + " Vamos lá, você consegue!";
+        } else if (progresso >= 80) {
+            base += " - Tá quase lá!";
+        } else {
+            base += " - Faltam " + diasRestantes + " dias.";
         }
 
-        if (progresso >= 100) {
-            return "Meta '" + meta.getDescricao() + "' atingida! " + base;
-        } else if (diasRestantes < 0) {
-            return "Prazo expirado para '" + meta.getDescricao() + "'. " + base;
-        } else if (diasRestantes <= 7) {
-            return "Faltam " + diasRestantes + " dias para '" + meta.getDescricao() + "'. " + base + " Vamos lá, você consegue!";
-        } else if (progresso >= 80) {
-            return base + " - Tá quase lá!";
-        } else {
-            return base + " - Faltam " + diasRestantes + " dias.";
-        }
+        return base + " | Status: " + (ativo ? "Ativo" : "Inativo");
     }
 
-    /** Serializa para arquivo: id;metaId;descricao;ativo */
-    public String toArquivo() {
+    public String toArquivo() { 
         int metaId = (meta == null ? -1 : meta.getId());
         return id + ";" + metaId + ";" + descricao.replace(";", ",") + ";" + ativo;
     }

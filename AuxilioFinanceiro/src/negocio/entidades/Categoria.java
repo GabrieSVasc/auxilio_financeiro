@@ -1,12 +1,14 @@
-package negocio.entidades;
-
+package model;
+import exceptions.CampoVazioException;
 import java.util.ArrayList;
 import java.util.List;
-
-import negocio.exceptions.CampoVazioException;
 import util.arquivoUtils;
-/** Representa uma categoria para classificação de gastos ou metas. */
-
+/**
+ * Representa uma categoria de gastos ou metas no sistema financeiro.
+ * Uma categoria pode agrupar gastos e limites específicos.
+ * 
+ * @author Pedro Farias
+ */
 public class Categoria implements Exibivel {
     private static int contador = 1;
     private final int id;
@@ -41,6 +43,20 @@ public class Categoria implements Exibivel {
         List<Categoria> categorias = new ArrayList<>();
         List<String> linhas = arquivoUtils.lerDoArquivo("categorias.txt");
 
+         if (linhas.isEmpty()) {
+            // Criar categorias padrão
+            String[] padrao = {"Comida", "Transporte", "Lazer", "Aluguel", "Saúde", "Educação"};
+            for (String nome : padrao) {
+                try {
+                    categorias.add(new Categoria(nome));
+                } catch (CampoVazioException e) {
+                    System.out.println("Erro ao criar categoria padrão: " + e.getMessage());
+                }
+            }
+            salvarTodas(categorias);
+            return categorias;
+        }
+        
         for (String linha : linhas) {
             try {
                 String[] partes = linha.split(";");
