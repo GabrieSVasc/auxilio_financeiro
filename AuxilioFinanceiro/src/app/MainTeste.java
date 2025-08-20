@@ -1,5 +1,4 @@
 package app;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +10,13 @@ import negocio.exceptions.CampoVazioException;
 public class MainTeste {
     public static void main(String[] args) throws CampoVazioException {
         List<Gastos> listaGastos = new ArrayList<>();
+        List<Categoria> listaCategorias = new ArrayList<>();
 
         // Criando categorias
         Categoria alimentacao = new Categoria("Alimentação");
         Categoria transporte = new Categoria("Transporte");
+        listaCategorias.add(transporte);
+        listaCategorias.add(alimentacao);
 
         // Criando gastos
         Gastos g1 = new Gastos("Almoço", 20.00, "21-11-2022", alimentacao);
@@ -30,17 +32,12 @@ public class MainTeste {
             System.out.println(g);
         }
 
-        // Salvando no arquivo
-        try {
-            ArquivoGastosManager.salvar(listaGastos);
-            System.out.println("Gastos salvos no arquivo!");
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar gastos: " + e.getMessage());
-        }
+        ArquivoGastosManager.salvarTodos(listaGastos);
+		System.out.println("Gastos salvos no arquivo!");
 
         // Lendo do arquivo
         try {
-            List<Gastos> listaDoArquivo = ArquivoGastosManager.carregar();
+            List<Gastos> listaDoArquivo = ArquivoGastosManager.carregarTodos(listaCategorias);
             System.out.println("\nLista de Gastos do Arquivo:");
             for (Gastos g : listaDoArquivo) {
                 System.out.println(g);

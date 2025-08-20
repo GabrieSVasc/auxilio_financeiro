@@ -1,7 +1,8 @@
-package model;
-import exceptions.CampoVazioException;
+package negocio.entidades;
 import java.util.ArrayList;
 import java.util.List;
+
+import negocio.exceptions.CampoVazioException;
 import util.arquivoUtils;
 /**
  * Representa uma categoria de gastos ou metas no sistema financeiro.

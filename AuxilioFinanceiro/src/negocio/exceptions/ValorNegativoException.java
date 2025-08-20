@@ -1,4 +1,4 @@
-package exceptions;
+package negocio.exceptions;
 /**
  * Exceção lançada quando um valor numérico negativo é informado onde não deveria.
  * 

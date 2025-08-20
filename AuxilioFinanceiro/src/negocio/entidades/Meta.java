@@ -1,8 +1,9 @@
-package model;
+package negocio.entidades;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
 import util.arquivoUtils;
 /**
  * Representa uma meta financeira do usuário.

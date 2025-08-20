@@ -1,8 +1,9 @@
-package service;
+package dados;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
-import model.Meta;
+
+import negocio.entidades.Meta;
 import util.ConsoleIO;
 /** 
  * Serviço para CRUD de Meta via console. 

@@ -1,4 +1,4 @@
-package model;
+package negocio.entidades;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -11,7 +11,6 @@ public class Gastos {
     private LocalDate data;
     private Categoria categoria;
 
-    public Gastos(String nome, double valor, String data, Categoria categoria){
     public Gastos(String nome, double valor, String data, Categoria categoria) {
         this.id = contadorId++;
         setNome(nome);

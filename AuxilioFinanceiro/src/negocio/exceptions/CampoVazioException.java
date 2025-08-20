@@ -1,4 +1,4 @@
-package exceptions;
+package negocio.exceptions;
 /**
  * Exceção lançada quando um campo obrigatório é deixado em branco.
  * 
