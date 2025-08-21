@@ -14,9 +14,11 @@ public class AportesPeriodicos extends Investimento {
     }
 
     @Override
-    public void calcularMontante(){
+    public double calcularMontante(){
         double tempo = duracao.getTempo();
-        this.montante = (1 + taxa)*capital * (Math.pow(1+taxa, tempo) - 1)/taxa;
+        double montante = (1 + taxa)*capital * (Math.pow(1+taxa, tempo) - 1)/taxa;
+
+        return montante;
     }
 }
 

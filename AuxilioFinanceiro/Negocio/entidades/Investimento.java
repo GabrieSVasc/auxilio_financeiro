@@ -4,7 +4,7 @@ import Excecoes.OpcaoInvalidaException;
 import Excecoes.ValorInvalidoException;
 
 public abstract class Investimento {
-    protected double capital, taxa, montante; 
+    protected double capital, taxa; 
     protected Duracao duracao;
 
     public Investimento(double capital, double taxa, Duracao duracao) throws ValorInvalidoException{
@@ -15,7 +15,6 @@ public abstract class Investimento {
             this.capital = capital;
             this.taxa = taxa/100;
             this.duracao = duracao;
-            this.montante = 0;
         }
     }
     public Investimento(double capital, double taxa, int tipo, double tempo) throws ValorInvalidoException, OpcaoInvalidaException{
@@ -26,14 +25,12 @@ public abstract class Investimento {
             this.capital = capital;
             this.taxa = taxa/100;
             this.duracao = new Duracao(tipo, tempo);
-            this.montante = 0;
         }
     }
 
     // Getters
     public double getCapital() {     return capital; }
     public double getTaxa(){ return taxa; }
-    public double getMontante(){ return montante; }
     public Duracao getDuracao(){ return duracao; }
 
     // Setters
@@ -56,5 +53,5 @@ public abstract class Investimento {
     }
 
 
-    public abstract void calcularMontante();
+    public abstract double calcularMontante();
 }

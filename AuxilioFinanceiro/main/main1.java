@@ -1,4 +1,5 @@
 package main;
+import Excecoes.FormatacaoInvalidaException;
 import Excecoes.OpcaoInvalidaException;
 import Excecoes.TIRImpossivelException;
 import Excecoes.ValorInvalidoException;
@@ -13,7 +14,6 @@ import entidades.tiposdesconto.*;
 import entidades.tiposinvestimentos.AportesPeriodicos;
 import entidades.tiposinvestimentos.JurosComposto;
 import entidades.tiposinvestimentos.JurosSimples;
-import java.awt.event.TextListener;
 
 public class main1 {
     public static void main(String[] args){
@@ -81,18 +81,15 @@ public class main1 {
         try{
             System.out.println("\n\nJuros Simples:");
             Investimento teste1 = new JurosSimples(1000, 1, 0, 12);
-            teste1.calcularMontante();
-            System.out.println("Resultado: "+teste1.getMontante());
+            System.out.println("Resultado: "+teste1.calcularMontante());
 
             System.out.println("\nJuros compostos:");
             Investimento teste2 = new JurosComposto(1000, 1, 0, 12);
-            teste2.calcularMontante();
-            System.out.println("Resultado: "+teste2.getMontante());
+            System.out.println("Resultado: "+teste2.calcularMontante());
 
             System.out.println("\nAportes periódicos:");
             Investimento teste3 = new AportesPeriodicos(100, 1, 0, 12);
-            teste3.calcularMontante();
-            System.out.println("Resultado: "+teste3.getMontante());
+            System.out.println("Resultado: "+teste3.calcularMontante());
 
         } catch(ValorInvalidoException | OpcaoInvalidaException e){
             e.printStackTrace();
@@ -103,14 +100,12 @@ public class main1 {
         try{
             ValorPresenteLiquido teste = new ValorPresenteLiquido(1000, 5, 0, 5, "100, 300, 400, 500, 600");
             System.out.println("\n\nValor presente líquido: ");
-            teste.calcularVPL();
-            System.out.println(teste.getVpl());
+            System.out.println(teste.calcularVPL());
 
             System.out.println("\nTaxa interna de retorno: ");
-            teste.calcularTIR();
-            System.out.println(teste.getTir()*100);
+            System.out.println(teste.calcularTIR()*100);
 
-        } catch(ValorInvalidoException | OpcaoInvalidaException | TIRImpossivelException e){
+        } catch(ValorInvalidoException | OpcaoInvalidaException | TIRImpossivelException | FormatacaoInvalidaException e){
             e.printStackTrace();
         }
 

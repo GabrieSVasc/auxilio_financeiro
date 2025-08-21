@@ -14,8 +14,9 @@ public class JurosComposto extends Investimento {
     }
 
     @Override
-    public void calcularMontante(){
+    public double calcularMontante(){
         double tempo = duracao.getTempo();
-        this.montante = capital * Math.pow(1+taxa, tempo); 
+        double montante = capital * Math.pow(1+taxa, tempo); 
+        return montante;
     }
 }
