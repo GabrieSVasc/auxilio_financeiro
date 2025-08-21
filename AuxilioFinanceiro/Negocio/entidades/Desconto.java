@@ -2,14 +2,13 @@ package entidades;
 
 import Excecoes.OpcaoInvalidaException;
 import Excecoes.ValorInvalidoException;
-import utils.ValidarValor;
 
 public abstract class Desconto {
     protected double desconto, valorNominal, valorPresente, taxa;
     protected Duracao duracao;
 
     public Desconto(double valorNominal, double taxa, Duracao duracao) throws ValorInvalidoException{
-        if (!ValidarValor.ehPositivo(valorNominal) || !ValidarValor.ehPositivo(taxa)){
+        if (valorNominal <= 0 || taxa <= 0){
             throw new ValorInvalidoException();
         }
         else{
@@ -21,7 +20,7 @@ public abstract class Desconto {
         }
     }
     public Desconto(double valorNominal, double taxa, int tipo, double tempo) throws  ValorInvalidoException, OpcaoInvalidaException{
-        if (!ValidarValor.ehPositivo(valorNominal) || !ValidarValor.ehPositivo(taxa)){
+        if (valorNominal <= 0 || taxa <= 0){
             throw new ValorInvalidoException();
         }
         else{
@@ -43,11 +42,11 @@ public abstract class Desconto {
 
     // Setters
     public void setValorNominal(double novoValorNominal) throws ValorInvalidoException{
-        if (!ValidarValor.ehPositivo(novoValorNominal)) throw new ValorInvalidoException();
+        if (novoValorNominal <= 0) throw new ValorInvalidoException();
         else this.valorNominal = novoValorNominal; 
     }
     public void setTaxa(double novaTaxa) throws ValorInvalidoException { 
-        if (!ValidarValor.ehPositivo(novaTaxa)) throw new ValorInvalidoException();
+        if (novaTaxa <= 0) throw new ValorInvalidoException();
         else this.taxa = novaTaxa; 
     }
     public void setDuracao(Duracao novaDuracao) {
@@ -62,7 +61,6 @@ public abstract class Desconto {
     
     
     public abstract void calcularValorPresente();
-    
     
     public abstract void calcularDesconto();
 }

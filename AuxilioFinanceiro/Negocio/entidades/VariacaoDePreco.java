@@ -1,13 +1,12 @@
 package entidades;
 
 import Excecoes.ValorInvalidoException;
-import utils.ValidarValor;
 
 public class VariacaoDePreco {
     private double valor, taxa, taxaReal, taxaInflacao;
 
     public VariacaoDePreco(double valor, double taxa) throws ValorInvalidoException {
-        if (!ValidarValor.ehPositivo(valor) || !ValidarValor.ehPositivo(taxa)){
+        if (valor <= 0 || taxa <= 0){
             throw new ValorInvalidoException();
         }
         else{
@@ -33,11 +32,11 @@ public class VariacaoDePreco {
 
     // Setters
     public void setValor(double novoValor) throws ValorInvalidoException {
-        if (!ValidarValor.ehPositivo(novoValor)) throw new ValorInvalidoException(); 
+        if (novoValor <= 0) throw new ValorInvalidoException(); 
         else this.valor = novoValor;
     }
     public void setTaxa(double novaTaxa) throws ValorInvalidoException {
-        if (!ValidarValor.ehPositivo(novaTaxa)) throw new ValorInvalidoException(); 
+        if (novaTaxa <= 0) throw new ValorInvalidoException(); 
         else this.valor = novaTaxa;
     }
      

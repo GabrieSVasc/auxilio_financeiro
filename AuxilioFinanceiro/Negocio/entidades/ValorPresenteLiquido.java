@@ -2,7 +2,7 @@ package entidades;
 import Excecoes.OpcaoInvalidaException;
 import Excecoes.TIRImpossivelException;
 import Excecoes.ValorInvalidoException;
-import utils.ValidarValor;
+
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,7 +15,7 @@ public class ValorPresenteLiquido {
     // Constructors
     public ValorPresenteLiquido(double custoInicial, double taxa, Duracao duracao) throws ValorInvalidoException {
         // Validando as opções
-        if (!ValidarValor.ehPositivo(custoInicial) || !ValidarValor.ehPositivo(taxa)){
+        if (custoInicial <= 0 || taxa <= 0){
             throw new ValorInvalidoException();
         } 
         // Ta safe padrin
@@ -35,7 +35,7 @@ public class ValorPresenteLiquido {
     }
     public ValorPresenteLiquido(double custoInicial, double taxa, int tipo, double tempo) throws ValorInvalidoException, OpcaoInvalidaException {
         // Validando as opções
-        if (!ValidarValor.ehPositivo(custoInicial) || !ValidarValor.ehPositivo(taxa)){
+        if (custoInicial <= 0 || taxa <= 0){
             throw new ValorInvalidoException();
         }
         // Safe
@@ -66,11 +66,11 @@ public class ValorPresenteLiquido {
     public void setArrecadacao(ArrayList<Double> novaArrecadacao){ this.arrecadacao = novaArrecadacao; } // not ok
 
     public void setCustoInicial(double novoCustoInicial) throws ValorInvalidoException {
-        if (!ValidarValor.ehPositivo(novoCustoInicial)) throw new ValorInvalidoException();
+        if (novoCustoInicial <= 0) throw new ValorInvalidoException();
         else this.custoInicial = novoCustoInicial; 
     }
     public void setTaxa(double novaTaxa) throws ValorInvalidoException { 
-        if (!ValidarValor.ehPositivo(novaTaxa)) throw new ValorInvalidoException();
+        if (novaTaxa <= 0) throw new ValorInvalidoException();
         else this.taxa = novaTaxa; 
     }
     public void setDuracao(Duracao novaDuracao) {

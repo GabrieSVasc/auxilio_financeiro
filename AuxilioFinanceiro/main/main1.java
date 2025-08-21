@@ -1,9 +1,11 @@
 package main;
 import Excecoes.TIRImpossivelException;
 import Excecoes.ValorInvalidoException;
+import entidades.Amortizacao;
 import entidades.Investimento;
 import entidades.ValorPresenteLiquido;
 import entidades.VariacaoDePreco;
+import entidades.tiposamortizacao.AmortConstante;
 import entidades.tiposdesconto.*;
 import entidades.tiposinvestimentos.AportesPeriodicos;
 import entidades.tiposinvestimentos.JurosComposto;
@@ -20,7 +22,8 @@ public class main1 {
         desc2.calcularDesconto();
         System.out.println(desc2.getDesconto());
         System.out.println(desc2.getValorPresente());
-        */  
+        
+
         Investimento apo1 = new AportesPeriodicos(100, 1, 0, 10);
         apo1.calcularMontante();
         System.out.println(apo1.getMontante());
@@ -41,7 +44,7 @@ public class main1 {
         }
 
 
-        /*ValorPresenteLiquido cat = new ValorPresenteLiquido(100000, 5, 0, 3);
+        ValorPresenteLiquido cat = new ValorPresenteLiquido(100000, 5, 0, 3);
         try {
             cat.calcularTIR();
             System.out.println(cat.getTir()*100);
@@ -52,6 +55,17 @@ public class main1 {
         cat.calcularVPL();
         System.out.println(cat.getVpl());
         */
+        try{
+            Amortizacao testee = new AmortConstante(3000, 1, 5);
+            testee.calcularTudo();
+            for (int i = 0; i < 5; i++) {
+                System.out.print(testee.getAmortizacao().get(i));
+                System.out.print(" "+testee.getParcela().get(i));
+                System.out.println(" "+testee.getJuros().get(i));
+            }
+        } catch (ValorInvalidoException e){
+            System.out.println(e.getMessage());
+        }
 
     }
 }

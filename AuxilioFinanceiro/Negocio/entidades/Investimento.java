@@ -2,14 +2,13 @@ package entidades;
 
 import Excecoes.OpcaoInvalidaException;
 import Excecoes.ValorInvalidoException;
-import utils.ValidarValor;
 
 public abstract class Investimento {
     protected double capital, taxa, montante; 
     protected Duracao duracao;
 
     public Investimento(double capital, double taxa, Duracao duracao) throws ValorInvalidoException{
-        if (!ValidarValor.ehPositivo(capital) || !ValidarValor.ehPositivo(taxa)){
+        if (capital <= 0 || taxa <= 0){
             throw new ValorInvalidoException();
         }
         else{
@@ -20,7 +19,7 @@ public abstract class Investimento {
         }
     }
     public Investimento(double capital, double taxa, int tipo, double tempo) throws ValorInvalidoException, OpcaoInvalidaException{
-        if (!ValidarValor.ehPositivo(capital) || !ValidarValor.ehPositivo(taxa)){
+        if (capital <= 0 || taxa <= 0){
             throw new ValorInvalidoException();
         }
         else{
@@ -39,11 +38,11 @@ public abstract class Investimento {
 
     // Setters
     public void setCapital(double novoCapital) throws ValorInvalidoException{
-        if (!ValidarValor.ehPositivo(novoCapital)) throw new ValorInvalidoException();
+        if (novoCapital <= 0) throw new ValorInvalidoException();
         else this.capital = novoCapital;
     }
     public void setTaxa(double novaTaxa) throws ValorInvalidoException { 
-        if (!ValidarValor.ehPositivo(novaTaxa)) throw new ValorInvalidoException();
+        if (novaTaxa <= 0) throw new ValorInvalidoException();
         else this.taxa = novaTaxa; 
     }
     public void setDuracao(Duracao novaDuracao) {

@@ -10,8 +10,19 @@ public class AmortConstante extends Amortizacao {
 
     @Override
     public void calcularTudo(){
-        this.parcela = this.amortizacao + this.juros;
-        this.amortizacao = saldoDevedor/numParcelas;
-        this.juros = saldoDevedor*taxa;
+        this.saldoDevedor.add(montante);
+        double novaAmo = saldoDevedor.get(0)/numParcelas;
+        
+        for (int i = 0; i < numParcelas; i++) {
+            this.amortizacao.add(novaAmo);
+
+            double novoJur = saldoDevedor.get(i)*taxa;
+            this.juros.add(novoJur);
+
+            double novaPar = this.amortizacao.get(0) + this.juros.get(i);
+            this.parcela.add(novaPar);
+
+            this.saldoDevedor.add(amortizacao);
+        }
     }
 }
