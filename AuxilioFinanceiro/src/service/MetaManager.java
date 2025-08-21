@@ -1,10 +1,13 @@
 package service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
 import exceptions.CampoVazioException;
+import exceptions.ObjetoNaoEncontradoException;
+import exceptions.ObjetoNuloException;
 import model.Meta;
 import model.lembretes.LembreteMeta;
 import util.ConsoleIO;
@@ -25,7 +28,7 @@ public class MetaManager implements CrudMenu {
     }
 
     @Override
-    public void menu() throws CampoVazioException {
+    public void menu() throws CampoVazioException, IOException, ObjetoNuloException, ObjetoNaoEncontradoException {
         String op;
         do {
             System.out.println("\n--- Menu Metas ---");
@@ -46,7 +49,7 @@ public class MetaManager implements CrudMenu {
         } while (!"0".equals(op));
     }
 
-    private void criar() throws CampoVazioException {
+    private void criar() throws CampoVazioException, IOException, ObjetoNuloException {
         String desc = ConsoleIO.readNonEmpty(sc, "Descrição da meta: ");
         double objetivo = ConsoleIO.readDouble(sc, "Valor objetivo: ");
         double atual = ConsoleIO.readDouble(sc, "Valor atual: ");
@@ -69,7 +72,7 @@ public class MetaManager implements CrudMenu {
         metas.forEach(System.out::println);
     }
 
-    private void editar() {
+    private void editar() throws ObjetoNaoEncontradoException, IOException, CampoVazioException {
         listar(); 
         if (metas.isEmpty()) return;
         int id = ConsoleIO.readInt(sc, "ID da meta: ");
@@ -104,7 +107,7 @@ public class MetaManager implements CrudMenu {
         System.out.println("Meta atualizada.");
     }
 
-    private void deletar() {
+    private void deletar() throws ObjetoNaoEncontradoException, IOException {
         listar(); 
         if (metas.isEmpty()) return;
         int id = ConsoleIO.readInt(sc, "ID da meta a deletar: ");

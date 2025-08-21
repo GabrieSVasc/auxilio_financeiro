@@ -76,4 +76,8 @@ public class Categoria implements Exibivel {
     }
     arquivoUtils.salvarListaEmArquivo("categorias.txt", linhas);
 }
+// Método adicionado para resetar o contador, conforme necessário no Main
+    public static void resetarContador() {
+        contador = 1;
+    }
 }

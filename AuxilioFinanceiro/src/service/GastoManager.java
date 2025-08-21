@@ -1,65 +1,87 @@
 package service;
 
 import exceptions.CampoVazioException;
+import exceptions.ValorNegativoException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import model.Categoria;
 import model.gastos.Gasto;
 import repository.GastoRepository;
 
 public class GastoManager {
-    public void adicionarGasto(Gasto gasto) throws IOException, CampoVazioException {
-        List<Gasto> gastos = GastoRepository.carregar();
-        gastos.add(gasto);
-        GastoRepository.salvar(gastos);
+    private final List<Gasto> gastos = new ArrayList<>();
+    private final CategoriaManager categoriaManager;
+
+    // Construtor corrigido: agora recebe o CategoriaManager
+    public GastoManager(CategoriaManager categoriaManager) {
+        this.categoriaManager = categoriaManager;
+        carregarGastos();
+    }
+    
+    // Método para carregar gastos do arquivo.
+    private void carregarGastos() {
+        try {
+            gastos.addAll(GastoRepository.carregar(categoriaManager.getCategorias()));
+        } catch (IOException | CampoVazioException e) {
+            System.err.println("Erro ao carregar gastos: " + e.getMessage());
+        }
     }
 
-    public boolean editarGasto(int id, String novoNome, Double novoValor, LocalDate novaData, Categoria novaCategoria) 
-            throws IOException, CampoVazioException {
+    public void adicionarGasto(Gasto gasto) throws IOException {
+        gastos.add(gasto);
+        GastoRepository.salvar(gastos);
+        System.out.println("Gasto adicionado com sucesso e salvo no arquivo!");
+    }
+
+    public boolean editarGasto(int id, String novoNome, Double novoValor, LocalDate novaData, Categoria novaCategoria) throws IOException, CampoVazioException {
+        Gasto gasto = buscarPorId(id);
+        if (gasto == null) {
+            return false;
+        }
+        if (novoNome != null) {
+            gasto.setNome(novoNome);
+        }
+        if (novoValor != null && novoValor > 0) {
+            gasto.setValor(novoValor);
+        }
+        if (novaData != null) {
+            gasto.setDataCriacao(novaData);
+        }
+        // A categoria não pode ser alterada pois agora é final na classe Gasto
+        // A chamada a setCategoria() foi removida.
         
-        List<Gasto> gastos = GastoRepository.carregar();
-        boolean encontrado = false;
+        GastoRepository.salvar(gastos);
+        System.out.println("Gasto atualizado com sucesso e salvo no arquivo!");
+        return true;
+    }
 
-        for (Gasto gasto : gastos) {
-            if (gasto.getId() == id) {
-                // Para categoria, precisamos criar um novo Gasto
-                if (novaCategoria != null) {
-                    Gasto novoGasto = new Gasto(
-                        novoNome != null ? novoNome : gasto.getNome(),
-                        novoValor != null ? novoValor : gasto.getValor(),
-                        novaData != null ? novaData.format(Gasto.getDateFormatter()) : gasto.getData().format(Gasto.getDateFormatter()),
-                        novaCategoria
-                    );
-                    gastos.set(gastos.indexOf(gasto), novoGasto);
-                } else {
-                    // Atualiza outros campos se não mudou a categoria
-                    if (novoNome != null) gasto.setNome(novoNome);
-                    if (novoValor != null) gasto.setValor(novoValor);
-                    if (novaData != null) gasto.setData(novaData);
-                }
-                encontrado = true;
-                break;
-            }
-        }
+    public List<Gasto> listarGastos() {
+        return new ArrayList<>(gastos);
+    }
 
-        if (encontrado) {
-            GastoRepository.salvar(gastos);
-        }
-        return encontrado;
+    public List<Gasto> listarGastosPorCategoria(int categoriaId) {
+        return gastos.stream()
+                .filter(g -> g.getCategoria().getId() == categoriaId)
+                .collect(Collectors.toList());
     }
 
     public boolean removerGasto(int id) throws IOException {
-        List<Gasto> gastos = GastoRepository.carregar();
         boolean removido = gastos.removeIf(gasto -> gasto.getId() == id);
-        
         if (removido) {
             GastoRepository.salvar(gastos);
+            System.out.println("Gasto removido com sucesso e arquivo atualizado!");
         }
         return removido;
     }
 
-    public List<Gasto> listarGastos() throws IOException {
-        return GastoRepository.carregar();
+    private Gasto buscarPorId(int id) {
+        return gastos.stream()
+                .filter(gasto -> gasto.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 }

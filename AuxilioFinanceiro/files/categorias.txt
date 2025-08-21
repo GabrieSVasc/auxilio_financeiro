@@ -1,0 +1,2 @@
+1;Alimentação
+2;Assinaturas

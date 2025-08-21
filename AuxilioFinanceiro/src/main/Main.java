@@ -22,34 +22,34 @@ import service.MensalidadeManager;
 
 public class Main {
     public static void main(String[] args) throws ObjetoNuloException, ValorNegativoException {
+        // Reinicie os contadores para garantir que os IDs comecem do 1 em cada execução de teste.
         Gasto.resetarContador();
         Lembrete.resetarContador();
+        Categoria.resetarContador();
         
-        // A linha a seguir foi removida, pois o método não existe na sua classe Categoria.
-        // Categoria.resetarContador(); 
-
-        // Crie a lista de categorias e instancie o CategoriaManager primeiro
-        List<Categoria> categorias = new ArrayList<>();
         try {
+            // 1. Instancie o CategoriaManager primeiro, pois ele é uma dependência crucial
+            List<Categoria> categorias = new ArrayList<>();
             categorias.add(new Categoria("Alimentação"));
             categorias.add(new Categoria("Assinaturas"));
-        } catch (CampoVazioException e) {
-            System.err.println("Erro ao criar categorias iniciais: " + e.getMessage());
-        }
+            CategoriaManager categoriaManager = new CategoriaManager(categorias);
 
-        CategoriaManager categoriaManager = new CategoriaManager(categorias);
+            // 2. Instancie o LembreteManager, pois ele é uma dependência para LimiteManager e MensalidadeManager
+            LembreteManager lembreteManager = new LembreteManager(null, null, categoriaManager);
+            
+            // 3. Agora instancie os outros managers, passando as dependências na ordem correta
+            GastoManager gastoManager = new GastoManager(categoriaManager);
+            MensalidadeManager mensalidadeManager = new MensalidadeManager(categoriaManager);
+            
+            List<Limite> limites = new ArrayList<>();
+            // O LimiteManager precisa de Limites, CategoriaManager e LembreteManager
+           LimiteManager limiteManager = new LimiteManager(categorias, limites, lembreteManager);
 
-        GastoManager gastoManager = new GastoManager();
-        MensalidadeManager mensalidadeManager = new MensalidadeManager();
-        
-        // Crie a lista de limites e instancie o LimiteManager corretamente
-        List<Limite> limites = new ArrayList<>();
-        LimiteManager limiteManager = new LimiteManager(categorias, limites);
+            // 4. Conecte os managers que dependem uns dos outros
+            lembreteManager.setMensalidadeManager(mensalidadeManager);
+            lembreteManager.setLimiteManager(limiteManager);
 
-        // Agora instancie o LembreteManager com suas dependências
-        LembreteManager lembreteManager = new LembreteManager(mensalidadeManager, limiteManager, categoriaManager);
-
-        try {
+            // ... (o resto do seu código de teste) ...
             System.out.println("--- Testando GastoManager ---");
             Gasto gasto1 = new Gasto("Compras de Mercado", 150.50, categoriaManager.getCategorias().get(0), LocalDate.now());
             gastoManager.adicionarGasto(gasto1);
@@ -74,17 +74,13 @@ public class Main {
             todasMensalidades.forEach(System.out::println);
 
             System.out.println("\n--- Testando LembreteManager ---");
-            // Adicione o limite à lista gerenciada pelo LimiteManager
             Limite limiteAlimentacao = new Limite(categoriaManager.getCategorias().get(0), 500.0);
             limites.add(limiteAlimentacao);
             
-            LembreteLimite lembreteLimite = new LembreteLimite(limiteAlimentacao, "Limite de Alimentação", LocalDate.now().plusDays(7));
-            
-            // Atualize o limite diretamente da lista gerenciada pelo LimiteManager
-            limiteManager.getLimites().stream()
-                    .filter(l -> l.getId() == limiteAlimentacao.getId())
-                    .findFirst().ifPresent(l -> l.setTotalGastos(450.0));
+            // O gasto do limite é atualizado diretamente na lista do manager
+            limiteManager.atualizarTotais(limiteAlimentacao.getCategoria());
 
+            LembreteLimite lembreteLimite = new LembreteLimite(limiteAlimentacao, "Limite de Alimentação", LocalDate.now().plusDays(7));
             lembreteManager.criarLembrete(lembreteLimite);
             
             System.out.println("\nLembrete de Limite adicionado e notificação gerada:");

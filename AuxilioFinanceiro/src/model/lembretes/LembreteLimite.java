@@ -8,12 +8,13 @@ import model.Limite;
  */
 public class LembreteLimite extends Lembrete {
     private Limite limite;
-    private double gastoAtual = 0.0;
+    private double gastoAtual;
 
     // Construtor para criação normal
     public LembreteLimite(Limite limite, String descricao, LocalDate dataAlerta) {
         super(limite.getCategoria().getNome() + " - " + descricao, descricao, dataAlerta);
         this.limite = limite;
+        this.gastoAtual = 0;
     }
 
     // Construtor para recarga a partir de arquivo
@@ -40,7 +41,7 @@ public class LembreteLimite extends Lembrete {
         } else if (percentual >= 0.8) {
             return String.format("%s em %d%% do limite (R$ %.2f / R$ %.2f).", cat, Math.round(percentual * 100), gastoAtual, limiteValor);
         } else {
-            return String.format("%s sob controle: R$ %.2f de R$ %.2f.", cat, gastoAtual, limiteValor);
+            return String.format("%s sob controle: R$ %.2f de R$ %.2f.", cat, limite.getTotalGastos(), limiteValor);
         }
     }
 

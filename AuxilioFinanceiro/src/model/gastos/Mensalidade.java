@@ -1,102 +1,85 @@
 package model.gastos;
 
-import exceptions.CampoVazioException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import exceptions.CampoVazioException;
 import model.Categoria;
 
-/**
- * Classe que representa uma mensalidade, que é um tipo de Gasto recorrente.
- */
 public class Mensalidade extends Gasto {
-    private boolean pago;
-    private LocalDate dataVencimento;
     private String recorrencia;
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private LocalDate dataVencimento;
+    private boolean isPago;
+    
+    // Construtor principal para criação de novas mensalidades
+    public Mensalidade(String nome, double valor, String dataVencimento, Categoria categoria, LocalDate dataCriacao, String recorrencia) throws CampoVazioException {
+        super(nome, valor, categoria, dataCriacao);
+        setDataVencimento(dataVencimento);
+        setRecorrencia(recorrencia);
+        this.isPago = false;
+    }
 
-    /**
-     * Construtor que cria uma nova Mensalidade.
-     * Chama o construtor da classe Gasto para inicializar os atributos herdados.
-     */
-    public Mensalidade(String nome, double valor, String data, Categoria categoria, LocalDate dataVencimento, String recorrencia) throws CampoVazioException {
-        super(nome, valor, data, categoria);
+    // CONSTRUTOR CORRIGIDO PARA O REPOSITÓRIO:
+    // Ele agora aceita o ID, a data de criação e o status 'isPago'.
+    public Mensalidade(int id, String nome, double valor, LocalDate dataCriacao, Categoria categoria, LocalDate dataVencimento, String recorrencia, boolean isPago) throws CampoVazioException {
+        super(id, nome, valor, categoria, dataCriacao);
         this.dataVencimento = dataVencimento;
+        setRecorrencia(recorrencia);
+        this.isPago = isPago;
+    }
+
+    // --- Getters e Setters ---
+
+    public String getRecorrencia() {
+        return recorrencia;
+    }
+    
+    public void setRecorrencia(String recorrencia) throws CampoVazioException {
+        if (recorrencia == null || recorrencia.trim().isEmpty()) {
+            throw new CampoVazioException("Recorrência");
+        }
         this.recorrencia = recorrencia;
-        this.pago = false;
-    }
-
-    // Métodos para acessar e modificar os atributos específicos de Mensalidade.
-    public boolean isPago() {
-        return pago;
-    }
-
-    public void setPago(boolean pago) {
-        this.pago = pago;
     }
 
     public LocalDate getDataVencimento() {
         return dataVencimento;
     }
-
+    
+    public void setDataVencimento(String dataVencimento) {
+        this.dataVencimento = LocalDate.parse(dataVencimento, DATE_FORMATTER);
+    }
+    
     public void setDataVencimento(LocalDate dataVencimento) {
         this.dataVencimento = dataVencimento;
     }
 
-    public String getRecorrencia() {
-        return recorrencia;
+    public boolean isPago() {
+        return isPago;
+    }
+    
+    public void setPago(boolean isPago) {
+        this.isPago = isPago;
     }
 
-    public void setRecorrencia(String recorrencia) {
-        this.recorrencia = recorrencia;
+    // --- Métodos de Exibição e de Arquivo ---
+    
+    @Override
+    public String exibir() {
+        String statusPagamento = isPago ? "Sim" : "Não";
+        return String.format("Mensalidade #%d - %s (R$ %.2f) - Vencimento: %s - Recorrência: %s - Pago: %s",
+            this.getId(), this.getNome(), this.getValor(), this.dataVencimento.format(DATE_FORMATTER), this.recorrencia, statusPagamento);
     }
-
-    /**
-     * Sobrescreve o método da classe pai para incluir os dados específicos da Mensalidade.
-     */
+    
     @Override
     public String toFileString() {
-        return super.toFileString() + ";" + pago + ";" + 
-                dataVencimento.format(DATE_FORMATTER) + ";" + recorrencia;
-    }
-
-    /**
-     * Cria um objeto Mensalidade a partir de uma linha de texto salva em arquivo.
-     */
-    public static Mensalidade fromFileString(String linha) {
-        String[] partes = linha.split(";", 8);
-        if (partes.length != 8) {
-            throw new IllegalArgumentException("Formato de linha inválido para Mensalidade");
-        }
-
-        try {
-            // Usa o método da classe Gasto para lidar com os atributos comuns.
-            Gasto gasto = Gasto.fromFileString(String.join(";", partes[0], partes[1], partes[2], partes[3], partes[4]));
-            boolean pago = Boolean.parseBoolean(partes[5].trim());
-            LocalDate dataVencimento = LocalDate.parse(partes[6].trim(), DATE_FORMATTER);
-            String recorrencia = partes[7].trim();
-
-            Mensalidade mensalidade = new Mensalidade(
-                gasto.getNome(),
-                gasto.getValor(),
-                gasto.getData().format(Gasto.getDateFormatter()),
-                gasto.getCategoria(),
-                dataVencimento,
-                recorrencia
-            );
-            mensalidade.setPago(pago);
-            mensalidade.id = gasto.getId();
-            return mensalidade;
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Erro ao criar Mensalidade: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Sobrescreve o método toString() para uma representação textual mais completa.
-     */
-    @Override
-    public String toString() {
-        return String.format("Mensalidade #%d - %s (R$ %.2f) - Vencimento: %s - Recorrência: %s - Pago: %s",
-            getId(), getNome(), getValor(), dataVencimento.format(DATE_FORMATTER), recorrencia, pago ? "Sim" : "Não");
+        return String.join(";",
+            String.valueOf(id),
+            nome,
+            String.valueOf(valor),
+            dataCriacao.format(DATE_FORMATTER),
+            String.valueOf(categoria.getId()),
+            dataVencimento.format(DATE_FORMATTER),
+            recorrencia,
+            String.valueOf(isPago)
+        );
     }
 }
