@@ -3,7 +3,7 @@ package entidades;
 import Excecoes.ValorInvalidoException;
 
 public class VariacaoDePreco {
-    private double valor, taxa, taxaReal, taxaInflacao;
+    private double valor, taxa;
 
     public VariacaoDePreco(double valor, double taxa) throws ValorInvalidoException {
         if (valor <= 0 || taxa <= 0){
@@ -11,23 +11,17 @@ public class VariacaoDePreco {
         }
         else{
             this.valor = valor;
-            this.taxa = taxa;
-            this.taxaReal = 0;
+            this.taxa = taxa/100;
         }
     }
 
+    
     // Getters
     public double getValor() {
         return valor;
     }
     public double getTaxa() {
         return taxa;
-    }
-    public double getTaxaReal(){
-        return taxaReal;
-    }
-    public double getTaxaInflacao(){
-        return taxaInflacao;
     }
 
     // Setters
@@ -42,14 +36,11 @@ public class VariacaoDePreco {
      
 
     public double calcularDeflacao(){
-        double resultado = valor + (valor*taxaInflacao);
+        double resultado = valor + (valor*taxa);
         return resultado;
     }
     public double calcularInflacao(){
-        double resultado = valor - (valor*taxaInflacao);
+        double resultado = valor - (valor*taxa);
         return resultado;
-    }
-    public void calcularTaxaReal(){
-        this.taxaReal = ((1+this.taxa)/(1+this.taxaInflacao)) - 1;
     }
 }

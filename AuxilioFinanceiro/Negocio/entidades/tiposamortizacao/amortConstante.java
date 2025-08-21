@@ -22,7 +22,7 @@ public class AmortConstante extends Amortizacao {
             double novaPar = this.amortizacao.get(0) + this.juros.get(i);
             this.parcela.add(novaPar);
 
-            this.saldoDevedor.add(amortizacao);
+            this.saldoDevedor.add(Math.abs(saldoDevedor.get(i) - amortizacao.get(i)));
         }
     }
 }

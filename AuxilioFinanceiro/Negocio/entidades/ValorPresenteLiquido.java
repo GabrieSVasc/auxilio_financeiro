@@ -2,57 +2,69 @@ package entidades;
 import Excecoes.OpcaoInvalidaException;
 import Excecoes.TIRImpossivelException;
 import Excecoes.ValorInvalidoException;
-
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ValorPresenteLiquido {
     protected double custoInicial, vpl, taxa, tir;
-    protected ArrayList<Double> arrecadacao; // not ok
+    protected ArrayList<Double> arrecadacao;
     protected Duracao duracao;
 
     // Constructors
-    public ValorPresenteLiquido(double custoInicial, double taxa, Duracao duracao) throws ValorInvalidoException {
+    public ValorPresenteLiquido(double custoInicial, double taxa, Duracao duracao, String arrecadacao) throws ValorInvalidoException {
         // Validando as opções
         if (custoInicial <= 0 || taxa <= 0){
             throw new ValorInvalidoException();
         } 
-        // Ta safe padrin
+        // safe
         else{
-            this.arrecadacao = new ArrayList<>();
-            Scanner input = new Scanner(System.in);
             this.custoInicial = custoInicial;
             this.vpl = 0;
             this.taxa = taxa/100;
             this.duracao = duracao;
-            for (int i = 0; i < duracao.getTempo(); i++){
-                System.out.printf("Adicione o valor de entrada n° %d: ", i+1);
-                arrecadacao.add(input.nextDouble());
-            }
             this.tir = 0;
+            this.arrecadacao = stringParaArrecadacao(arrecadacao);
         }
     }
-    public ValorPresenteLiquido(double custoInicial, double taxa, int tipo, double tempo) throws ValorInvalidoException, OpcaoInvalidaException {
+    public ValorPresenteLiquido(double custoInicial, double taxa, int tipo, double tempo, String arrecadacao) throws ValorInvalidoException, OpcaoInvalidaException {
         // Validando as opções
         if (custoInicial <= 0 || taxa <= 0){
             throw new ValorInvalidoException();
         }
         // Safe
         else{
-            this.arrecadacao = new ArrayList<>();
-            Scanner input = new Scanner(System.in);
             this.custoInicial = custoInicial;
             this.vpl = 0;
             this.taxa = taxa/100;
             this.duracao = new Duracao(tipo, tempo);
-            for (int i = 0; i < duracao.getTempo(); i++){
-            System.out.printf("Adicione o valor de entrada n° %d: ", i+1);
-            arrecadacao.add(input.nextDouble());
-        }
             this.tir = 0;
+            this.arrecadacao = stringParaArrecadacao(arrecadacao);
         }
     }
+
+    private ArrayList<Double> stringParaArrecadacao(String arrecadacoes) throws ValorInvalidoException {
+        ArrayList<Double> lista = new ArrayList<>();
+
+        String[] partes = arrecadacoes.split(",");
+
+        if (partes.length != this.duracao.getTempo()) {
+            throw new ValorInvalidoException();
+        }
+
+        for (String p : partes) {
+            p = p.trim();
+            try {
+                double valor = Double.parseDouble(p);
+                if (valor < 0) {
+                    throw new ValorInvalidoException();
+                }
+                lista.add(valor);
+            } catch (NumberFormatException e) {
+                throw new ValorInvalidoException();
+            }
+        }
+        return lista;
+    }
+
 
     // Getters
     public ArrayList<Double> getArrecadacao() { return arrecadacao; }
@@ -63,7 +75,9 @@ public class ValorPresenteLiquido {
     public double getTir(){ return tir; }
 
     // Setters
-    public void setArrecadacao(ArrayList<Double> novaArrecadacao){ this.arrecadacao = novaArrecadacao; } // not ok
+    public void setArrecadacao(String novaArrecadacao) throws ValorInvalidoException{
+        this.arrecadacao = stringParaArrecadacao(novaArrecadacao); 
+    }
 
     public void setCustoInicial(double novoCustoInicial) throws ValorInvalidoException {
         if (novoCustoInicial <= 0) throw new ValorInvalidoException();

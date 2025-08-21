@@ -25,7 +25,7 @@ public abstract class Desconto {
         }
         else{
             this.valorNominal = valorNominal;
-            this.taxa = taxa;
+            this.taxa = taxa/100;
             this.duracao = new Duracao(tipo, tempo);
             this.desconto = 0;
             this.valorPresente = 0;

@@ -10,23 +10,24 @@ public class AmortMisto extends Amortizacao {
  
     @Override
     public void calcularTudo() throws ValorInvalidoException{
-            Amortizacao amort1 = new AmortConstante(montante, taxa, numParcelas);
-            Amortizacao amort2 = new AmortPrice(montante, taxa, numParcelas);
+        saldoDevedor.add(montante);
+        Amortizacao amort1 = new AmortConstante(montante, taxa*100, numParcelas);
+        Amortizacao amort2 = new AmortPrice(montante, taxa*100, numParcelas);
 
-            amort1.calcularTudo();
-            amort2.calcularTudo();
+        amort1.calcularTudo();
+        amort2.calcularTudo();
 
-            for (int i = 0; i < numParcelas; i++) {
-                double novaPar = (amort1.getParcela().get(i) + amort2.getParcela().get(i))/2;
-                this.parcela.add(novaPar);
+        for (int i = 0; i < numParcelas; i++) {
+            double novaPar = (amort1.getParcela().get(i) + amort2.getParcela().get(i))/2;
+            this.parcela.add(novaPar);
 
-                double novoJur = (amort1.getJuros().get(i)+amort2.getJuros().get(i))/2;
-                this.juros.add(novoJur);
+            double novoJur = (amort1.getJuros().get(i)+amort2.getJuros().get(i))/2;
+            this.juros.add(novoJur);
 
-                double novaAmo = (amort1.getAmortizacao().get(i)+amort2.getAmortizacao().get(i))/2;
-                this.amortizacao.add(novaAmo);
+            double novaAmo = (amort1.getAmortizacao().get(i)+amort2.getAmortizacao().get(i))/2;
+            this.amortizacao.add(novaAmo);
 
-                this.saldoDevedor -= amortizacao.get(i);
-            }
+            this.saldoDevedor.add(Math.abs(saldoDevedor.get(i) - amortizacao.get(i)));
+        }
     }
 }
