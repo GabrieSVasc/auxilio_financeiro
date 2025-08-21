@@ -1,17 +1,23 @@
 package model.gastos;
 
-import model.Categoria;
 import exceptions.CampoVazioException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import model.Categoria;
 
+/**
+ * Classe que representa uma mensalidade, que é um tipo de Gasto recorrente.
+ */
 public class Mensalidade extends Gasto {
     private boolean pago;
     private LocalDate dataVencimento;
     private String recorrencia;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+    /**
+     * Construtor que cria uma nova Mensalidade.
+     * Chama o construtor da classe Gasto para inicializar os atributos herdados.
+     */
     public Mensalidade(String nome, double valor, String data, Categoria categoria, LocalDate dataVencimento, String recorrencia) throws CampoVazioException {
         super(nome, valor, data, categoria);
         this.dataVencimento = dataVencimento;
@@ -19,7 +25,7 @@ public class Mensalidade extends Gasto {
         this.pago = false;
     }
 
-    // Getters e Setters
+    // Métodos para acessar e modificar os atributos específicos de Mensalidade.
     public boolean isPago() {
         return pago;
     }
@@ -44,12 +50,18 @@ public class Mensalidade extends Gasto {
         this.recorrencia = recorrencia;
     }
 
+    /**
+     * Sobrescreve o método da classe pai para incluir os dados específicos da Mensalidade.
+     */
     @Override
     public String toFileString() {
         return super.toFileString() + ";" + pago + ";" + 
-               dataVencimento.format(DATE_FORMATTER) + ";" + recorrencia;
+                dataVencimento.format(DATE_FORMATTER) + ";" + recorrencia;
     }
 
+    /**
+     * Cria um objeto Mensalidade a partir de uma linha de texto salva em arquivo.
+     */
     public static Mensalidade fromFileString(String linha) {
         String[] partes = linha.split(";", 8);
         if (partes.length != 8) {
@@ -57,6 +69,7 @@ public class Mensalidade extends Gasto {
         }
 
         try {
+            // Usa o método da classe Gasto para lidar com os atributos comuns.
             Gasto gasto = Gasto.fromFileString(String.join(";", partes[0], partes[1], partes[2], partes[3], partes[4]));
             boolean pago = Boolean.parseBoolean(partes[5].trim());
             LocalDate dataVencimento = LocalDate.parse(partes[6].trim(), DATE_FORMATTER);
@@ -78,6 +91,9 @@ public class Mensalidade extends Gasto {
         }
     }
 
+    /**
+     * Sobrescreve o método toString() para uma representação textual mais completa.
+     */
     @Override
     public String toString() {
         return String.format("Mensalidade #%d - %s (R$ %.2f) - Vencimento: %s - Recorrência: %s - Pago: %s",
