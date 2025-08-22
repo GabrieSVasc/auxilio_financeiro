@@ -1,0 +1,8 @@
+5681;Netflix;39,90;01-08-2025;Assinaturas;false;15-08-2025;Mensal
+5684;Spotify;21,90;01-08-2025;Assinaturas;false;25-08-2025;Mensal
+5698;Netflix;39,90;01-08-2025;Assinaturas;false;15-08-2025;Mensal
+5709;Spotify;21,90;01-08-2025;Assinaturas;false;25-08-2025;Mensal
+5727;Netflix;39,90;01-08-2025;Assinaturas;false;15-08-2025;Mensal
+5746;Spotify;21,90;01-08-2025;Assinaturas;false;25-08-2025;Mensal
+5768;Netflix;39,90;01-08-2025;Assinaturas;false;15-08-2025;Mensal
+5795;Spotify;21,90;01-08-2025;Assinaturas;false;25-08-2025;Mensal

@@ -1,2 +1,7 @@
-1;Jogos
-2;Lazer
+1;Comida
+2;Transporte
+3;Lazer
+4;Aluguel
+5;Saúde
+6;Educação
+7;Alimentação

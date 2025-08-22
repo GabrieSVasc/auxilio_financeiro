@@ -1,0 +1,5 @@
+5466;Compras de Mercado;150,50;21-08-2025;Alimentação
+5671;Compras de Mercado;150,50;21-08-2025;Alimentação
+5686;Compras de Mercado;150,50;21-08-2025;Alimentação
+5711;Compras de Mercado;150,50;21-08-2025;Alimentação
+5748;Compras de Mercado;150,50;21-08-2025;Alimentação

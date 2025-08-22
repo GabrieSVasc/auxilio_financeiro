@@ -1,2 +1,2 @@
-1;Almoço;20.0;2022-11-21;Alimentação
-2;Uber;15.0;2012-12-20;Transporte
+1;Almoço;20.0;21-11-2022;Alimentação
+2;Uber;15.0;20-12-2012;Transporte

@@ -1,0 +1,5 @@
+MENSALIDADE;2;Pagar Spotify;Valor: R$ 21,90;21-08-2025;25-08-2025;true;5684
+MENSALIDADE;4;Pagar Spotify;Valor: R$ 21,90;21-08-2025;25-08-2025;true;5709
+MENSALIDADE;6;Pagar Spotify;Valor: R$ 21,90;21-08-2025;25-08-2025;true;5746
+LIMITE;7;Alimentação - Limite de Alimentação;Limite de Alimentação;21-08-2025;28-08-2025;true;1
+MENSALIDADE;8;Pagar Spotify;Valor: R$ 21,90;21-08-2025;25-08-2025;true;5795

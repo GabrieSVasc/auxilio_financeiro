@@ -22,17 +22,9 @@
       </ImageView>
       <Button fx:id="btnVoltar" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="40.0" prefWidth="40.0" />
       <Line endX="136.99993896484375" endY="-1.4000015258789062" layoutX="502.0" startX="138.0" startY="720.0" />
-      <PieChart layoutX="814.0" layoutY="192.0" prefHeight="300.0" prefWidth="300.0" />
-      <BarChart layoutX="150.0" layoutY="210.0" prefHeight="300.0" prefWidth="300.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </BarChart>
-      <ComboBox layoutX="202.0" layoutY="544.0" prefHeight="32.0" prefWidth="196.0" />
-      <ComboBox layoutX="865.0" layoutY="544.0" prefHeight="32.0" prefWidth="196.0" />
+      <PieChart fx:id="pcPorMes" layoutX="814.0" layoutY="192.0" prefHeight="300.0" prefWidth="300.0" />
+      <ComboBox fx:id="cbCategorias" layoutX="202.0" layoutY="544.0" prefHeight="32.0" prefWidth="196.0" />
+      <ComboBox fx:id="cbMeses" layoutX="865.0" layoutY="544.0" prefHeight="32.0" prefWidth="196.0" />
       <Label alignment="CENTER" layoutX="139.0" layoutY="54.0" prefHeight="68.0" prefWidth="321.0" text="Resumos dos gastos anuais por categoria" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="23.0" />
@@ -43,5 +35,23 @@
             <Font size="23.0" />
          </font>
       </Label>
+      <Button fx:id="btnVerMudancaCategoria" layoutX="240.0" layoutY="604.0" mnemonicParsing="false" onAction="#btnVerMudancaCategoriaAction" text=" Mudar Gráfico">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnVerMudancaMes" layoutX="903.0" layoutY="604.0" mnemonicParsing="false" onAction="#btnVerMudancaMesAction" text=" Mudar Gráfico">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <BarChart fx:id="bcPorCategoria" layoutX="150.0" layoutY="210.0" prefHeight="300.0" prefWidth="300.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
    </children>
 </Pane>

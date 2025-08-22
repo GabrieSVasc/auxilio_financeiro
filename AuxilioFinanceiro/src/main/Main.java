@@ -1,10 +1,12 @@
 package main;
 
+import iu.viewController.GerenciarGastosViewController;
+import iu.viewController.ResumosGastosViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class Main extends Application {
 	private static Stage stage;
@@ -41,6 +43,9 @@ public class Main extends Application {
 	private static Scene cenaDescontoTitulo;
 	private static Scene cenaDadosDesconto;
 	
+	private static GerenciarGastosViewController ggVC;
+	private static ResumosGastosViewController rgVC;
+
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -52,11 +57,15 @@ public class Main extends Application {
 			Parent cambio = FXMLLoader.load(getClass().getResource("/iu/view/Câmbio.fxml"));
 			cenaCambio = new Scene(cambio);
 			
-			Parent gerenciarGastos = FXMLLoader.load(getClass().getResource("/iu/view/GerenciarGastos.fxml"));
+			FXMLLoader loaderGerenciarGastos = new FXMLLoader(getClass().getResource("/iu/view/GerenciarGastos.fxml"));
+			Parent gerenciarGastos = loaderGerenciarGastos.load();
 			cenaGerenciarGastos = new Scene(gerenciarGastos);
+			ggVC = loaderGerenciarGastos.getController();
 			
-			Parent resumosGastos = FXMLLoader.load(getClass().getResource("/iu/view/ResumosGastos.fxml"));
+			FXMLLoader loaderResumosGastos = new FXMLLoader(getClass().getResource("/iu/view/ResumosGastos.fxml"));
+			Parent resumosGastos = loaderResumosGastos.load();
 			cenaResumosGastos = new Scene(resumosGastos);
+			rgVC = loaderResumosGastos.getController();
 			
 			Parent limites = FXMLLoader.load(getClass().getResource("/iu/view/Limites.fxml"));
 			cenaLimites = new Scene(limites);
@@ -158,9 +167,11 @@ public class Main extends Application {
 				break;
 			case "gerenciarGastos":
 				stage.setScene(cenaGerenciarGastos);
+				ggVC.criarGrafico();
 				break;
 			case "resumosGastos":
 				stage.setScene(cenaResumosGastos);
+				rgVC.criarGraficos();
 				break;
 			case "limitesGastos":
 				stage.setScene(cenaLimites);

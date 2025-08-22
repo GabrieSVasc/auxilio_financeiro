@@ -20,12 +20,12 @@
             <Image url="@../../files/Voltar.png" />
          </image>
       </ImageView>
-      <PieChart layoutX="423.0" layoutY="143.0" prefHeight="435.0" prefWidth="435.0" />
       <Button fx:id="btnResumosGastos" layoutX="240.0" layoutY="608.0" mnemonicParsing="false" onAction="#btnResumosGastosAction" prefHeight="39.0" prefWidth="120.0" text="Resumos de Gastos" />
       <Button fx:id="btnGastos" layoutX="750.0" layoutY="608.0" mnemonicParsing="false" onAction="#btnGastosAction" prefHeight="39.0" prefWidth="120.0" text="Gastos" />
       <Button fx:id="btnMetas" layoutX="580.0" layoutY="608.0" mnemonicParsing="false" onAction="#btnMetasAction" prefHeight="39.0" prefWidth="120.0" text="Metas" />
       <Button fx:id="btnLimites" layoutX="410.0" layoutY="608.0" mnemonicParsing="false" onAction="#btnLimitesAction" prefHeight="39.0" prefWidth="120.0" text="Limites de Gastos" />
       <Button fx:id="btnCategorias" layoutX="920.0" layoutY="608.0" mnemonicParsing="false" onAction="#btnCategoriasAction" prefHeight="39.0" prefWidth="120.0" text="Categorias" />
       <Button fx:id="btnVoltar" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="40.0" prefWidth="40.0" />
+      <PieChart fx:id="pcMesAtual" layoutX="423.0" layoutY="143.0" prefHeight="435.0" prefWidth="435.0" />
    </children>
 </Pane>

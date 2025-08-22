@@ -20,6 +20,10 @@ public class CategoriaManager implements CrudMenu {
     public CategoriaManager(List<Categoria> categorias) {
         this.categorias = categorias;
     }
+    
+    public CategoriaManager() {
+    	this.categorias = Categoria.carregarCategorias();
+    }
 
     @Override
     public void menu() {
@@ -50,7 +54,9 @@ public class CategoriaManager implements CrudMenu {
 
     private void criar() throws CampoVazioException {
         String nome = ConsoleIO.readNonEmpty(scanner, "Nome da categoria: ");
-        categorias.add(new Categoria(nome));
+        if(!this.existe(nome)) {
+            categorias.add(new Categoria(nome));
+        }
         System.out.println("Categoria adicionada.");
     }
 
@@ -82,4 +88,14 @@ public class CategoriaManager implements CrudMenu {
     }
 
     public List<Categoria> getCategorias() { return categorias; }
+    
+    public boolean existe(String nome) {
+    	boolean encontrado = false;
+    	for(Categoria c: categorias) {
+    		if(c.getNome().equals(nome)) {
+    			encontrado = true;
+    		}
+    	}
+    	return encontrado;
+    }
 }

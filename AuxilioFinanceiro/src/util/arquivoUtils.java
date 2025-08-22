@@ -65,4 +65,17 @@ public class arquivoUtils {
         File pasta = new File(PASTA_DADOS);
         if (!pasta.exists()) pasta.mkdir();
     }
+    
+    public static boolean existeNoArquivo(String nome, String nomeArquivo) {
+    	boolean existe = false;
+    	for(String v : lerDoArquivo(nomeArquivo)) {
+    		String[] partes = v.split(";");
+    		String nomeV = partes[1];
+    		if(nomeV.equals(nome)) {
+    			existe = true;
+    			break;
+    		}
+    	}
+    	return existe;
+    }
 }

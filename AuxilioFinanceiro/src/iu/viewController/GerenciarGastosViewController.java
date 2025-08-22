@@ -1,14 +1,25 @@
 package iu.viewController;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import fachada.Fachada;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import main.Main;
+import negocio.entidades.GraficoSetores;
+import negocio.entidades.Setor;
+import negocio.exceptions.MesSemGastosException;
 
 public class GerenciarGastosViewController implements Initializable{
 	
@@ -33,10 +44,40 @@ public class GerenciarGastosViewController implements Initializable{
 	@FXML
 	private Button btnCategorias;
 	
+	@FXML
+	private PieChart pcMesAtual;
+	
+	private Fachada fachada;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle rb) {
 		btnVoltar.setGraphic(imgVoltar);
+		fachada = new Fachada();
 	}
+	
+	@FXML
+	public void criarGrafico() {
+		GraficoSetores grafico = null;
+		try {
+			grafico = fachada.inicializarGraficoSetores();
+			ArrayList<PieChart.Data> array = new ArrayList<>();
+			for(Setor s : grafico.getSetores()) {
+				array.add(new PieChart.Data(s.getTituloSetor(), s.getValorTotal()));
+			}
+			ObservableList<PieChart.Data> pcData = FXCollections.observableArrayList(array);
+			pcMesAtual.setData(pcData);
+			pcMesAtual.setPrefSize(435, 435);
+			pcMesAtual.setTitle("Gráfico do mês: "+grafico.getMes());
+		} catch (MesSemGastosException e) {
+			Alert alerta = new Alert(AlertType.INFORMATION);
+			alerta.setTitle("Gráfico de gastos desse mês");
+			alerta.setContentText("Não há gastos cadastrados nesse mês");
+			alerta.showAndWait();
+			pcMesAtual.getData().add(new PieChart.Data("Vazio", 10));
+			pcMesAtual.setTitle("Gráfico do mês");
+		}
+	}
+	
 	@FXML
 	protected void btnVoltarAction(ActionEvent e) {
 		Main.mudarTela("inicial");
