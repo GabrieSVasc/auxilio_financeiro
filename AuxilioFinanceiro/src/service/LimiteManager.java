@@ -1,47 +1,49 @@
 package service;
-import java.util.List;
-import java.util.Scanner;
 
+import exceptions.CampoVazioException;
 import exceptions.ObjetoNaoEncontradoException;
 import exceptions.ObjetoNuloException;
 import exceptions.ValorNegativoException;
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
+import model.Categoria;
 import model.Limite;
+import model.gastos.Gasto;
 import model.lembretes.LembreteLimite;
-import negocio.entidades.Categoria;
-import negocio.entidades.Gasto;
 import util.ConsoleIO;
+
 public class LimiteManager implements CrudMenu {
     private final List<Limite> limites;
     private final List<Categoria> categorias;
+    private final GastoManager gastoManager;
     private LembreteManager lembreteManager;
     private final Scanner scanner = new Scanner(System.in);
 
-    public LimiteManager(List<Categoria> categorias, List<Limite> limites) {
+    public LimiteManager(List<Categoria> categorias, List<Limite> limites, LembreteManager lembreteManager) {
         this.categorias = categorias;
         this.limites = limites;
         this.lembreteManager = lembreteManager;
+        this.gastoManager = new GastoManager(new CategoriaManager(categorias));
     }
-
+    
     public void atualizarTotais(Categoria cat) {
         if (cat == null) return;
-
         try {
-            GastoManager gastoManager = new GastoManager();
             List<Gasto> todosGastos = gastoManager.listarGastos();
             double total = todosGastos.stream()
-                    .filter(g -> g.getCategoria().getId() == cat.getId())
-                    .mapToDouble(Gasto::getValor)
-                    .sum();
+                .filter(g -> g.getCategoria().getId() == cat.getId())
+                .mapToDouble(Gasto::getValor)
+                .sum();
 
             Limite lim = limites.stream()
-                    .filter(l -> l.getCategoria().getId() == cat.getId())
-                    .findFirst()
-                    .orElse(null);
+                .filter(l -> l.getCategoria().getId() == cat.getId())
+                .findFirst()
+                .orElse(null);
 
             if (lim != null) {
                 lim.setTotalGastos(total);
             }
-
         } catch (Exception e) {
             System.err.println("Erro ao atualizar totais da categoria " + cat.getNome() + ": " + e.getMessage());
         }
@@ -50,10 +52,10 @@ public class LimiteManager implements CrudMenu {
     private void atualizarLembretesLimite(Limite limite) {
         try {
             List<LembreteLimite> lembretes = lembreteManager.listarLembretesLimite()
-                    .stream()
-                    .filter(l -> l.getLimite().getId() == limite.getId())
-                    .toList();
-            
+                .stream()
+                .filter(l -> l.getLimite() != null && l.getLimite().getId() == limite.getId())
+                .toList();
+
             for (LembreteLimite lembrete : lembretes) {
                 lembrete.setGastoAtual(limite.getTotalGastos());
                 lembreteManager.atualizarLembrete(
@@ -93,7 +95,7 @@ public class LimiteManager implements CrudMenu {
         } while (!"0".equals(opcao));
     }
 
-    private void criar() throws ObjetoNaoEncontradoException, ValorNegativoException, ObjetoNuloException {
+    private void criar() throws ObjetoNaoEncontradoException, ValorNegativoException, ObjetoNuloException, IOException, CampoVazioException {
         if (categorias.isEmpty()) { System.out.println("Crie categorias primeiro."); return; }
         System.out.println("Escolha uma categoria:");
         categorias.forEach(c -> System.out.println(c.getId() + " - " + c.getNome()));
@@ -102,8 +104,8 @@ public class LimiteManager implements CrudMenu {
         Categoria categoriaSelecionada = categorias.stream().filter(c -> c.getId() == idCat).findFirst().orElse(null);
         if (categoriaSelecionada == null) throw new ObjetoNaoEncontradoException("Categoria", idCat);
         double valor = ConsoleIO.readDouble(scanner, "Valor do limite: ");
-        Limite l = new Limite(categoriaSelecionada, valor);
-        limites.add(l);
+        Limite lim = new Limite(categoriaSelecionada, valor);
+        limites.add(lim);
         Limite.salvarTodos(limites);
         System.out.println("Limite criado.");
     }
@@ -113,7 +115,7 @@ public class LimiteManager implements CrudMenu {
         limites.forEach(l -> System.out.println(l.exibir()));
     }
 
-    private void editar() throws ObjetoNaoEncontradoException, ValorNegativoException {
+    private void editar() throws ObjetoNaoEncontradoException, ValorNegativoException, IOException {
         listar(); if (limites.isEmpty()) return;
         int id = ConsoleIO.readInt(scanner, "ID do limite a editar: ");
         if (id <= 0) throw new ValorNegativoException("ID");
@@ -125,7 +127,7 @@ public class LimiteManager implements CrudMenu {
         System.out.println("Limite atualizado.");
     }
 
-    private void deletar() throws ObjetoNaoEncontradoException, ValorNegativoException {
+    private void deletar() throws ObjetoNaoEncontradoException, ValorNegativoException, IOException {
         listar(); if (limites.isEmpty()) return;
         int id = ConsoleIO.readInt(scanner, "ID do limite a deletar: ");
         if (id <= 0) throw new ValorNegativoException("ID");

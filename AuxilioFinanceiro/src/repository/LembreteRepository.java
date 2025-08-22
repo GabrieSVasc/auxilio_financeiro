@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import model.Limite;
+import model.gastos.Mensalidade;
 import model.lembretes.Lembrete;
 import model.lembretes.LembreteLimite;
 import model.lembretes.MensalidadeLembrete;
-import negocio.entidades.Mensalidade;
 
 public class LembreteRepository {
     private static final String CAMINHO_ARQUIVO = "files/lembretes.txt";

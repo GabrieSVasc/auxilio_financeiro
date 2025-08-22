@@ -1,74 +1,64 @@
 package repository;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import exceptions.CampoVazioException;
+import model.Categoria;
+import model.gastos.Mensalidade;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import util.arquivoUtils;
+import service.CategoriaManager;
 
-import negocio.entidades.Mensalidade;
-
-/**
- * Classe de repositório para gerenciar a persistência de objetos Gasto e Mensalidade.
- * Lida com a leitura e escrita de dados em um arquivo de texto.
- */
 public class MensalidadeRepository {
-    private static final String CAMINHO_ARQUIVO = ".\\src/files/mensalidade.txt";
 
-    /**
-     * Garante que o diretório e o arquivo de dados existam.
-     */
-    private static void garantirArquivo() throws IOException {
-        Path path = Paths.get(CAMINHO_ARQUIVO);
-        Path dir = path.getParent();
-        if (dir != null && !Files.exists(dir)) {
-            Files.createDirectories(dir);
-        }
-        if (!Files.exists(path)) {
-            Files.createFile(path);
-        }
-    }
+    private static final String ARQUIVO_MENSALIDADES = "mensalidades.txt";
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    /**
-     * Salva uma lista de gastos no arquivo, sobrescrevendo o conteúdo existente.
-     * @param gastos A lista de gastos a ser salva.
-     */
     public static void salvar(List<Mensalidade> mensalidades) throws IOException {
-        garantirArquivo();
-        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(CAMINHO_ARQUIVO), StandardOpenOption.TRUNCATE_EXISTING)) {
-            for (Mensalidade mensalidade: mensalidades) {
-                writer.write(mensalidade.toFileString());
-                writer.newLine();
-            }
+        List<String> linhas = new ArrayList<>();
+        for (Mensalidade m : mensalidades) {
+            linhas.add(m.toFileString());
         }
+        arquivoUtils.salvarListaEmArquivo(ARQUIVO_MENSALIDADES, linhas);
     }
 
-    /**
-     * Carrega todos os gastos (incluindo mensalidades) do arquivo.
-     * @return Uma lista de objetos Gasto.
-     */
-    public static List<Mensalidade> carregar() throws IOException {
-        garantirArquivo();
+    // Método corrigido para receber a lista de categorias e o CategoriaManager
+    public static List<Mensalidade> carregar(List<Categoria> categorias) throws IOException {
         List<Mensalidade> mensalidades = new ArrayList<>();
+        List<String> linhas = arquivoUtils.lerDoArquivo(ARQUIVO_MENSALIDADES);
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(CAMINHO_ARQUIVO))) {
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                if (linha.isBlank()) continue;
-                try {
-                    // Tenta converter cada linha em um objeto Gasto.
-                    Mensalidade mensalidade= Mensalidade.fromFileString(linha);
-                    mensalidades.add(mensalidade);
-                } catch (Exception e) {
-                    System.err.println("Erro ao ler linha: " + linha + " - " + e.getMessage());
-                }
-            }
+        if (linhas.isEmpty()) {
+            return mensalidades;
         }
 
+        for (String linha : linhas) {
+            try {
+                String[] partes = linha.split(";");
+                int id = Integer.parseInt(partes[0]);
+                String nome = partes[1];
+                double valor = Double.parseDouble(partes[2]);
+                LocalDate dataCriacao = LocalDate.parse(partes[3], DATE_FORMATTER);
+                int idCategoria = Integer.parseInt(partes[4]);
+                LocalDate dataVencimento = LocalDate.parse(partes[5], DATE_FORMATTER);
+                String recorrencia = partes[6];
+                boolean isPago = Boolean.parseBoolean(partes[7]);
+
+                Categoria categoria = categorias.stream()
+                    .filter(c -> c.getId() == idCategoria)
+                    .findFirst()
+                    .orElse(null);
+
+                if (categoria != null) {
+                    mensalidades.add(new Mensalidade(id, nome, valor, dataCriacao, categoria, dataVencimento, recorrencia, isPago));
+                } else {
+                    System.err.println("Aviso: Categoria com ID " + idCategoria + " não encontrada para a mensalidade '" + nome + "'.");
+                }
+            } catch (Exception e) {
+                System.err.println("Erro ao carregar mensalidade da linha: " + linha + " - Erro: " + e.getMessage());
+            }
+        }
         return mensalidades;
     }
 }

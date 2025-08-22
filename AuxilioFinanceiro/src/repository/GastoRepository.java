@@ -1,21 +1,24 @@
 package repository;
 
+import exceptions.CampoVazioException;
 import java.io.*;
 import java.nio.file.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
-import negocio.entidades.Gasto;
-import negocio.entidades.Mensalidade;
+import model.Categoria;
+import model.gastos.Gasto;
+import model.gastos.Mensalidade;
+import service.CategoriaManager;
 
 /**
- * Classe de repositório para gerenciar a persistência de objetos Gasto e Mensalidade.
- * Lida com a leitura e escrita de dados em um arquivo de texto.
+ * Classe de repositório para gerenciar a persistência de objetos Gasto.
  */
 public class GastoRepository {
-    private static final String CAMINHO_ARQUIVO = "files/gastos.txt";
 
-    /**
-     * Garante que o diretório e o arquivo de dados existam.
-     */
+    private static final String CAMINHO_ARQUIVO = "files/gastos.txt";
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
     private static void garantirArquivo() throws IOException {
         Path path = Paths.get(CAMINHO_ARQUIVO);
         Path dir = path.getParent();
@@ -27,10 +30,6 @@ public class GastoRepository {
         }
     }
 
-    /**
-     * Salva uma lista de gastos no arquivo, sobrescrevendo o conteúdo existente.
-     * @param gastos A lista de gastos a ser salva.
-     */
     public static void salvar(List<Gasto> gastos) throws IOException {
         garantirArquivo();
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(CAMINHO_ARQUIVO), StandardOpenOption.TRUNCATE_EXISTING)) {
@@ -41,48 +40,9 @@ public class GastoRepository {
         }
     }
 
-    /**
-     * Salva uma lista de mensalidades, mantendo os outros gastos.
-     * @param mensalidades A lista de mensalidades a ser salva.
-     */
-    public static void salvarMensalidades(List<Mensalidade> mensalidades) throws IOException {
-        List<Gasto> gastos = carregar();
-        
-        // Remove as mensalidades antigas para adicionar as novas.
-        gastos.removeIf(gasto -> gasto instanceof Mensalidade);
-        
-        // Adiciona as novas mensalidades na lista.
-        for (Mensalidade mensalidade : mensalidades) {
-            gastos.add(mensalidade);
-        }
-        
-        // Salva a lista completa (gastos e mensalidades).
-        salvar(gastos);
-    }
-
-    /**
-     * Carrega e retorna apenas as mensalidades do arquivo.
-     * @return Uma lista de objetos Mensalidade.
-     */
-    public static List<Mensalidade> carregarMensalidades() throws IOException {
-        List<Gasto> gastos = carregar();
-        List<Mensalidade> mensalidades = new ArrayList<>();
-        
-        // Filtra a lista para retornar apenas as instâncias de Mensalidade.
-        for (Gasto gasto : gastos) {
-            if (gasto instanceof Mensalidade mensalidade) {
-                mensalidades.add(mensalidade);
-            }
-        }
-        
-        return mensalidades;
-    }
-
-    /**
-     * Carrega todos os gastos (incluindo mensalidades) do arquivo.
-     * @return Uma lista de objetos Gasto.
-     */
-    public static List<Gasto> carregar() throws IOException {
+    // Corrigido para carregar os gastos do arquivo, usando a lista de categorias
+    // para reconstruir os objetos Gasto.
+    public static List<Gasto> carregar(List<Categoria> categorias) throws IOException, CampoVazioException {
         garantirArquivo();
         List<Gasto> gastos = new ArrayList<>();
 
@@ -91,11 +51,28 @@ public class GastoRepository {
             while ((linha = reader.readLine()) != null) {
                 if (linha.isBlank()) continue;
                 try {
-                    // Tenta converter cada linha em um objeto Gasto.
-                    Gasto gasto = Gasto.fromFileString(linha);
-                    gastos.add(gasto);
+                    String[] partes = linha.split(";");
+                    if (partes.length >= 5) {
+                        int id = Integer.parseInt(partes[0].trim());
+                        String nome = partes[1].trim();
+                        double valor = Double.parseDouble(partes[2].trim());
+                        LocalDate dataCriacao = LocalDate.parse(partes[3].trim(), DATE_FORMATTER);
+                        int idCategoria = Integer.parseInt(partes[4].trim());
+
+                        Categoria categoria = categorias.stream()
+                            .filter(c -> c.getId() == idCategoria)
+                            .findFirst()
+                            .orElse(null);
+
+                        if (categoria != null) {
+                            Gasto gasto = new Gasto(id, nome, valor, categoria, dataCriacao);
+                            gastos.add(gasto);
+                        } else {
+                            System.err.println("Aviso: Categoria com ID " + idCategoria + " não encontrada para o gasto '" + nome + "'.");
+                        }
+                    }
                 } catch (Exception e) {
-                    System.err.println("Erro ao ler linha: " + linha + " - " + e.getMessage());
+                    System.err.println("Erro ao carregar linha do arquivo: " + linha + " - " + e.getMessage());
                 }
             }
         }
