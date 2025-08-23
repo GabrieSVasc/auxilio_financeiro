@@ -1,7 +1,6 @@
 package iu.viewController;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -19,6 +18,7 @@ import javafx.scene.image.ImageView;
 import main.Main;
 import negocio.entidades.GraficoSetores;
 import negocio.entidades.Setor;
+import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.MesSemGastosException;
 
 public class GerenciarGastosViewController implements Initializable{
@@ -75,6 +75,8 @@ public class GerenciarGastosViewController implements Initializable{
 			alerta.showAndWait();
 			pcMesAtual.getData().add(new PieChart.Data("Vazio", 10));
 			pcMesAtual.setTitle("Gráfico do mês");
+		} catch (CampoVazioException e) {
+			e.printStackTrace();
 		}
 	}
 	

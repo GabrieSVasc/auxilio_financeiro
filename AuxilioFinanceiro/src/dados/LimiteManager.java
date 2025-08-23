@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import negocio.entidades.Categoria;
-import negocio.entidades.Gastos;
+import negocio.entidades.Gasto;
 import negocio.entidades.Limite;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ObjetoNuloException;
@@ -23,17 +23,19 @@ public class LimiteManager implements CrudMenu {
     public LimiteManager(List<Categoria> categorias, List<Limite> limites) {
         this.categorias = categorias;
         this.limites = limites;
-        this.lembreteLimiteManager = lembreteLimiteManager;
+        this.lembreteLimiteManager = new LembreteLimiteManager(limites);
     }
 
      public void atualizarTotais(Categoria cat) {
         if (cat == null) return;
-
+        
+        GastoManager gm = new GastoManager(new CategoriaManager());
+        
         try {
-            List<Gastos> todosGastos = ArquivoGastosManager.listar(categorias);
+            List<Gasto> todosGastos = gm.listarGastos();
             double total = todosGastos.stream()
                     .filter(g -> g.getCategoria().getId() == cat.getId())
-                    .mapToDouble(Gastos::getValor)
+                    .mapToDouble(Gasto::getValor)
                     .sum();
 
             Limite lim = limites.stream()

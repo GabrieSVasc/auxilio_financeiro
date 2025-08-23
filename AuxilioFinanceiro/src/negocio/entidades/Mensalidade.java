@@ -1,9 +1,8 @@
-package model.gastos;
+package negocio.entidades;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import exceptions.CampoVazioException;
-import model.Categoria;
+
+import negocio.exceptions.CampoVazioException;
 
 public class Mensalidade extends Gasto {
     private String recorrencia;

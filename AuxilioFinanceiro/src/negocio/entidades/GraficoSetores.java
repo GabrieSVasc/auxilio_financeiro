@@ -1,17 +1,17 @@
 package negocio.entidades;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import dados.CategoriaManager;
+import dados.GastoManager;
+import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.MesSemGastosException;
-import service.GastoManager;
 
 public class GraficoSetores{
     private Mes mes;
 	private ArrayList<Setor> setores;
 	
-	public GraficoSetores(int m, int a, CategoriaManager cm, GastoManager gm) throws MesSemGastosException {
+	public GraficoSetores(int m, int a, CategoriaManager cm, GastoManager gm) throws MesSemGastosException, CampoVazioException {
 		this.mes = new Mes(m, a);
 		setores = new ArrayList<Setor>();
 		for(Categoria c: cm.getCategorias()) {
@@ -19,7 +19,7 @@ public class GraficoSetores{
 		}
 	}
 	
-	public GraficoSetores(Mes m, CategoriaManager cm, GastoManager gm) throws MesSemGastosException {
+	public GraficoSetores(Mes m, CategoriaManager cm, GastoManager gm) throws MesSemGastosException, CampoVazioException {
 		this.mes = m;
 		setores = new ArrayList<Setor>();
 		for(Categoria c: cm.getCategorias()) {

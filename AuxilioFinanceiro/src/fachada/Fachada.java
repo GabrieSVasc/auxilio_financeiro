@@ -2,29 +2,84 @@ package fachada;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import dados.CategoriaManager;
+import dados.GastoManager;
 import negocio.NegocioGrafico;
 import negocio.NegocioMes;
 import negocio.entidades.Categoria;
+import negocio.entidades.Gasto;
 import negocio.entidades.GraficoBarras;
 import negocio.entidades.GraficoSetores;
 import negocio.entidades.Mes;
+import negocio.entidades.Meta;
 import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
-import service.CategoriaSemGastosException;
 
 public class Fachada {
-	
+	private static CategoriaManager cm = new CategoriaManager();
+	private static GastoManager gm = new GastoManager(cm);
+
 	//Gastos
-	
+	public ArrayList<TransferindoListas> inicializarGastos(){
+		ArrayList<TransferindoListas> gastos = new ArrayList<>();
+		
+		for(Gasto g: gm.listarGastos()) {
+			String strG = "R$ "+g.getValor() + " - "+ g.getNome();
+			gastos.add(new TransferindoListas(strG, g.getId()));
+		}
+		
+		return gastos;
+	}
 	//Lembretes
 	
+	//Metas
+	public void criarMeta(String descricao, double valorObjetivo, double valorAtual, LocalDate data) {
+		Meta meta = new Meta(descricao, valorObjetivo, valorAtual, data);
+		List<Meta> metas = Meta.carregarMetas();
+		metas.add(meta);
+		Meta.salvarLista(metas);
+	}
+	
+	public ArrayList<TransferindoListas> inicializarMetas(){
+		ArrayList<TransferindoListas> metas = new ArrayList<>();
+		
+		for(Meta m : Meta.carregarMetas()) {
+			metas.add(new TransferindoListas(m.getDescricao()+" - ("+m.getValorAtual()+"/"+m.getValorObjetivo()+")", m.getId()));
+		}
+		
+		return metas;
+	}
+	
+	public void removerMeta(int id) {
+		List<Meta> metas = Meta.carregarMetas();
+        Meta m = metas.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+        metas.remove(m);
+        Meta.salvarLista(metas);
+	}
+	
+	public void editarMeta(int id, String descricao, double valorOb, double valorAt, LocalDate data) {
+		List<Meta> metas = Meta.carregarMetas();
+		Meta m = metas.stream().filter(x -> x.getId()==id).findFirst().orElse(null);
+		m.setDescricao(descricao);
+		m.setDataPrazo(data);
+		m.setValorAtual(valorAt);
+		m.setValorObjetivo(valorOb);
+		metas.set(metas.indexOf(m), m);
+		Meta.salvarLista(metas);
+	}
+	
+	public Meta getMeta(int id) {
+		List<Meta> metas = Meta.carregarMetas();
+		Meta m = metas.stream().filter(x->x.getId() == id).findFirst().orElse(null);
+		return m;
+	}
+	
 	//Categorias
-	private CategoriaManager cm;
 	public ArrayList<String> inicializarCategorias(){
 		ArrayList<String> categorias = new ArrayList<String>();
-		cm = new CategoriaManager();
 		
 		for(Categoria c : cm.getCategorias()) {
 			categorias.add(c.getNome());
@@ -43,12 +98,12 @@ public class Fachada {
 		return meses;
 	}
 	
-	public GraficoSetores inicializarGraficoSetores() throws MesSemGastosException {
+	public GraficoSetores inicializarGraficoSetores() throws MesSemGastosException, CampoVazioException {
 		LocalDate lD = LocalDate.now();
 		return nG.vizualizarGraficoSetores(new Mes(lD.getMonthValue(), lD.getYear()));
 	}
 	
-	public GraficoSetores inicializarGraficoSetoresMes(String m) throws MesSemGastosException {
+	public GraficoSetores inicializarGraficoSetoresMes(String m) throws MesSemGastosException, CampoVazioException {
 		String[] valores = m.split("/");
 		Mes mes = new Mes(Integer.valueOf(valores[0]), Integer.valueOf(valores[1])); 
 		return nG.vizualizarGraficoSetores(mes);

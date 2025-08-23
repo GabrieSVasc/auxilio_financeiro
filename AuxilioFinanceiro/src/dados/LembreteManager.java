@@ -1,7 +1,9 @@
 package dados;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import negocio.entidades.Lembrete;
 import negocio.entidades.LembreteBase;
 /**
  * Gerencia lembretes genéricos (LembreteBase).
@@ -10,12 +12,15 @@ import negocio.entidades.LembreteBase;
  */
 public class LembreteManager {
     private List<LembreteBase> lembrentes;
+    private List<Lembrete> lembretes;
 
     public LembreteManager() {
         this.lembrentes = new ArrayList<>();
     }
 
     public void adicionarLembrente(LembreteBase l) { lembrentes.add(l); }
+
+    public void adicionarLembrete(Lembrete l) { lembretes.add(l); }
 
     public void removerLembrente(int id) { lembrentes.removeIf(l -> l.getId() == id); }
 
@@ -58,4 +63,13 @@ public class LembreteManager {
             }
         }
     }
+
+	public void atualizarLembrete(int id, String string, String string2, LocalDate dataPrazo) {
+		LembreteBase lb = lembrentes.get(id);
+		lb.setDescricao(string);
+	}
+
+	public List<LembreteBase> listarTodos() {
+		return lembrentes;
+	}
 }

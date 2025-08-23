@@ -7,20 +7,21 @@ import java.util.Iterator;
 import java.util.List;
 
 import dados.CategoriaManager;
-import exceptions.CampoVazioException;
-import exceptions.ObjetoNuloException;
-import exceptions.ValorNegativoException;
-import model.Limite;
-import model.lembretes.Lembrete;
-import model.lembretes.LembreteLimite;
-import model.lembretes.MensalidadeLembrete;
+import dados.GastoManager;
+import dados.LembreteManager;
+import dados.LimiteManager;
+import dados.MensalidadeManager;
 import negocio.entidades.Categoria;
 import negocio.entidades.Gasto;
+import negocio.entidades.Lembrete;
+import negocio.entidades.LembreteBase;
+import negocio.entidades.LembreteLimite;
+import negocio.entidades.Limite;
 import negocio.entidades.Mensalidade;
-import service.GastoManager;
-import service.LembreteManager;
-import service.LimiteManager;
-import service.MensalidadeManager;
+import negocio.entidades.MensalidadeLembrete;
+import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.ObjetoNuloException;
+import negocio.exceptions.ValorNegativoException;
 
 public class Main {
     public static void main(String[] args) throws ObjetoNuloException, ValorNegativoException {
@@ -42,16 +43,16 @@ public class Main {
 
         CategoriaManager categoriaManager = new CategoriaManager(categorias);
         
-        GastoManager gastoManager = new GastoManager();
+        GastoManager gastoManager = new GastoManager(categoriaManager);
         MensalidadeManager mensalidadeManager = null;
-		mensalidadeManager = new MensalidadeManager();
+		mensalidadeManager = new MensalidadeManager(categoriaManager);
         
         // Crie a lista de limites e instancie o LimiteManager corretamente
         List<Limite> limites = new ArrayList<>();
         LimiteManager limiteManager = new LimiteManager(categorias, limites);
 
         // Agora instancie o LembreteManager com suas dependências
-        LembreteManager lembreteManager = new LembreteManager(mensalidadeManager, limiteManager, categoriaManager);
+        LembreteManager lembreteManager = new LembreteManager();
 
         try {
             System.out.println("--- Testando GastoManager ---");
@@ -82,7 +83,7 @@ public class Main {
             Limite limiteAlimentacao = new Limite(categoriaManager.getCategorias().get(0), 500.0);
             limites.add(limiteAlimentacao);
             
-            LembreteLimite lembreteLimite = new LembreteLimite(limiteAlimentacao, "Limite de Alimentação", LocalDate.now().plusDays(7));
+            LembreteLimite lembreteLimite = new LembreteLimite(limiteAlimentacao, "Limite de Alimentação");
             
             // Atualize o limite diretamente da lista gerenciada pelo LimiteManager
             Iterator<Limite> lI = limiteManager.getLimites().iterator();
@@ -93,12 +94,12 @@ public class Main {
             	}
             }
             
-            lembreteManager.criarLembrete(lembreteLimite);
+            lembreteManager.adicionarLembrente(lembreteLimite);
             
             System.out.println("\nLembrete de Limite adicionado e notificação gerada:");
-            Iterator<Lembrete> lembrete = lembreteManager.listarTodos().iterator();
+            Iterator<LembreteBase> lembrete = lembreteManager.listarTodos().iterator();
             while(lembrete.hasNext()) {
-            	Lembrete lem = lembrete.next();
+            	LembreteBase lem = lembrete.next();
             	if(lem!=null && lem instanceof LembreteLimite) {
             		System.out.println(lem.gerarNotificacao());
             	}
@@ -108,7 +109,7 @@ public class Main {
             mensalidadeManager.adicionarMensalidade(mensalidadeParaLembrete);
             System.out.println("\nCriando lembrete para a mensalidade Spotify (ID: " + mensalidadeParaLembrete.getId() + ")");
             MensalidadeLembrete lembreteMensalidade = new MensalidadeLembrete("Pagar Spotify", "Valor: R$ 21,90", mensalidadeParaLembrete.getDataVencimento(), mensalidadeParaLembrete.getId());
-            lembreteManager.criarLembrete(lembreteMensalidade);
+            lembreteManager.adicionarLembrete(lembreteMensalidade);
             
             System.out.println("\nTodos os lembretes criados:");
             lembreteManager.listarTodos().forEach(System.out::println);

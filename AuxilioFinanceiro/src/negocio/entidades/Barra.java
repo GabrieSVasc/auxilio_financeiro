@@ -3,15 +3,16 @@ package negocio.entidades;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import dados.GastoManager;
+import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
-import service.CategoriaSemGastosException;
-import service.GastoManager;
 
 public class Barra {
 	private Mes mes;
 	private ArrayList<Gasto> gastos;
 	
-	public Barra(Categoria c,  GastoManager gm, Mes mes) throws MesSemGastosException, CategoriaSemGastosException {
+	public Barra(Categoria c,  GastoManager gm, Mes mes) throws MesSemGastosException, CategoriaSemGastosException, CampoVazioException {
 		this.mes = mes;
 		try {
 			gastos = gm.getGastosByCategoria(c, mes.getMes(), mes.getAno());

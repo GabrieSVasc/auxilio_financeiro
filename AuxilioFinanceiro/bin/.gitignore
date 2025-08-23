@@ -1,13 +1,3 @@
-/files/
-/dados/
-/exceptions/
-/fachada/
 /iu/
 /main/
-/mainsTestes/
-/model/
-/module-info.class
-/negocio/
-/repository/
-/service/
-/util/
+/fachada/

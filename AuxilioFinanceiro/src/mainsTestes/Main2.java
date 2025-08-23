@@ -3,6 +3,8 @@ package mainsTestes;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import dados.GastoManager;
+import dados.LembreteManager;
 import dados.LembreteRepository;
 import negocio.entidades.Categoria;
 import negocio.entidades.FaturaLembrete;
@@ -11,8 +13,6 @@ import negocio.entidades.Lembrete;
 import negocio.entidades.Mensalidade;
 import negocio.entidades.MensalidadeLembrete;
 import negocio.exceptions.CampoVazioException;
-import service.GastoManager;
-import service.LembreteManager;
 
 public class Main2 {
     public static void main(String[] args) {

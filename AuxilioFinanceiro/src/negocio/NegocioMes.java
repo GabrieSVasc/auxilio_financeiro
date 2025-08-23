@@ -1,8 +1,6 @@
 package negocio;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import dados.RepositorioMeses;
 import negocio.entidades.Mes;

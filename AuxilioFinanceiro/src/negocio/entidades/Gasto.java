@@ -1,9 +1,9 @@
-package model.gastos;
+package negocio.entidades;
 
-import exceptions.CampoVazioException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import model.Categoria;
+
+import negocio.exceptions.CampoVazioException;
 
 /**
  * Representa um gasto.

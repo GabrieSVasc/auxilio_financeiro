@@ -1,14 +1,24 @@
 package iu.viewController;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import fachada.Fachada;
+import fachada.TransferindoListas;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import main.Main;
 
 public class MetasViewController implements Initializable{
@@ -19,15 +29,98 @@ public class MetasViewController implements Initializable{
 	private Button btnVoltar;
 	
 	@FXML
-	private Pane pnListaMetas;
+	private Button btnNovaMeta;
 	
 	@FXML
-	private Button btnNovaMeta;
+	private TableView<TransferindoListas> tblMetas;
+
+	@FXML
+	private TableColumn<TransferindoListas, String> meta;
+
+	@FXML
+	private TableColumn<TransferindoListas, Void> editar;
+
+	@FXML
+	private TableColumn<TransferindoListas, Void> remover;
+
+	private ArrayList<TransferindoListas> metas;
+	private static Fachada fachada = new Fachada();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle rb) {
 		btnVoltar.setGraphic(imgVoltar);
+		metas = new ArrayList<TransferindoListas>();
+		metas = fachada.inicializarMetas();
+
+		meta = new TableColumn<TransferindoListas, String>("Metas");
+		ObservableList<TransferindoListas> dados = FXCollections.observableArrayList(metas);
+		meta.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStringLista()));
+		meta.setPrefWidth(855);
+		meta.setStyle("-fx-font-size: 20px");
+		editar = new TableColumn<TransferindoListas, Void>("Editar");
+		editar.setPrefWidth(100);
+		remover = new TableColumn<TransferindoListas, Void>("Remover");
+		remover.setPrefWidth(100);
+		tblMetas.getColumns().add(meta);
+		tblMetas.getColumns().add(editar);
+		tblMetas.getColumns().add(remover);
+		tblMetas.setItems(dados);
 	}
+	
+	public void inicializaValores() {
+		metas = fachada.inicializarMetas();
+
+		ObservableList<TransferindoListas> dados = FXCollections.observableArrayList(metas);
+		meta.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStringLista()));
+		tblMetas.setItems(dados);
+		
+		editar.setCellFactory(col -> new TableCell<>() {
+			private final Button btn = new Button("Editar");
+			private final HBox container = new HBox(btn);
+			{
+				btn.setMaxWidth(Double.MAX_VALUE);
+				HBox.setHgrow(btn, Priority.ALWAYS);
+				btn.setOnAction(event ->{
+					TransferindoListas tl = getTableView().getItems().get(getIndex());
+					Main.mudarTelaEdicao("editarMeta", tl.getId());
+					
+				});
+			}
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+				if(empty) {
+					setGraphic(null);
+				}else {
+					setGraphic(btn);
+				}
+			}
+		});
+		
+		remover.setCellFactory(col -> new TableCell<>() {
+			private final Button btn = new Button("Remover");
+			private final HBox container = new HBox(btn);
+			{
+				btn.setMaxWidth(Double.MAX_VALUE);
+				HBox.setHgrow(btn, Priority.ALWAYS);
+				btn.setOnAction(event ->{
+					TransferindoListas tl = getTableView().getItems().get(getIndex());
+					fachada.removerMeta(tl.getId());
+					inicializaValores();
+				});
+			}
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+				if(empty) {
+					setGraphic(null);
+				}else {
+					setGraphic(btn);
+				}
+			}
+		});
+	}
+	
 	@FXML
 	protected void btnVoltarAction(ActionEvent e) {
 		Main.mudarTela("gerenciarGastos");

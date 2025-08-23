@@ -24,8 +24,8 @@ import negocio.entidades.GraficoBarras;
 import negocio.entidades.GraficoSetores;
 import negocio.entidades.Setor;
 import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
-import service.CategoriaSemGastosException;
 
 public class ResumosGastosViewController implements Initializable {
 
@@ -104,35 +104,38 @@ public class ResumosGastosViewController implements Initializable {
 			alerta.setContentText("Não há gastos cadastrados nesse mês");
 			alerta.showAndWait();
 			cbMeses.getSelectionModel().select(0);
+		} catch (CampoVazioException e) {
+			e.printStackTrace();
 		}
 	}
 
 	@FXML
 	protected void criarGraficoBarras() {
 		GraficoBarras grafico = null;
-		if (bcPorCategoria.getData().size() == 0) {
-			try {
-				grafico = fachada.inicializarGraficoBarrasCategoria(cbCategorias.getSelectionModel().getSelectedItem());
-				XYChart.Series categoria = new XYChart.Series<>();
-				categoria.setName(grafico.getCategoria().getNome());
-				int qtBarras = 0;
-				for (Barra b : grafico.getBarras()) {
-					categoria.getData().add(new XYChart.Data(b.getMes().toString(), b.getValorTotal()));
-					qtBarras++;
-				}
-				for (qtBarras = qtBarras; qtBarras < 12; qtBarras++) {
-					categoria.getData().add(new XYChart.Data<>(meses.get(qtBarras), 0));
-				}
-				bcPorCategoria.getData().add(categoria);
-			} catch (CategoriaSemGastosException e) {
-				Alert alerta = new Alert(AlertType.INFORMATION);
-				alerta.setTitle("Gráfico de categoria");
-				alerta.setContentText("Não há gastos cadastrados nessa categoria");
-				alerta.showAndWait();
-				cbCategorias.getSelectionModel().select(0);
-			} catch (CampoVazioException e) {
-				e.printStackTrace();
+		try {
+			grafico = fachada.inicializarGraficoBarrasCategoria(cbCategorias.getSelectionModel().getSelectedItem());
+			XYChart.Series categoria = new XYChart.Series<>();
+			categoria.setName(grafico.getCategoria().getNome());
+			int qtBarras = 0;
+			for (Barra b : grafico.getBarras()) {
+				categoria.getData().add(new XYChart.Data(b.getMes().toString(), b.getValorTotal()));
+				qtBarras++;
 			}
+			for (qtBarras = qtBarras; qtBarras < 12; qtBarras++) {
+				categoria.getData().add(new XYChart.Data<>(meses.get(qtBarras), 0));
+			}
+			if (bcPorCategoria.getData().size() > 0) {
+				bcPorCategoria.getData().remove(0);
+			}
+			bcPorCategoria.getData().add(categoria);
+		} catch (CategoriaSemGastosException e) {
+			Alert alerta = new Alert(AlertType.INFORMATION);
+			alerta.setTitle("Gráfico de categoria");
+			alerta.setContentText("Não há gastos cadastrados nessa categoria");
+			alerta.showAndWait();
+			cbCategorias.getSelectionModel().select(0);
+		} catch (CampoVazioException e) {
+			e.printStackTrace();
 		}
 	}
 

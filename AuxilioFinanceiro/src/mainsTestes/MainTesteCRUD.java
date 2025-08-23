@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-import dados.ArquivoGastosManager;
 import negocio.entidades.Categoria;
-import negocio.entidades.Gastos;
 
 public class MainTesteCRUD {
     public static void main(String[] args) {

@@ -23,7 +23,7 @@ public class LembreteLimite extends LembreteBase {
         if (id >= contadorLimite) contadorLimite = id + 1;
     }
 
-    public Limite getLimite() { return limite; }
+	public Limite getLimite() { return limite; }
     public void setLimite(Limite limite) { this.limite = limite; }
 
     public String toArquivo() {
@@ -79,4 +79,9 @@ public class LembreteLimite extends LembreteBase {
 
     @Override
     public String toString() { return gerarNotificacao(); }
+
+	public void setGastoAtual(double novoGasto) {
+		this.setGastoAtual(novoGasto);
+	}
+
 }

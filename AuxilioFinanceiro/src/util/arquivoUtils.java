@@ -1,5 +1,12 @@
 package util;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 /** 
@@ -71,5 +78,18 @@ public class arquivoUtils {
         if (!pasta.exists()) {
             pasta.mkdirs(); // Usa mkdirs() para criar toda a estrutura de pastas
         }
+    }
+
+    public static boolean existeNoArquivo(String nome, String nomeArquivo) {
+    	boolean existe = false;
+    	for(String v : lerDoArquivo(nomeArquivo)) {
+    		String[] partes = v.split(";");
+    		String nomeV = partes[1];
+    		if(nomeV.equals(nome)) {
+    			existe = true;
+    			break;
+    		}
+    	}
+    	return existe;
     }
 }

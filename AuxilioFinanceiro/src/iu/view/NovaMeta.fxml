@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="239.0" prefWidth="293.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iu.viewController.NovaMetaViewController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="293.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iu.viewController.NovaMetaViewController">
    <children>
       <Label alignment="CENTER" layoutY="12.0" prefHeight="34.0" prefWidth="293.0" text="Meta">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="34.0" layoutY="54.0" text="Valor:">
+      <Label layoutX="34.0" layoutY="54.0" text="Descrição:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="34.0" layoutY="74.0" prefHeight="32.0" prefWidth="225.0" />
-      <ComboBox layoutX="34.0" layoutY="141.0" prefHeight="32.0" prefWidth="191.0" />
-      <Label layoutX="34.0" layoutY="121.0" text="Categoria:">
+      <TextField fx:id="txtDescricao" layoutX="34.0" layoutY="74.0" prefHeight="32.0" prefWidth="225.0" />
+      <Label layoutX="34.0" layoutY="121.0" text="Valor do Objetivo:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <ImageView fx:id="imgMais" fitHeight="25.0" fitWidth="25.0" layoutX="225.0" layoutY="144.0">
-         <image>
-            <Image url="@../../files/Mais.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="btnNovaCategoria" layoutX="225.0" layoutY="141.0" mnemonicParsing="false" onAction="#btnNovaCategoriaAction" prefHeight="32.0" prefWidth="32.0" />
-      <Button fx:id="btnVoltar" layoutX="23.0" layoutY="197.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="32.0" prefWidth="96.0" text="Voltar" />
-      <Button layoutX="175.0" layoutY="197.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="96.0" text="Confirmar" />
+      <Button fx:id="btnVoltar" layoutX="34.0" layoutY="335.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="32.0" prefWidth="96.0" text="Voltar" />
+      <Button fx:id="btnConfirmar" layoutX="163.0" layoutY="335.0" mnemonicParsing="false" onAction="#btnConfirmarAction" prefHeight="32.0" prefWidth="96.0" text="Confirmar" />
+      <Label layoutX="34.0" layoutY="192.0" text="Valor Atual:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="dtpPrazo" layoutX="34.0" layoutY="285.0" prefHeight="32.0" prefWidth="225.0" />
+      <Label layoutX="34.0" layoutY="260.0" text="Prazo:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Spinner fx:id="spinnerValorObjetivo" layoutX="34.0" layoutY="144.0" prefHeight="32.0" prefWidth="225.0" />
+      <Spinner fx:id="spinnerValorAtual" layoutX="34.0" layoutY="214.0" prefHeight="32.0" prefWidth="225.0" />
    </children>
 </Pane>
