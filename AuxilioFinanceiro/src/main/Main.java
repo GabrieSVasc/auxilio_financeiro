@@ -1,5 +1,6 @@
 package main;
 
+import iu.viewController.CategoriasViewController;
 import iu.viewController.EditarGastoViewController;
 import iu.viewController.EditarMetaViewController;
 import iu.viewController.GastosViewController;
@@ -57,6 +58,7 @@ public class Main extends Application {
 	private static NovoGastoViewController ngVC;
 	private static NovaMetaViewController nmVC;
 	private static EditarGastoViewController egVC;
+	private static CategoriasViewController cVC;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -94,8 +96,10 @@ public class Main extends Application {
 			cenaGastos = new Scene(gastos);
 			gVC = loaderGastos.getController();
 
-			Parent categorias = FXMLLoader.load(getClass().getResource("/iu/view/Categorias.fxml"));
+			FXMLLoader loaderCategorias = new FXMLLoader(getClass().getResource("/iu/view/Categorias.fxml"));
+			Parent categorias = loaderCategorias.load();
 			cenaCategorias = new Scene(categorias);
+			cVC = loaderCategorias.getController();
 
 			Parent novoLembrete = FXMLLoader.load(getClass().getResource("/iu/view/NovoLembrete.fxml"));
 			cenaNovoLembrete = new Scene(novoLembrete);
@@ -198,6 +202,7 @@ public class Main extends Application {
 		case "resumosGastos":
 			stage.setScene(cenaResumosGastos);
 			rgVC.criarGraficos();
+			rgVC.carregarValores();
 			break;
 		case "limitesGastos":
 			stage.setScene(cenaLimites);
@@ -215,6 +220,7 @@ public class Main extends Application {
 			break;
 		case "categorias":
 			stage.setScene(cenaCategorias);
+			cVC.inicializaValores();
 			break;
 		case "novoLembrete":
 			stage.setScene(cenaNovoLembrete);

@@ -12,9 +12,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import main.Main;
 
 public class CategoriasViewController implements Initializable{
@@ -28,16 +31,16 @@ public class CategoriasViewController implements Initializable{
 	private Button btnNovaCategoria;
 	
 	@FXML
-	private TableView tblCategorias;
+	private TableView<String> tblCategorias;
 
 	@FXML
 	private TableColumn<String, String> categoria;
 
 	@FXML
-	private TableColumn editar;
+	private TableColumn<String, Void> editar;
 
 	@FXML
-	private TableColumn remover;
+	private TableColumn<String, Void> remover;
 
 	private ArrayList<String> categorias;
 	private Fachada fachada;
@@ -48,13 +51,67 @@ public class CategoriasViewController implements Initializable{
 		btnVoltar.setGraphic(imgVoltar);
 		fachada = new Fachada();
 		categorias = fachada.inicializarCategorias();
-		categoria = new TableColumn();
-		categoria.setPrefWidth(872);
+		categoria = new TableColumn<String, String>("Categorias");
+		categoria.setPrefWidth(855);
 		categoria.setStyle("-fx-font-size: 20px");
 		ObservableList<String> dados = FXCollections.observableArrayList(categorias);
 		categoria.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+		editar = new TableColumn<String, Void>("Editar");
+		editar.setPrefWidth(100);
+		remover = new TableColumn<String, Void>("Remover");
+		remover.setPrefWidth(100);
 		tblCategorias.getColumns().add(categoria);
+		tblCategorias.getColumns().add(editar);
+		tblCategorias.getColumns().add(remover);
 		tblCategorias.setItems(dados);
+	}
+	
+	public void inicializaValores() {
+		categorias = fachada.inicializarCategorias();
+		
+		ObservableList<String> dados = FXCollections.observableArrayList(categorias);
+		categoria.setCellValueFactory(data-> new SimpleStringProperty(data.getValue()));
+		tblCategorias.setItems(dados);
+		
+		editar.setCellFactory(col -> new TableCell<>() {
+			private final Button btn = new Button("Editar");
+			private final HBox container = new HBox(btn);
+			{
+				btn.setMaxWidth(Double.MAX_VALUE);
+				HBox.setHgrow(btn, Priority.ALWAYS);
+				btn.setOnAction(event -> {
+				});
+			}
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+				if(empty) {
+					setGraphic(null);
+				}else {
+					setGraphic(btn);
+				}
+			}
+		});
+		
+		remover.setCellFactory(col -> new TableCell<>() {
+			private final Button btn = new Button("Remover");
+			private final HBox container = new HBox(btn);
+			{
+				btn.setMaxWidth(Double.MAX_VALUE);
+				HBox.setHgrow(btn, Priority.ALWAYS);
+				btn.setOnAction(event -> {
+				});
+			}
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+				if(empty) {
+					setGraphic(null);
+				}else {
+					setGraphic(btn);
+				}
+			}
+		});
 	}
 	
 	@FXML

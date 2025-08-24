@@ -116,6 +116,14 @@ public class Fachada {
 		return categorias;
 	}
 	
+	public void criarCategoria(String nome) {
+		List<Categoria> categorias = cm.getCategorias();
+		try {
+			categorias.add(new Categoria(nome));
+			Categoria.salvarTodas(categorias);
+		} catch (CampoVazioException e) {
+		}
+	}
 	//Graficos
 	private static NegocioMes nm = new NegocioMes();
 	private static NegocioGrafico nG = new NegocioGrafico();

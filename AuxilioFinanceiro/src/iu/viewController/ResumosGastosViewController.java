@@ -65,7 +65,7 @@ public class ResumosGastosViewController implements Initializable {
 	}
 
 	@FXML
-	protected void carregarValores() {
+	public void carregarValores() {
 		meses = fachada.inicializarMeses();
 		ObservableList<String> lista = FXCollections.observableArrayList(meses);
 		cbMeses.setItems(lista);
