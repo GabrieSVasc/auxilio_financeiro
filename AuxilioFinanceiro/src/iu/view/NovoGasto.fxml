@@ -2,14 +2,16 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="299.0" prefWidth="293.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iu.viewController.NovoGastoViewController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="293.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iu.viewController.NovoGastoViewController">
    <children>
       <Label alignment="CENTER" layoutY="12.0" prefHeight="34.0" prefWidth="293.0" text="Novo Gasto">
          <font>
@@ -21,26 +23,32 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="34.0" layoutY="66.0" prefHeight="32.0" prefWidth="225.0" />
+      <TextField fx:id="txtNome" layoutX="34.0" layoutY="66.0" prefHeight="32.0" prefWidth="225.0" />
       <Label layoutX="34.0" layoutY="113.0" prefHeight="20.0" prefWidth="50.0" text="Valor:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="34.0" layoutY="133.0" prefHeight="32.0" prefWidth="225.0" />
-      <Label layoutX="34.0" layoutY="180.0" prefHeight="20.0" prefWidth="100.0" text="Categoria:">
+      <Label layoutX="34.0" layoutY="252.0" prefHeight="20.0" prefWidth="100.0" text="Categoria:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Button fx:id="btnVoltar" layoutX="23.0" layoutY="252.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="32.0" prefWidth="96.0" text="Voltar" />
-      <Button layoutX="175.0" layoutY="252.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="96.0" text="Confirmar" />
-      <ComboBox layoutX="34.0" layoutY="200.0" prefHeight="32.0" prefWidth="191.0" />
-      <ImageView fx:id="imgMais" fitHeight="25.0" fitWidth="25.0" layoutX="225.0" layoutY="200.0">
+      <Button fx:id="btnVoltar" layoutX="34.0" layoutY="335.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="32.0" prefWidth="96.0" text="Voltar" />
+      <Button fx:id="btnConfirmar" layoutX="163.0" layoutY="335.0" mnemonicParsing="false" onAction="#btnConfirmarAction" prefHeight="32.0" prefWidth="96.0" text="Confirmar" />
+      <ComboBox fx:id="cbCategoria" layoutX="34.0" layoutY="278.0" prefHeight="32.0" prefWidth="191.0" />
+      <ImageView fx:id="imgMais" fitHeight="25.0" fitWidth="25.0" layoutX="226.0" layoutY="282.0">
          <image>
             <Image url="@../../files/Mais.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnNovaCategoria" layoutX="225.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnNovaCategoriaAction" prefHeight="32.0" prefWidth="32.0" />
+      <Button fx:id="btnNovaCategoria" layoutX="223.0" layoutY="278.0" mnemonicParsing="false" onAction="#btnNovaCategoriaAction" prefHeight="32.0" prefWidth="32.0" />
+      <DatePicker fx:id="dateData" layoutX="34.0" layoutY="202.0" prefHeight="32.0" prefWidth="225.0" />
+      <Spinner fx:id="spinnerValor" layoutX="34.0" layoutY="135.0" prefHeight="32.0" prefWidth="225.0" />
+      <Label layoutX="34.0" layoutY="180.0" prefHeight="20.0" prefWidth="100.0" text="Data:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

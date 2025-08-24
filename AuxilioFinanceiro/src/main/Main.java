@@ -1,8 +1,12 @@
 package main;
 
+import iu.viewController.EditarGastoViewController;
 import iu.viewController.EditarMetaViewController;
+import iu.viewController.GastosViewController;
 import iu.viewController.GerenciarGastosViewController;
 import iu.viewController.MetasViewController;
+import iu.viewController.NovaMetaViewController;
+import iu.viewController.NovoGastoViewController;
 import iu.viewController.ResumosGastosViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +53,11 @@ public class Main extends Application {
 	private static ResumosGastosViewController rgVC;
 	private static MetasViewController mVC;
 	private static EditarMetaViewController emVC;
-
+	private static GastosViewController gVC;
+	private static NovoGastoViewController ngVC;
+	private static NovaMetaViewController nmVC;
+	private static EditarGastoViewController egVC;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -80,9 +88,11 @@ public class Main extends Application {
 			Parent metas = loaderMetas.load();
 			cenaMetas = new Scene(metas);
 			mVC = loaderMetas.getController();
-
-			Parent gastos = FXMLLoader.load(getClass().getResource("/iu/view/Gastos.fxml"));
+			
+			FXMLLoader loaderGastos = new FXMLLoader(getClass().getResource("/iu/view/Gastos.fxml"));
+			Parent gastos = loaderGastos.load();
 			cenaGastos = new Scene(gastos);
+			gVC = loaderGastos.getController();
 
 			Parent categorias = FXMLLoader.load(getClass().getResource("/iu/view/Categorias.fxml"));
 			cenaCategorias = new Scene(categorias);
@@ -90,23 +100,29 @@ public class Main extends Application {
 			Parent novoLembrete = FXMLLoader.load(getClass().getResource("/iu/view/NovoLembrete.fxml"));
 			cenaNovoLembrete = new Scene(novoLembrete);
 
-			Parent novoGasto = FXMLLoader.load(getClass().getResource("/iu/view/NovoGasto.fxml"));
+			FXMLLoader loaderNovoGasto = new FXMLLoader(getClass().getResource("/iu/view/NovoGasto.fxml"));
+			Parent novoGasto = loaderNovoGasto.load();
 			cenaNovoGasto = new Scene(novoGasto);
+			ngVC = loaderNovoGasto.getController();
 
 			Parent novoLimite = FXMLLoader.load(getClass().getResource("/iu/view/NovoLimite.fxml"));
 			cenaNovoLimite = new Scene(novoLimite);
-
-			Parent novaMeta = FXMLLoader.load(getClass().getResource("/iu/view/NovaMeta.fxml"));
+			
+			FXMLLoader loaderNovaMeta = new FXMLLoader(getClass().getResource("/iu/view/NovaMeta.fxml"));
+			Parent novaMeta = loaderNovaMeta.load();
 			cenaNovaMeta = new Scene(novaMeta);
+			nmVC = loaderNovaMeta.getController();
 
 			Parent novaCategoria = FXMLLoader.load(getClass().getResource("/iu/view/NovaCategoria.fxml"));
 			cenaNovaCategoria = new Scene(novaCategoria);
 
 			Parent editarLembrete = FXMLLoader.load(getClass().getResource("/iu/view/EditarLembrete.fxml"));
 			cenaEditarLembrete = new Scene(editarLembrete);
-
-			Parent editarGasto = FXMLLoader.load(getClass().getResource("/iu/view/EditarGasto.fxml"));
+			
+			FXMLLoader loaderEditarGasto = new FXMLLoader(getClass().getResource("/iu/view/EditarGasto.fxml"));
+			Parent editarGasto = loaderEditarGasto.load();
 			cenaEditarGasto = new Scene(editarGasto);
+			egVC = loaderEditarGasto.getController();
 
 			Parent editarLimite = FXMLLoader.load(getClass().getResource("/iu/view/EditarLimite.fxml"));
 			cenaEditarLimite = new Scene(editarLimite);
@@ -195,6 +211,7 @@ public class Main extends Application {
 			break;
 		case "gastos":
 			stage.setScene(cenaGastos);
+			gVC.inicializaValores();
 			break;
 		case "categorias":
 			stage.setScene(cenaCategorias);
@@ -204,12 +221,14 @@ public class Main extends Application {
 			break;
 		case "novoGasto":
 			stage.setScene(cenaNovoGasto);
+			ngVC.atualizandoTela();
 			break;
 		case "novoLimite":
 			stage.setScene(cenaNovoLimite);
 			break;
 		case "novaMeta":
 			stage.setScene(cenaNovaMeta);
+			nmVC.atualizandoTela();
 			break;
 		case "novaCategoria":
 			stage.setScene(cenaNovaCategoria);
@@ -265,6 +284,7 @@ public class Main extends Application {
 			break;
 		case "editarGasto":
 			stage.setScene(cenaEditarGasto);
+			egVC.gastoEscolhido(v);
 			break;
 		case "editarLimite":
 			stage.setScene(cenaEditarLimite);

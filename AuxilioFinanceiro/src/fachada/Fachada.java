@@ -1,5 +1,6 @@
 package fachada;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,34 @@ public class Fachada {
 		
 		return gastos;
 	}
+	
+	public void removerGasto(int id) throws IOException, CampoVazioException {
+        gm.removerGasto(id);
+	}
+	
+	public void criarGasto(String nome, double valor, LocalDate data, String categoria) {
+		Categoria c = Categoria.carregarCategorias().stream().filter(x -> x.getNome().equals(categoria)).findFirst().orElse(null);
+		try {
+			gm.adicionarGasto(new Gasto(nome, valor, c, data));
+		} catch (IOException | CampoVazioException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Gasto getGasto(int v) {
+		return gm.listarGastos().stream().filter(x->x.getId()==v).findFirst().orElse(null);
+	}
+	
+	public void editarGasto(int id, String nome, Double valor, LocalDate data, String categoria) {
+		Categoria c = Categoria.carregarCategorias().stream().filter(x->x.getNome().equals(categoria)).findFirst().orElse(null);
+		try {
+			gm.editarGasto(id, nome, valor, data, c);
+		} catch (IOException | CampoVazioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	//Lembretes
 	
 	//Metas

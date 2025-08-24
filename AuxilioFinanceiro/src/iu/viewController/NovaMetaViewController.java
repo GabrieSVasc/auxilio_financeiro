@@ -107,5 +107,13 @@ public class NovaMetaViewController implements Initializable{
 		spinnerValorAtual.getEditor().setTextFormatter(txtForm);
 		spinnerValorAtual.setEditable(true);
 		valueFactory.valueProperty().bindBidirectional(textFormatter.valueProperty());
+		vlFactory.valueProperty().bindBidirectional(txtForm.valueProperty());
+	}
+	
+	public void atualizandoTela() {
+		txtDescricao.setText("");
+		spinnerValorObjetivo.getValueFactory().setValue(10.0);
+		spinnerValorAtual.getValueFactory().setValue(10.0);
+		dtpPrazo.setValue(null);
 	}
 }
