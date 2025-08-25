@@ -3,8 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -25,36 +25,36 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="46.0" layoutY="90.0" prefHeight="35.0" prefWidth="250.0" />
       <Label layoutX="47.0" layoutY="140.0" text="Taxa de Juros:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="47.0" layoutY="160.0" prefHeight="35.0" prefWidth="250.0" />
       <Button fx:id="btnVoltar" layoutX="29.0" layoutY="450.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="35.0" prefWidth="125.0" text="Voltar" />
-      <Button layoutX="194.0" layoutY="450.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" text="Confirmar" />
+      <Button fx:id="btnConfirmar" layoutX="194.0" layoutY="450.0" mnemonicParsing="false" onAction="#btnConfirmarAction" prefHeight="35.0" prefWidth="125.0" text="Confirmar" />
       <Label layoutX="47.0" layoutY="210.0" text="Tempo:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="47.0" layoutY="230.0" prefHeight="35.0" prefWidth="250.0" />
-      <CheckBox layoutX="47.0" layoutY="265.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="125.0" text="Meses">
+      <CheckBox fx:id="chMeses" layoutX="47.0" layoutY="265.0" mnemonicParsing="false" onAction="#chMesesAction" prefHeight="20.0" prefWidth="125.0" text="Meses">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <CheckBox layoutX="171.0" layoutY="265.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="125.0" text="Anos">
+      <CheckBox fx:id="chAnos" layoutX="171.0" layoutY="265.0" mnemonicParsing="false" onAction="#chAnosAction" prefHeight="20.0" prefWidth="125.0" text="Anos">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <TextArea layoutX="46.0" layoutY="325.0" prefHeight="100.0" prefWidth="250.0" promptText="Ex: (300, 200, 500, 800)" />
+      <TextArea fx:id="txtArrecadacao" layoutX="46.0" layoutY="325.0" prefHeight="100.0" prefWidth="250.0" promptText="Ex: (300, 200, 500, 800)" />
       <Label layoutX="47.0" layoutY="300.0" text="Arrecadação:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
+      <Spinner fx:id="spinnerCusto" layoutX="46.0" layoutY="90.0" prefHeight="35.0" prefWidth="250.0" />
+      <Spinner fx:id="spinnerTaxa" layoutX="46.0" layoutY="160.0" prefHeight="35.0" prefWidth="250.0" />
+      <Spinner fx:id="spinnerTempo" layoutX="46.0" layoutY="230.0" prefHeight="35.0" prefWidth="250.0" />
    </children>
 </Pane>

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import fachada.Fachada;
-import fachada.ValorLista;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import main.Main;
+import negocio.entidades.ValorLista;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ValorNegativoException;
@@ -114,6 +114,9 @@ public class LimitesViewController implements Initializable{
 					} catch (ObjetoNaoEncontradoException e) {
 						e.printStackTrace();
 					} catch (ValorNegativoException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				});

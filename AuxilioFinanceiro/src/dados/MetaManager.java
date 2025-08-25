@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-import negocio.entidades.CrudMenu;
 import negocio.entidades.LembreteMeta;
 import negocio.entidades.Meta;
 import negocio.exceptions.CampoVazioException;
@@ -61,7 +60,7 @@ public class MetaManager implements CrudMenu {
         
         // Adiciona lembrete associado à nova meta
         LembreteMeta lembrete = new LembreteMeta(m, "Acompanhamento da meta " + desc);
-        lembreteManager.adicionarLembrente(lembrete);
+        lembreteManager.criarLembrete(lembrete);
         System.out.println("Meta criada.");
     }
 
@@ -116,7 +115,7 @@ public class MetaManager implements CrudMenu {
         if (!ok) {
             System.out.println("Meta não encontrada.");
         } else { 
-            lembreteManager.removerLembrente(id);
+            lembreteManager.removerLembrete(id);
             Meta.salvarLista(metas); 
             System.out.println("Meta removida."); 
         }

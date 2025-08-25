@@ -4,6 +4,8 @@ import iu.viewController.CategoriasViewController;
 import iu.viewController.DadosAmortizacaoViewController;
 import iu.viewController.DadosDescontoViewController;
 import iu.viewController.DadosInvestimentoViewController;
+import iu.viewController.DadosTaxaInternaRetornoViewController;
+import iu.viewController.DadosVPLPadraoViewController;
 import iu.viewController.DadosVariacaoViewController;
 import iu.viewController.EditarCategoriaViewController;
 import iu.viewController.EditarGastoViewController;
@@ -12,6 +14,7 @@ import iu.viewController.EditarLimiteViewController;
 import iu.viewController.EditarMetaViewController;
 import iu.viewController.GastosViewController;
 import iu.viewController.GerenciarGastosViewController;
+import iu.viewController.InicialViewController;
 import iu.viewController.LembretesViewController;
 import iu.viewController.LimitesViewController;
 import iu.viewController.MetasViewController;
@@ -85,13 +88,18 @@ public class Main extends Application {
 	private static DadosVariacaoViewController dvVC;
 	private static DadosInvestimentoViewController diVC;
 	private static TutoriaisViewController tVC;
-	
+	private static InicialViewController iVC;
+	private static DadosVPLPadraoViewController pvplVC;
+	private static DadosTaxaInternaRetornoViewController tirVC;
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			stage = primaryStage;
-			Parent inicial = FXMLLoader.load(getClass().getResource("/iu/view/Inicial.fxml"));
+			FXMLLoader loaderInicial = new FXMLLoader(getClass().getResource("/iu/view/inicial.fxml"));
+			Parent inicial = loaderInicial.load();
 			cenaInicial = new Scene(inicial);
+			iVC = loaderInicial.getController();
 
 			Parent cambio = FXMLLoader.load(getClass().getResource("/iu/view/Câmbio.fxml"));
 			cenaCambio = new Scene(cambio);
@@ -180,7 +188,7 @@ public class Main extends Application {
 			Parent editarCategoria = loaderEditarCategoria.load();
 			cenaEditarCategoria = new Scene(editarCategoria);
 			ecVC = loaderEditarCategoria.getController();
-			
+
 			FXMLLoader loaderTutoriais = new FXMLLoader(getClass().getResource("/iu/view/Tutoriais.fxml"));
 			Parent tutoriais = loaderTutoriais.load();
 			cenaTutoriais = new Scene(tutoriais);
@@ -192,23 +200,25 @@ public class Main extends Application {
 
 			Parent investimentos = FXMLLoader.load(getClass().getResource("/iu/view/Investimentos.fxml"));
 			cenaInvestimentos = new Scene(investimentos);
-			
-			FXMLLoader loaderDadosInvestimento = new FXMLLoader(getClass().getResource("/iu/view/DadosInvestimento.fxml"));
+
+			FXMLLoader loaderDadosInvestimento = new FXMLLoader(
+					getClass().getResource("/iu/view/DadosInvestimento.fxml"));
 			Parent dadosInvestimento = loaderDadosInvestimento.load();
 			cenaDadosInvestimento = new Scene(dadosInvestimento);
 			diVC = loaderDadosInvestimento.getController();
 
 			Parent amortizacao = FXMLLoader.load(getClass().getResource("/iu/view/Amortizacao.fxml"));
 			cenaAmortizacao = new Scene(amortizacao);
-			
-			FXMLLoader loaderDadosAmortizacao = new FXMLLoader(getClass().getResource("/iu/view/DadosAmortizacao.fxml"));
+
+			FXMLLoader loaderDadosAmortizacao = new FXMLLoader(
+					getClass().getResource("/iu/view/DadosAmortizacao.fxml"));
 			Parent dadosAmortizacao = loaderDadosAmortizacao.load();
 			cenaDadosAmortizacao = new Scene(dadosAmortizacao);
 			daVC = loaderDadosAmortizacao.getController();
 
 			Parent variacao = FXMLLoader.load(getClass().getResource("/iu/view/Variacao.fxml"));
 			cenaVariacao = new Scene(variacao);
-			
+
 			FXMLLoader loaderDadosVariacao = new FXMLLoader(getClass().getResource("/iu/view/DadosVariacao.fxml"));
 			Parent dadosVariacao = loaderDadosVariacao.load();
 			cenaDadosVariacao = new Scene(dadosVariacao);
@@ -217,16 +227,19 @@ public class Main extends Application {
 			Parent valorPresenteLiquido = FXMLLoader.load(getClass().getResource("/iu/view/ValorPresenteLiquido.fxml"));
 			cenaValorPresenteLiquido = new Scene(valorPresenteLiquido);
 
-			Parent dadosTaxaInternaRetorno = FXMLLoader
-					.load(getClass().getResource("/iu/view/DadosTaxaInternaRetorno.fxml"));
+			FXMLLoader loaderTIR = new FXMLLoader(getClass().getResource("/iu/view/DadosTaxaInternaRetorno.fxml"));
+			Parent dadosTaxaInternaRetorno = loaderTIR.load();
 			cenaDadosTaxaInternaRetorno = new Scene(dadosTaxaInternaRetorno);
+			tirVC = loaderTIR.getController();
 
-			Parent dadosVPLPadrao = FXMLLoader.load(getClass().getResource("/iu/view/DadosVPLPadrao.fxml"));
+			FXMLLoader loaderVPLPadrao = new FXMLLoader(getClass().getResource("/iu/view/DadosVPLPadrao.fxml"));
+			Parent dadosVPLPadrao = loaderVPLPadrao.load();
 			cenaDadosVPLPadrao = new Scene(dadosVPLPadrao);
+			pvplVC = loaderVPLPadrao.getController();
 
 			Parent descontoTitulo = FXMLLoader.load(getClass().getResource("/iu/view/DescontoTitulo.fxml"));
 			cenaDescontoTitulo = new Scene(descontoTitulo);
-			
+
 			FXMLLoader loaderDadosDesconto = new FXMLLoader(getClass().getResource("/iu/view/DadosDesconto.fxml"));
 			Parent dadosDesconto = loaderDadosDesconto.load();
 			cenaDadosDesconto = new Scene(dadosDesconto);
@@ -238,13 +251,14 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static String telaAtual;
 
 	public static void mudarTela(String nome) {
 		switch (nome) {
 		case "inicial":
 			stage.setScene(cenaInicial);
+			iVC.inicializarTela();
 			break;
 		case "cambio":
 			stage.setScene(cenaCambio);
@@ -295,8 +309,8 @@ public class Main extends Application {
 			nmVC.atualizandoTela();
 			break;
 		case "novaCategoria":
+			ncVC.atualizandoTela(telaAtual);
 			stage.setScene(cenaNovaCategoria);
-			ncVC.atualizandoTela();
 			break;
 		case "principalInvestimentos":
 			stage.setScene(cenaPrincipalInvestimentos);
@@ -368,9 +382,11 @@ public class Main extends Application {
 			stage.setScene(cenaDadosVariacao);
 			break;
 		case "dadosTaxaInternaRetorno":
+			tirVC.inicializandoTela();
 			stage.setScene(cenaDadosTaxaInternaRetorno);
 			break;
 		case "dadosVPLPadrao":
+			pvplVC.inicializandoTela();
 			stage.setScene(cenaDadosVPLPadrao);
 			break;
 		case "dadosDesconto":
@@ -381,6 +397,7 @@ public class Main extends Application {
 			System.out.println("Tela " + nome + " inexistente");
 		}
 	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}

@@ -13,11 +13,11 @@ import negocio.exceptions.MesSemGastosException;
 
 public class NegocioGrafico {
 	public GraficoSetores vizualizarGraficoSetores(Mes m) throws MesSemGastosException, CampoVazioException {
-		CategoriaManager cm = new CategoriaManager();
+		CategoriaManager cm = new CategoriaManager(Categoria.carregarCategorias());
 		return new GraficoSetores(m, cm, new GastoManager(cm));
 	}
 	
 	public GraficoBarras vizualizarGraficoBarras(Categoria c) throws CategoriaSemGastosException, CampoVazioException {
-		return new GraficoBarras(c, new RepositorioMeses(), new GastoManager(new CategoriaManager()));
+		return new GraficoBarras(c, new RepositorioMeses(), new GastoManager(new CategoriaManager(Categoria.carregarCategorias())));
 	}
 }

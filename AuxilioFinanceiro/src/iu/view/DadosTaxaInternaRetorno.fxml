@@ -3,8 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -25,30 +25,30 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="46.0" layoutY="90.0" prefHeight="35.0" prefWidth="250.0" />
       <Label layoutX="47.0" layoutY="140.0" text="Tempo:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="47.0" layoutY="160.0" prefHeight="35.0" prefWidth="250.0" />
       <Button fx:id="btnVoltar" layoutX="29.0" layoutY="370.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="35.0" prefWidth="125.0" text="Voltar" />
-      <Button layoutX="194.0" layoutY="370.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" text="Confirmar" />
-      <CheckBox layoutX="47.0" layoutY="195.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="125.0" text="Meses">
+      <Button fx:id="btnConfirmar" layoutX="194.0" layoutY="370.0" mnemonicParsing="false" onAction="#btnConfirmarAction" prefHeight="35.0" prefWidth="125.0" text="Confirmar" />
+      <CheckBox fx:id="chMeses" layoutX="47.0" layoutY="195.0" mnemonicParsing="false" onAction="#chMesesAction" prefHeight="17.0" prefWidth="125.0" text="Meses">
          <font>
             <Font size="15.0" />
          </font>
       </CheckBox>
-      <CheckBox layoutX="171.0" layoutY="195.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="125.0" text="Anos">
+      <CheckBox fx:id="chAnos" layoutX="171.0" layoutY="195.0" mnemonicParsing="false" onAction="#chAnosAction" prefHeight="17.0" prefWidth="125.0" text="Anos">
          <font>
             <Font size="15.0" />
          </font>
       </CheckBox>
-      <TextArea layoutX="47.0" layoutY="245.0" prefHeight="100.0" prefWidth="250.0" promptText="Ex: (300, 200, 500, 800)" />
+      <TextArea fx:id="txtArrecadacao" layoutX="47.0" layoutY="245.0" prefHeight="100.0" prefWidth="250.0" promptText="Ex: (300, 200, 500, 800)" />
       <Label layoutX="47.0" layoutY="220.0" text="Arrecadaçao:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
+      <Spinner fx:id="spinnerCusto" layoutX="46.0" layoutY="90.0" prefHeight="35.0" prefWidth="250.0" />
+      <Spinner fx:id="spinnerTempo" layoutX="47.0" layoutY="160.0" prefHeight="35.0" prefWidth="250.0" />
    </children>
 </Pane>

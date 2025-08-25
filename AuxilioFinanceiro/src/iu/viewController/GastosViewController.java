@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import fachada.Fachada;
-import fachada.ValorLista;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import main.Main;
+import negocio.entidades.ValorLista;
 import negocio.exceptions.CampoVazioException;
 
 public class GastosViewController implements Initializable {
@@ -53,7 +53,6 @@ public class GastosViewController implements Initializable {
 		btnVoltar.setGraphic(imgVoltar);
 		gastos = fachada.inicializarGastos();
 
-		
 		ObservableList<ValorLista> dados = FXCollections.observableArrayList(gastos);
 		gasto = new TableColumn<ValorLista, String>("Gastos");
 		gasto.setPrefWidth(855);
@@ -63,21 +62,21 @@ public class GastosViewController implements Initializable {
 		editar.setPrefWidth(100);
 		remover = new TableColumn<ValorLista, Void>("Remover");
 		remover.setPrefWidth(100);
-		
+
 		tblGastos.getColumns().add(gasto);
 		tblGastos.getColumns().add(editar);
 		tblGastos.getColumns().add(remover);
-		
+
 		tblGastos.setItems(dados);
 	}
-	
+
 	public void inicializaValores() {
 		gastos = fachada.inicializarGastos();
-		
+
 		ObservableList<ValorLista> dados = FXCollections.observableArrayList(gastos);
 		gasto.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStringLista()));
 		tblGastos.setItems(dados);
-		
+
 		editar.setCellFactory(col -> new TableCell<>() {
 			private final Button btn = new Button("Editar");
 			{
@@ -88,17 +87,18 @@ public class GastosViewController implements Initializable {
 					Main.mudarTelaEdicao("editarGasto", tl.getId());
 				});
 			}
+
 			@Override
 			protected void updateItem(Void item, boolean empty) {
 				super.updateItem(item, empty);
-				if(empty) {
+				if (empty) {
 					setGraphic(null);
-				}else {
+				} else {
 					setGraphic(btn);
 				}
 			}
 		});
-		
+
 		remover.setCellFactory(col -> new TableCell<>() {
 			private final Button btn = new Button("Remover");
 			{
@@ -110,15 +110,16 @@ public class GastosViewController implements Initializable {
 						fachada.removerGasto(tl.getId());
 						inicializaValores();
 					} catch (IOException | CampoVazioException e) {
- 					}
+					}
 				});
 			}
+
 			@Override
 			protected void updateItem(Void item, boolean empty) {
 				super.updateItem(item, empty);
-				if(empty) {
+				if (empty) {
 					setGraphic(null);
-				}else {
+				} else {
 					setGraphic(btn);
 				}
 			}

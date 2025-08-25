@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import fachada.Fachada;
-import fachada.ValorLista;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import main.Main;
+import negocio.entidades.ValorLista;
 import negocio.exceptions.CampoVazioException;
 
 public class NovoGastoViewController implements Initializable{

@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Classe base para todos os tipos de lembretes.
  */
-public abstract class Lembrete {
+public class Lembrete {
     protected int id;
     protected String titulo;
     protected String descricao;
@@ -52,12 +52,24 @@ public abstract class Lembrete {
     /**
      * Gera a notificação específica para cada tipo de lembrete.
      */
-    public abstract String gerarNotificacao();
+    public String gerarNotificacao() {
+    	return "Lembrete Comum para ("+getDataAlerta()+"): " + getId()+" - "+getDescricao();
+    }
 
     /**
      * Formata o objeto para ser salvo em arquivo.
      */
-    public abstract String toFileString();
+    public String toFileString() {
+    	return String.join(";",
+                "LEMBRETE",
+                String.valueOf(id),
+                titulo,
+                descricao.replace(";", ","),
+                dataCriacao.format(DATE_FORMATTER),
+                dataAlerta.format(DATE_FORMATTER),
+                String.valueOf(ativo)
+            );
+    }
 
     public static void resetarContador() {
         contadorId = 1;

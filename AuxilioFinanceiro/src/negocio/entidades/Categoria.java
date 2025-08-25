@@ -8,11 +8,9 @@ import util.arquivoUtils;
 
 /**
  * Representa uma categoria de gastos ou metas no sistema financeiro. Uma
- * categoria pode agrupar gastos e limites específicos.
- * 
- * @author Pedro Farias
+ * categoria pode agrupar gastos e limites específicos. * @author Pedro Farias
  */
-public class Categoria implements Exibivel{
+public class Categoria implements Exibivel {
 	private static int contador = 1;
 	private final int id;
 	private String nome;
@@ -20,7 +18,7 @@ public class Categoria implements Exibivel{
 	public Categoria(String nome) throws CampoVazioException {
 		setNome(nome);
 		this.id = contador++;
-		if(!arquivoUtils.existeNoArquivo(nome, "categorias.txt")) {
+		if (!arquivoUtils.existeNoArquivo(nome, "categorias.txt")) {
 			arquivoUtils.salvarEmArquivo("categorias.txt", this.id + ";" + this.nome);
 		}
 	}
@@ -89,5 +87,10 @@ public class Categoria implements Exibivel{
 			linhas.add(c.getId() + ";" + c.getNome());
 		}
 		arquivoUtils.salvarListaEmArquivo("categorias.txt", linhas);
+	}
+
+// Método adicionado para resetar o contador, conforme necessário no Main
+	public static void resetarContador() {
+		contador = 1;
 	}
 }

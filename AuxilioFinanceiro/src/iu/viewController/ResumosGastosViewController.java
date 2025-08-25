@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import fachada.Fachada;
-import fachada.ValorLista;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +23,7 @@ import negocio.entidades.Barra;
 import negocio.entidades.GraficoBarras;
 import negocio.entidades.GraficoSetores;
 import negocio.entidades.Setor;
+import negocio.entidades.ValorLista;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;

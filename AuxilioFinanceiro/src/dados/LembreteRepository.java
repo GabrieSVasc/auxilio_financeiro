@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 import negocio.entidades.Lembrete;
-import negocio.entidades.LembreteBase;
 import negocio.entidades.LembreteLimite;
 import negocio.entidades.Limite;
 import negocio.entidades.Mensalidade;
@@ -26,7 +25,7 @@ public class LembreteRepository {
     private static void garantirArquivo() throws IOException {
         Path path = Paths.get(CAMINHO_ARQUIVO);
         Path dir = path.getParent();
-        if (dir != null && !Files.exists(dir)) {	
+        if (dir != null && !Files.exists(dir)) {
             Files.createDirectories(dir);
         }
         if (!Files.exists(path)) {
@@ -54,7 +53,6 @@ public class LembreteRepository {
     public static List<Lembrete> carregar(List<Mensalidade> mensalidades, List<Limite> limites) throws IOException {
         garantirArquivo();
         List<Lembrete> lembretes = new ArrayList<>();
-        List<LembreteBase> lembretesBase = new ArrayList<>();
 
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(CAMINHO_ARQUIVO))) {
             String linha;
@@ -75,7 +73,7 @@ public class LembreteRepository {
                             int limiteId = Integer.parseInt(partes[7].trim());
                             Optional<Limite> limite = limites.stream().filter(l -> l.getId() == limiteId).findFirst();
                             if (limite.isPresent()) {
-                                lembretesBase.add(new LembreteLimite(id, limiteId, descricao, ativo, limites));
+                                lembretes.add(new LembreteLimite(id, titulo, descricao, dataCriacao, dataAlerta, ativo, limite.get()));
                             } else {
                                 System.err.println("Erro ao carregar LembreteLimite: Limite ID " + limiteId + " não encontrado.");
                             }
@@ -89,6 +87,9 @@ public class LembreteRepository {
                                 System.err.println("Erro ao carregar MensalidadeLembrete: Mensalidade ID " + mensalidadeId + " não encontrada.");
                             }
                             break;
+                        case "LEMBRETE":
+                        	lembretes.add(new Lembrete(id, titulo, descricao, dataCriacao, dataAlerta, ativo));
+                        	break;
                         // Adicionar outros tipos de lembretes aqui
                         default:
                             System.err.println("Tipo de lembrete desconhecido: " + tipo + " na linha: " + linha);

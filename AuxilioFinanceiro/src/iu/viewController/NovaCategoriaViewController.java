@@ -21,17 +21,18 @@ public class NovaCategoriaViewController {
 	private Button btnConfirmar;
 	
 	private static Fachada fachada = new Fachada();
+	private String anterior;
 	
 	@FXML
 	protected void btnVoltarAction(ActionEvent e) {
-		Main.mudarTela("categorias");
+		Main.mudarTela(anterior);
 	}
 	
 	@FXML
 	protected void btnConfirmarAction(ActionEvent e) {
 		try {
 			fachada.criarCategoria(txtNome.getText());
-			Main.mudarTela("categorias");
+			Main.mudarTela(anterior);
 		} catch (CampoVazioException e1) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Erro");
@@ -40,7 +41,8 @@ public class NovaCategoriaViewController {
 		}
 	}
 	
-	public void atualizandoTela() {
+	public void atualizandoTela(String telaAnterior) {
+		anterior = telaAnterior;
 		txtNome.setText("");
 	}
 }

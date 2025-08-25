@@ -1,44 +1,55 @@
 package negocio.entidades;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+
 /**
- * Representa um lembrete associado a uma Meta financeira.
- * O lembrete calcula notificações de progresso e prazo com base na meta vinculada.
- * 
- * @author Pedro Farias
+ * Representa um lembrete para monitorar o progresso de uma meta.
+ * Herda da classe Lembrete.
  */
-public class LembreteMeta extends LembreteBase {
-    private static int contadorMeta = 1; // contador próprio de LembreteMeta
+public class LembreteMeta extends Lembrete {
+    // A meta de gasto associada a este lembrete.
     private Meta meta;
 
-    // Criação nova
+    /**
+     * Construtor para criar um novo LembreteMeta.
+     * @param meta A meta a ser monitorada.
+     * @param descricao A descrição do lembrete.
+     */
     public LembreteMeta(Meta meta, String descricao) {
-        super(descricao, contadorMeta++);
+        // Chama o construtor da classe pai (Lembrete) com o título e data da meta.
+        super(meta.getDescricao(), descricao, meta.getDataPrazo());
         this.meta = meta;
     }
 
-    // Recarga do arquivo
+    /**
+     * Construtor para recarregar o objeto a partir de um arquivo.
+     * @param id O ID do lembrete.
+     * @param metaId O ID da meta associada.
+     * @param descricao A descrição do lembrete.
+     * @param ativo O estado de ativação do lembrete.
+     * @param metas A lista de metas para encontrar a meta associada.
+     */
     public LembreteMeta(int id, int metaId, String descricao, boolean ativo, List<Meta> metas) {
-        super(id, descricao, ativo);
-        if (metas != null) {
-            this.meta = metas.stream().filter(m -> m.getId() == metaId).findFirst().orElse(null);
-        }
-        if (id >= contadorMeta) contadorMeta = id + 1;
+        // Encontra a meta na lista fornecida para inicializar a classe pai.
+        super(descricao, descricao, metas.stream().filter(m -> m.getId() == metaId).findFirst().orElse(null).getDataPrazo());
+        this.meta = metas.stream().filter(m -> m.getId() == metaId).findFirst().orElse(null);
+        // Atualiza o contador de IDs para garantir a unicidade.
+        if (id >= contadorId) contadorId = id + 1;
     }
 
+    // Métodos de acesso (getters e setters) para a meta.
     public Meta getMeta() { return meta; }
     public void setMeta(Meta meta) { this.meta = meta; }
 
-     /**
-     * Gera uma notificação detalhada sobre o progresso da meta,
-     * incluindo status de prazo, porcentagem concluída e mensagens motivacionais.
-     *
-     * @return Mensagem de notificação do lembrete
+    /**
+     * Gera a notificação personalizada com o status da meta.
+     * @return Uma string com a notificação do progresso da meta.
      */
     @Override
     public String gerarNotificacao() {
-        if (meta == null) return "LembreteMeta #" + id + " - (meta não encontrada) | " + descricao;
+        if (meta == null) return "LembreteMeta #" + getId() + " - (meta não encontrada) | " + getDescricao();
 
         double objetivo = meta.getValorObjetivo();
         double atual = meta.getValorAtual();
@@ -46,33 +57,46 @@ public class LembreteMeta extends LembreteBase {
 
         if (objetivo <= 0) return "Meta inválida para lembrete: " + meta.getDescricao();
 
-        double progresso = (objetivo == 0) ? 0.0 : (atual / objetivo) * 100; // porcentagem
+        double progresso = (objetivo == 0) ? 0.0 : (atual / objetivo) * 100;
         long diasRestantes = (prazo == null) ? Long.MAX_VALUE : ChronoUnit.DAYS.between(LocalDate.now(), prazo);
 
-        String base = String.format("Meta '%s': %s | R$ %.2f de R$ %.2f (%.0f%%)", meta.getDescricao(), descricao, atual, objetivo, progresso);
+        String base = String.format("Meta '%s': %s | R$ %.2f de R$ %.2f (%.0f%%)",
+                meta.getDescricao(), getDescricao(), atual, objetivo, progresso);
 
         if (prazo == null) {
-            base += " - Meta sem Prazo!";
-        } else if (progresso >= 100) {
-            base = "Meta '" + meta.getDescricao() + "' atingida! " + base;
-        } else if (diasRestantes < 0) {
-            base = "Prazo expirado para '" + meta.getDescricao() + "'. " + base;
-        } else if (diasRestantes <= 7) {
-            base = "Faltam " + diasRestantes + " dias para '" + meta.getDescricao() + "'. " + base + " Vamos lá, você consegue!";
-        } else if (progresso >= 80) {
-            base += " - Tá quase lá!";
-        } else {
-            base += " - Faltam " + diasRestantes + " dias.";
+            return base + " - Meta sem Prazo!";
         }
 
-        return base + " | Status: " + (ativo ? "Ativo" : "Inativo");
+        // Lógica para diferentes cenários de notificação.
+        if (progresso >= 100) {
+            return "Meta '" + meta.getDescricao() + "' atingida! " + base;
+        } else if (diasRestantes < 0) {
+            return "Prazo expirado para '" + meta.getDescricao() + "'. " + base;
+        } else if (diasRestantes <= 7) {
+            return "Faltam " + diasRestantes + " dias para '" + meta.getDescricao() + "'. " + base + " Vamos lá, você consegue!";
+        } else if (progresso >= 80) {
+            return base + " - Tá quase lá!";
+        } else {
+            return base + " - Faltam " + diasRestantes + " dias.";
+        }
     }
 
-    public String toArquivo() { 
+    /**
+     * Formata o objeto para ser salvo em arquivo.
+     * @return Uma string com os dados formatados.
+     */
+    @Override
+    public String toFileString() {
         int metaId = (meta == null ? -1 : meta.getId());
-        return id + ";" + metaId + ";" + descricao.replace(";", ",") + ";" + ativo;
+        return getId() + ";" + metaId + ";" + getDescricao().replace(";", ",") + ";" + isAtivo();
     }
 
+    /**
+     * Método estático para reconstruir o objeto a partir de uma linha de arquivo.
+     * @param linha A linha de texto.
+     * @param metas A lista de metas para encontrar a meta associada.
+     * @return Um novo objeto LembreteMeta.
+     */
     public static LembreteMeta fromArquivo(String linha, List<Meta> metas) {
         String[] p = linha.split(";", 4);
         if (p.length < 4) throw new IllegalArgumentException("Formato inválido: " + linha);
@@ -83,6 +107,9 @@ public class LembreteMeta extends LembreteBase {
         return new LembreteMeta(id, metaId, desc, ativo, metas);
     }
 
+    /**
+     * Sobrescreve toString() para usar a notificação como representação textual.
+     */
     @Override
     public String toString() {
         return gerarNotificacao();

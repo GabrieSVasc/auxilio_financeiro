@@ -16,16 +16,8 @@
             <Font size="58.0" />
          </font>
       </Label>
-      <Button fx:id="btnExLembrete2" layoutX="1057.0" layoutY="56.0" mnemonicParsing="false" onAction="#btnLembretesAction" prefHeight="54.0" prefWidth="212.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" stylesheets="@../application/application.css" text="ou lembretes expirados" textFill="#ca1515">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="btnExLembrete1" layoutX="1057.0" mnemonicParsing="false" onAction="#btnLembretesAction" prefHeight="54.0" prefWidth="212.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" stylesheets="@../application/application.css" text="Lembretes próximos da data">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
+      <Button fx:id="btnExLembrete2" layoutX="1044.0" layoutY="53.0" mnemonicParsing="false" onAction="#btnLembretesAction" prefHeight="54.0" prefWidth="225.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" stylesheets="@../application/application.css" wrapText="true" />
+      <Button fx:id="btnExLembrete1" layoutX="1044.0" mnemonicParsing="false" onAction="#btnLembretesAction" prefHeight="54.0" prefWidth="225.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" stylesheets="@../application/application.css" wrapText="true" />
       <ImageView fitHeight="500.0" fitWidth="500.0" layoutX="390.0" layoutY="110.0">
          <image>
             <Image url="@../../files/Carteira.png" />
@@ -91,5 +83,8 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Button fx:id="btnExLembrete3" layoutX="1044.0" layoutY="105.0" mnemonicParsing="false" onAction="#btnLembretesAction" prefHeight="54.0" prefWidth="225.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" stylesheets="@../application/application.css" wrapText="true" />
+      <Button fx:id="btnExLembrete4" layoutX="1044.0" layoutY="158.0" mnemonicParsing="false" onAction="#btnLembretesAction" prefHeight="54.0" prefWidth="225.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" stylesheets="@../application/application.css" wrapText="true" />
+      <Button fx:id="btnExLembrete5" layoutX="1044.0" layoutY="211.0" mnemonicParsing="false" onAction="#btnLembretesAction" prefHeight="54.0" prefWidth="225.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" stylesheets="@../application/application.css" wrapText="true" />
    </children>
 </Pane>

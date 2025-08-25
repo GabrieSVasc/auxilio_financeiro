@@ -5,4 +5,5 @@ module AuxilioFinanceiro {
 	
 	opens main to javafx.graphics, javafx.fxml;
 	opens iu.viewController to javafx.graphics, javafx.fxml;
+	opens fachada to javafx.base;
 }

@@ -34,7 +34,6 @@ public class GastoManager {
 	public void adicionarGasto(Gasto gasto) throws IOException {
 		gastos.add(gasto);
 		GastoRepository.salvar(gastos);
-		System.out.println("Gasto adicionado com sucesso e salvo no arquivo!");
 	}
 
 	public boolean editarGasto(int id, String novoNome, Double novoValor, LocalDate novaData, Categoria novaCategoria)
@@ -56,7 +55,6 @@ public class GastoManager {
 		// A chamada a setCategoria() foi removida.
 
 		GastoRepository.salvar(gastos);
-		System.out.println("Gasto atualizado com sucesso e salvo no arquivo!");
 		return true;
 	}
 
@@ -64,11 +62,14 @@ public class GastoManager {
 		return new ArrayList<>(gastos);
 	}
 
+	public List<Gasto> listarGastosPorCategoria(int categoriaId) {
+		return gastos.stream().filter(g -> g.getCategoria().getId() == categoriaId).collect(Collectors.toList());
+	}
+
 	public boolean removerGasto(int id) throws IOException {
 		boolean removido = gastos.removeIf(gasto -> gasto.getId() == id);
 		if (removido) {
 			GastoRepository.salvar(gastos);
-			System.out.println("Gasto removido com sucesso e arquivo atualizado!");
 		}
 		return removido;
 	}
@@ -120,4 +121,5 @@ public class GastoManager {
 		}
 		return tem;
 	}
+
 }

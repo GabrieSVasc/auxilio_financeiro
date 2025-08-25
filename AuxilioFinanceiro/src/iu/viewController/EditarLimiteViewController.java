@@ -1,5 +1,6 @@
 package iu.viewController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
@@ -83,6 +84,9 @@ public class EditarLimiteViewController implements Initializable{
 		} catch (ObjetoNaoEncontradoException e1) {
 			e1.printStackTrace();
 		} catch (ValorNegativoException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}

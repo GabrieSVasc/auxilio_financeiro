@@ -20,10 +20,6 @@ public class CategoriaManager implements CrudMenu {
     public CategoriaManager(List<Categoria> categorias) {
         this.categorias = categorias;
     }
-    
-    public CategoriaManager() {
-    	this.categorias = Categoria.carregarCategorias();
-    }
 
     @Override
     public void menu() {
@@ -53,11 +49,8 @@ public class CategoriaManager implements CrudMenu {
     }
 
     public void criar(String nome) throws CampoVazioException {
-        //String nome = ConsoleIO.readNonEmpty(scanner, "Nome da categoria: ");
-        if(!this.existe(nome)) {
-            categorias.add(new Categoria(nome));
-        }
-//        System.out.println("Categoria adicionada.");
+        categorias.add(new Categoria(nome));
+        Categoria.salvarTodas(categorias);
     }
 
     private void listar() {
@@ -66,40 +59,21 @@ public class CategoriaManager implements CrudMenu {
     }
 
     public void editar(int id, String novoNome) throws ValorNegativoException, ObjetoNaoEncontradoException, CampoVazioException {
-//        listar(); if (categorias.isEmpty()) return;
-//        int id = ConsoleIO.readInt(scanner, "ID da categoria a editar: ");
         if (id <= 0) throw new ValorNegativoException("ID");
         Categoria encontrada = categorias.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
         if (encontrada == null) throw new ObjetoNaoEncontradoException("Categoria", id);
-//        String novoNome = ConsoleIO.readNonEmpty(scanner, "Novo nome: ");
         encontrada.setNome(novoNome);
         Categoria.salvarTodas(categorias);
-//        System.out.println("Categoria atualizada.");
     }
 
     public void deletar(int id) throws ValorNegativoException, ObjetoNaoEncontradoException {
-//        listar(); if (categorias.isEmpty()) return;
-//        int id = ConsoleIO.readInt(scanner, "ID da categoria a deletar: ");
         if (id <= 0) throw new ValorNegativoException("ID");
         boolean removido = categorias.removeIf(c -> c.getId() == id);
         if (!removido) throw new ObjetoNaoEncontradoException("Categoria", id);
         Categoria.salvarTodas(categorias);
-//        System.out.println("Categoria removida.");
     }
 
     public List<Categoria> getCategorias() { return categorias; }
     
-    public Categoria getCategoria(int id) {
-    	return categorias.stream().filter(c -> c.getId()==id).findFirst().orElse(null);
-    }
-    
-    public boolean existe(String nome) {
-    	boolean encontrado = false;
-    	for(Categoria c: categorias) {
-    		if(c.getNome().equals(nome)) {
-    			encontrado = true;
-    		}
-    	}
-    	return encontrado;
-    }
+    public Categoria getCategoria(int id) {return categorias.stream().filter(c -> c.getId() == id).findFirst().orElse(null);}
 }

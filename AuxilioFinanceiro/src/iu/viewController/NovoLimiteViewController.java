@@ -1,5 +1,6 @@
 package iu.viewController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
@@ -8,7 +9,6 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import fachada.Fachada;
-import fachada.ValorLista;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +21,8 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import main.Main;
+import negocio.entidades.ValorLista;
+import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ObjetoNuloException;
 import negocio.exceptions.ValorNegativoException;
@@ -124,6 +126,12 @@ public class NovoLimiteViewController implements Initializable {
 		} catch (ValorNegativoException e1) {
 			e1.printStackTrace();
 		} catch (ObjetoNuloException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (CampoVazioException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}

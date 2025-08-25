@@ -14,25 +14,25 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="34.0" layoutY="46.0" prefHeight="20.0" prefWidth="50.0" text="Nome:">
+      <Label layoutX="34.0" layoutY="46.0" prefHeight="20.0" prefWidth="50.0" text="Título:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="34.0" layoutY="66.0" prefHeight="32.0" prefWidth="225.0" />
-      <Label layoutX="34.0" layoutY="113.0" prefHeight="20.0" prefWidth="50.0" text="Valor:">
+      <TextField fx:id="txtTitulo" layoutX="34.0" layoutY="66.0" prefHeight="32.0" prefWidth="225.0" />
+      <Label layoutX="34.0" layoutY="113.0" prefHeight="25.0" prefWidth="73.0" text="Descrição:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="34.0" layoutY="133.0" prefHeight="32.0" prefWidth="225.0" />
-      <Label layoutX="34.0" layoutY="180.0" prefHeight="20.0" prefWidth="50.0" text="Data:">
+      <TextField fx:id="txtDescricao" layoutX="34.0" layoutY="133.0" prefHeight="32.0" prefWidth="225.0" />
+      <Label layoutX="34.0" layoutY="180.0" prefHeight="25.0" prefWidth="114.0" text="Data do Alerta:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <DatePicker layoutX="34.0" layoutY="200.0" prefHeight="32.0" prefWidth="225.0" />
+      <DatePicker fx:id="dtpData" layoutX="34.0" layoutY="200.0" prefHeight="32.0" prefWidth="225.0" />
       <Button fx:id="btnVoltar" layoutX="23.0" layoutY="252.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="32.0" prefWidth="96.0" text="Voltar" />
-      <Button layoutX="175.0" layoutY="252.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="96.0" text="Confirmar" />
+      <Button fx:id="btnConfirmar" layoutX="175.0" layoutY="252.0" mnemonicParsing="false" onAction="#btnConfirmarAction" prefHeight="32.0" prefWidth="96.0" text="Confirmar" />
    </children>
 </Pane>
