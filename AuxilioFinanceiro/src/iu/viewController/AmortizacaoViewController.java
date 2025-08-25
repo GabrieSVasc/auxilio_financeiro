@@ -49,7 +49,17 @@ public class AmortizacaoViewController implements Initializable{
 	}
 	
 	@FXML
-	protected void btnCalculoAction(ActionEvent e) {
-		Main.mudarTela("dadosAmortizacao");
+	protected void btnAmortPriceAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("dadosAmortizacao", 1);
+	}
+	
+	@FXML
+	protected void btnAmortConstanteAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("dadosAmortizacao", 2);
+	}
+	
+	@FXML
+	protected void btnAmortMistaAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("dadosAmortizacao", 3);
 	}
 }

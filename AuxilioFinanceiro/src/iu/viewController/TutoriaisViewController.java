@@ -21,12 +21,19 @@ public class TutoriaisViewController implements Initializable{
 	@FXML
 	private Pane pnListaTutoriais;
 	
+	private String anterior;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle rb) {
 		btnVoltar.setGraphic(imgVoltar);
 	}
+	
+	public void atualizandoTela(String ant) {
+		anterior = ant;
+	}
+	
 	@FXML
 	protected void btnVoltarAction(ActionEvent e) {
-		Main.mudarTela("principalInvestimentos");
+		Main.mudarTela(anterior);
 	}
 }

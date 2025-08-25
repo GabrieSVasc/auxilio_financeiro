@@ -46,7 +46,12 @@ public class VariacaoViewController implements Initializable{
 	}
 	
 	@FXML
-	protected void btnCalculoAction(ActionEvent e) {
-		Main.mudarTela("dadosVariacao");
+	protected void btnInflacaoAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("dadosVariacao", 1);
+	}
+	
+	@FXML
+	protected void btnDeflacaoAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("dadosVariacao", 2);
 	}
 }

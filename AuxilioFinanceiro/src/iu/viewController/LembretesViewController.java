@@ -38,5 +38,8 @@ public class LembretesViewController implements Initializable{
 	protected void btnNovoLembreteAction(ActionEvent e) {
 		Main.mudarTela("novoLembrete");
 	}
-
+	
+	public void inicializaValores() {
+		//TODO ajustar o inicializa valores
+	}
 }

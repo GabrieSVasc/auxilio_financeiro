@@ -9,7 +9,7 @@
 
 <Pane prefHeight="408.0" prefWidth="346.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iu.viewController.DadosInvestimentoViewController">
    <children>
-      <Label alignment="CENTER" layoutY="10.0" prefWidth="346.0" text="&lt;Tipo de Investimento&gt;">
+      <Label fx:id="lblTipoInvestimento" alignment="CENTER" layoutY="10.0" prefWidth="346.0">
          <font>
             <Font size="16.0" />
          </font>

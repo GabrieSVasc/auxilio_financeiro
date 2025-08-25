@@ -46,7 +46,12 @@ public class DescontoTituloViewController implements Initializable{
 	}
 	
 	@FXML
-	protected void btnCalculoAction(ActionEvent e) {
-		Main.mudarTela("dadosDesconto");
+	protected void btnSimplesAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("dadosDesconto", 1);
+	}
+	
+	@FXML
+	protected void btnCompostoAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("dadosDesconto", 2);
 	}
 }

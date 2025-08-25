@@ -31,12 +31,12 @@
             <Image url="@../../files/Carteira.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnSimples" layoutX="150.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnCalculoAction" prefHeight="50.0" prefWidth="200.0" text="Desconto Simples">
+      <Button fx:id="btnSimples" layoutX="150.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnSimplesAction" prefHeight="50.0" prefWidth="200.0" text="Desconto Simples">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="btnComposto" layoutX="550.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnCalculoAction" prefHeight="50.0" prefWidth="200.0" text="Desconto Composto">
+      <Button fx:id="btnComposto" layoutX="550.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnCompostoAction" prefHeight="50.0" prefWidth="200.0" text="Desconto Composto">
          <font>
             <Font size="17.0" />
          </font>

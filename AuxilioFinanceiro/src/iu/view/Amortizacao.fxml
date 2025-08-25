@@ -31,17 +31,17 @@
             <Image url="@../../files/Carteira.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnAmortPrice" layoutX="160.0" layoutY="202.0" mnemonicParsing="false" onAction="#btnCalculoAction" prefHeight="50.0" prefWidth="200.0" text="Amort. PRICE">
+      <Button fx:id="btnAmortPrice" layoutX="160.0" layoutY="202.0" mnemonicParsing="false" onAction="#btnAmortPriceAction" prefHeight="50.0" prefWidth="200.0" text="Amort. PRICE">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="btnAmortConstante" layoutX="560.0" layoutY="202.0" mnemonicParsing="false" onAction="#btnCalculoAction" prefHeight="50.0" prefWidth="200.0" text="Amort. Constante">
+      <Button fx:id="btnAmortConstante" layoutX="560.0" layoutY="202.0" mnemonicParsing="false" onAction="#btnAmortConstanteAction" prefHeight="50.0" prefWidth="200.0" text="Amort. Constante">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="btnAmortMista" layoutX="360.0" layoutY="321.0" mnemonicParsing="false" onAction="#btnCalculoAction" prefHeight="50.0" prefWidth="200.0" text="Amort. Mista">
+      <Button fx:id="btnAmortMista" layoutX="360.0" layoutY="321.0" mnemonicParsing="false" onAction="#btnAmortMistaAction" prefHeight="50.0" prefWidth="200.0" text="Amort. Mista">
          <font>
             <Font size="17.0" />
          </font>

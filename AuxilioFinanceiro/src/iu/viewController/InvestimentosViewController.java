@@ -49,7 +49,17 @@ public class InvestimentosViewController implements Initializable{
 	}
 	
 	@FXML
-	protected void btnCalculoAction(ActionEvent e) {
-		Main.mudarTela("dadosInvestimento");
+	protected void btnJurosSimplesAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("dadosInvestimento", 1);
+	}
+	
+	@FXML
+	protected void btnJurosCompostosAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("dadosInvestimento", 2);
+	}
+	
+	@FXML
+	protected void btnAportesPeriodicosAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("dadosInvestimento", 3);
 	}
 }

@@ -31,17 +31,17 @@
             <Image url="@../../files/Carteira.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnJurosSimples" layoutX="160.0" layoutY="202.0" mnemonicParsing="false" onAction="#btnCalculoAction" prefHeight="50.0" prefWidth="200.0" text="Juros Simples">
+      <Button fx:id="btnJurosSimples" layoutX="160.0" layoutY="202.0" mnemonicParsing="false" onAction="#btnJurosSimplesAction" prefHeight="50.0" prefWidth="200.0" text="Juros Simples">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="btnJurosCompostos" layoutX="560.0" layoutY="202.0" mnemonicParsing="false" onAction="#btnCalculoAction" prefHeight="50.0" prefWidth="200.0" text="Juros Compostos">
+      <Button fx:id="btnJurosCompostos" layoutX="560.0" layoutY="202.0" mnemonicParsing="false" onAction="#btnJurosCompostosAction" prefHeight="50.0" prefWidth="200.0" text="Juros Compostos">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="btnAportesPeriodicos" layoutX="360.0" layoutY="321.0" mnemonicParsing="false" onAction="#btnCalculoAction" prefHeight="50.0" prefWidth="200.0" text="Aportes Periódicos">
+      <Button fx:id="btnAportesPeriodicos" layoutX="360.0" layoutY="321.0" mnemonicParsing="false" onAction="#btnAportesPeriodicosAction" prefHeight="50.0" prefWidth="200.0" text="Aportes Periódicos">
          <font>
             <Font size="17.0" />
          </font>

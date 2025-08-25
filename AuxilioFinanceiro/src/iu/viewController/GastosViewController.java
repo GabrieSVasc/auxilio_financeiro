@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import fachada.Fachada;
-import fachada.TransferindoListas;
+import fachada.ValorLista;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,35 +34,34 @@ public class GastosViewController implements Initializable {
 	private Button btnNovoGasto;
 
 	@FXML
-	private TableView<TransferindoListas> tblGastos;
+	private TableView<ValorLista> tblGastos;
 
 	@FXML
-	private TableColumn<TransferindoListas, String> gasto;
+	private TableColumn<ValorLista, String> gasto;
 
 	@FXML
-	private TableColumn<TransferindoListas, Void> editar;
+	private TableColumn<ValorLista, Void> editar;
 
 	@FXML
-	private TableColumn<TransferindoListas, Void> remover;
+	private TableColumn<ValorLista, Void> remover;
 
-	private ArrayList<TransferindoListas> gastos;
-	private Fachada fachada;
+	private ArrayList<ValorLista> gastos;
+	private static Fachada fachada = new Fachada();
 
 	@Override
 	public void initialize(URL location, ResourceBundle rb) {
 		btnVoltar.setGraphic(imgVoltar);
-		fachada = new Fachada();
 		gastos = fachada.inicializarGastos();
 
 		
-		ObservableList<TransferindoListas> dados = FXCollections.observableArrayList(gastos);
-		gasto = new TableColumn<TransferindoListas, String>("Gastos");
+		ObservableList<ValorLista> dados = FXCollections.observableArrayList(gastos);
+		gasto = new TableColumn<ValorLista, String>("Gastos");
 		gasto.setPrefWidth(855);
 		gasto.setStyle("-fx-font-size: 20px");
 		gasto.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStringLista()));
-		editar = new TableColumn<TransferindoListas, Void>("Editar");
+		editar = new TableColumn<ValorLista, Void>("Editar");
 		editar.setPrefWidth(100);
-		remover = new TableColumn<TransferindoListas, Void>("Remover");
+		remover = new TableColumn<ValorLista, Void>("Remover");
 		remover.setPrefWidth(100);
 		
 		tblGastos.getColumns().add(gasto);
@@ -75,18 +74,17 @@ public class GastosViewController implements Initializable {
 	public void inicializaValores() {
 		gastos = fachada.inicializarGastos();
 		
-		ObservableList<TransferindoListas> dados = FXCollections.observableArrayList(gastos);
+		ObservableList<ValorLista> dados = FXCollections.observableArrayList(gastos);
 		gasto.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStringLista()));
 		tblGastos.setItems(dados);
 		
 		editar.setCellFactory(col -> new TableCell<>() {
 			private final Button btn = new Button("Editar");
-			private final HBox container = new HBox(btn);
 			{
 				btn.setMaxWidth(Double.MAX_VALUE);
 				HBox.setHgrow(btn, Priority.ALWAYS);
 				btn.setOnAction(event -> {
-					TransferindoListas tl = getTableView().getItems().get(getIndex());
+					ValorLista tl = getTableView().getItems().get(getIndex());
 					Main.mudarTelaEdicao("editarGasto", tl.getId());
 				});
 			}
@@ -103,12 +101,11 @@ public class GastosViewController implements Initializable {
 		
 		remover.setCellFactory(col -> new TableCell<>() {
 			private final Button btn = new Button("Remover");
-			private final HBox container = new HBox(btn);
 			{
 				btn.setMaxWidth(Double.MAX_VALUE);
 				HBox.setHgrow(btn, Priority.ALWAYS);
 				btn.setOnAction(event -> {
-					TransferindoListas tl = getTableView().getItems().get(getIndex());
+					ValorLista tl = getTableView().getItems().get(getIndex());
 					try {
 						fachada.removerGasto(tl.getId());
 						inicializaValores();

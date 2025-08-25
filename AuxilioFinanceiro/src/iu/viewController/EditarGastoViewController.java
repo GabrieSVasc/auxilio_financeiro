@@ -3,26 +3,24 @@ package iu.viewController;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import fachada.Fachada;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.image.ImageView;
 import main.Main;
 import negocio.entidades.Gasto;
+import negocio.exceptions.CampoVazioException;
 
 public class EditarGastoViewController implements Initializable{
 	@FXML
@@ -79,19 +77,11 @@ public class EditarGastoViewController implements Initializable{
 		spinnerValor.getEditor().setTextFormatter(textFormatter);
 		spinnerValor.setEditable(true);
 		valueFactory.valueProperty().bindBidirectional(textFormatter.valueProperty());
-		
-		ArrayList<String> categoria = fachada.inicializarCategorias();
-		ObservableList<String> listaC = FXCollections.observableArrayList(categoria);
 	}
 	
 	@FXML
 	protected void btnVoltarAction(ActionEvent e) {
 		Main.mudarTela("gastos");
-	}
-	
-	@FXML
-	protected void btnNovaCategoriaAction(ActionEvent e) {
-		Main.mudarTela("novaCategoria");
 	}
 	
 	public void gastoEscolhido(int v) {
@@ -104,7 +94,14 @@ public class EditarGastoViewController implements Initializable{
 	
 	@FXML
 	protected void btnConfirmarAction(ActionEvent e) {
-		fachada.editarGasto(idGasto, txtNome.getText(), spinnerValor.getValue(), dateData.getValue(), "");
-		Main.mudarTela("gastos");
+		try {
+			fachada.editarGasto(idGasto, txtNome.getText(), spinnerValor.getValue(), dateData.getValue(), "");
+			Main.mudarTela("gastos");
+		} catch (CampoVazioException e1) {
+			Alert alerta = new Alert(AlertType.INFORMATION);
+			alerta.setTitle("Erro");
+			alerta.setContentText("Todos os campos devem estar preenchidos");
+			alerta.showAndWait();
+		}
 	}
 }

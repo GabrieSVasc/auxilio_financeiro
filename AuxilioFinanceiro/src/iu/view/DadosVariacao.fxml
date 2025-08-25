@@ -8,7 +8,7 @@
 
 <Pane prefHeight="279.0" prefWidth="346.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iu.viewController.DadosVariacaoViewController">
    <children>
-      <Label alignment="CENTER" layoutY="10.0" prefWidth="346.0" text="&lt;Tipo de Variação&gt;">
+      <Label fx:id="lblTipoVariacao" alignment="CENTER" layoutY="10.0" prefWidth="346.0">
          <font>
             <Font size="16.0" />
          </font>

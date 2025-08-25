@@ -18,8 +18,8 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="34.0" layoutY="74.0" prefHeight="32.0" prefWidth="225.0" />
+      <TextField fx:id="txtNome" layoutX="34.0" layoutY="74.0" prefHeight="32.0" prefWidth="225.0" />
       <Button fx:id="btnVoltar" layoutX="22.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="32.0" prefWidth="96.0" text="Voltar" />
-      <Button layoutX="173.0" layoutY="130.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="96.0" text="Confirmar" />
+      <Button fx:id="btnConfirmar" layoutX="173.0" layoutY="130.0" mnemonicParsing="false" onAction="#btnConfirmarAction" prefHeight="32.0" prefWidth="96.0" text="Confirmar" />
    </children>
 </Pane>

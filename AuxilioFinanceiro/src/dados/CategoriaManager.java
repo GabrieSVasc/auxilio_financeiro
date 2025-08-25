@@ -38,10 +38,10 @@ public class CategoriaManager implements CrudMenu {
             opcao = ConsoleIO.readOption(scanner, "Escolha: ", "[0-4]");
             try {
                 switch (opcao) {
-                    case "1" -> criar();
+                    case "1" -> criar("");
                     case "2" -> listar();
-                    case "3" -> editar();
-                    case "4" -> deletar();
+                    case "3" -> editar(0, "");
+                    case "4" -> deletar(0);
                     case "0" -> System.out.println("Saindo do menu de categorias.");
                 }
             } catch (CampoVazioException | ValorNegativoException | ObjetoNaoEncontradoException e) {
@@ -52,12 +52,12 @@ public class CategoriaManager implements CrudMenu {
         } while (!"0".equals(opcao));
     }
 
-    private void criar() throws CampoVazioException {
-        String nome = ConsoleIO.readNonEmpty(scanner, "Nome da categoria: ");
+    public void criar(String nome) throws CampoVazioException {
+        //String nome = ConsoleIO.readNonEmpty(scanner, "Nome da categoria: ");
         if(!this.existe(nome)) {
             categorias.add(new Categoria(nome));
         }
-        System.out.println("Categoria adicionada.");
+//        System.out.println("Categoria adicionada.");
     }
 
     private void listar() {
@@ -65,29 +65,33 @@ public class CategoriaManager implements CrudMenu {
         categorias.forEach(c -> System.out.println(c.exibir()));
     }
 
-    private void editar() throws ValorNegativoException, ObjetoNaoEncontradoException, CampoVazioException {
-        listar(); if (categorias.isEmpty()) return;
-        int id = ConsoleIO.readInt(scanner, "ID da categoria a editar: ");
+    public void editar(int id, String novoNome) throws ValorNegativoException, ObjetoNaoEncontradoException, CampoVazioException {
+//        listar(); if (categorias.isEmpty()) return;
+//        int id = ConsoleIO.readInt(scanner, "ID da categoria a editar: ");
         if (id <= 0) throw new ValorNegativoException("ID");
         Categoria encontrada = categorias.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
         if (encontrada == null) throw new ObjetoNaoEncontradoException("Categoria", id);
-        String novoNome = ConsoleIO.readNonEmpty(scanner, "Novo nome: ");
+//        String novoNome = ConsoleIO.readNonEmpty(scanner, "Novo nome: ");
         encontrada.setNome(novoNome);
         Categoria.salvarTodas(categorias);
-        System.out.println("Categoria atualizada.");
+//        System.out.println("Categoria atualizada.");
     }
 
-    private void deletar() throws ValorNegativoException, ObjetoNaoEncontradoException {
-        listar(); if (categorias.isEmpty()) return;
-        int id = ConsoleIO.readInt(scanner, "ID da categoria a deletar: ");
+    public void deletar(int id) throws ValorNegativoException, ObjetoNaoEncontradoException {
+//        listar(); if (categorias.isEmpty()) return;
+//        int id = ConsoleIO.readInt(scanner, "ID da categoria a deletar: ");
         if (id <= 0) throw new ValorNegativoException("ID");
         boolean removido = categorias.removeIf(c -> c.getId() == id);
         if (!removido) throw new ObjetoNaoEncontradoException("Categoria", id);
         Categoria.salvarTodas(categorias);
-        System.out.println("Categoria removida.");
+//        System.out.println("Categoria removida.");
     }
 
     public List<Categoria> getCategorias() { return categorias; }
+    
+    public Categoria getCategoria(int id) {
+    	return categorias.stream().filter(c -> c.getId()==id).findFirst().orElse(null);
+    }
     
     public boolean existe(String nome) {
     	boolean encontrado = false;

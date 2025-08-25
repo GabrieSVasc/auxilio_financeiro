@@ -8,11 +8,14 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import fachada.Fachada;
+import fachada.ValorLista;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -22,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import main.Main;
+import negocio.exceptions.CampoVazioException;
 
 public class NovoGastoViewController implements Initializable{
 	@FXML
@@ -43,7 +47,7 @@ public class NovoGastoViewController implements Initializable{
 	private DatePicker dateData;
 	
 	@FXML
-	private ComboBox cbCategoria;
+	private ComboBox<String> cbCategoria;
 	
 	@FXML
 	private Button btnConfirmar;
@@ -87,8 +91,15 @@ public class NovoGastoViewController implements Initializable{
 		spinnerValor.setEditable(true);
 		valueFactory.valueProperty().bindBidirectional(textFormatter.valueProperty());
 		
-		ArrayList<String> categoria = fachada.inicializarCategorias();
-		ObservableList<String> listaC = FXCollections.observableArrayList(categoria);
+		ArrayList<ValorLista> categoria = fachada.inicializarCategorias();
+		
+		ArrayList<String> nC = new ArrayList<>();
+		
+		for(ValorLista tl: categoria) {
+			nC.add(tl.getStringLista());
+		}
+		
+		ObservableList<String> listaC = FXCollections.observableArrayList(nC);
 		cbCategoria.setItems(listaC);
 		cbCategoria.setVisibleRowCount(5);
 		cbCategoria.getSelectionModel().select(0);
@@ -99,6 +110,18 @@ public class NovoGastoViewController implements Initializable{
 		spinnerValor.getValueFactory().setValue(10.0);
 		dateData.setValue(null);
 		cbCategoria.getSelectionModel().select(0);
+		
+		ArrayList<ValorLista> categoria = fachada.inicializarCategorias();
+		
+		ArrayList<String> nC = new ArrayList<>();
+		
+		for(ValorLista tl: categoria) {
+			nC.add(tl.getStringLista());
+		}
+		
+		ObservableList<String> listaC = FXCollections.observableArrayList(nC);
+		cbCategoria.setItems(listaC);
+
 	}
 	
 	@FXML
@@ -113,7 +136,14 @@ public class NovoGastoViewController implements Initializable{
 	
 	@FXML
 	protected void btnConfirmarAction(ActionEvent e) {
-		fachada.criarGasto(txtNome.getText(), spinnerValor.getValue().doubleValue(), dateData.getValue(), cbCategoria.getSelectionModel().getSelectedItem().toString());
-		Main.mudarTela("gastos");
+		try {
+			fachada.criarGasto(txtNome.getText(), spinnerValor.getValue().doubleValue(), dateData.getValue(), cbCategoria.getSelectionModel().getSelectedItem().toString());
+			Main.mudarTela("gastos");
+		} catch (CampoVazioException e1) {
+			Alert alerta = new Alert(AlertType.INFORMATION);
+			alerta.setTitle("Erro");
+			alerta.setContentText("Todos os campos devem estar preenchidos");
+			alerta.showAndWait();
+		}
 	}
 }

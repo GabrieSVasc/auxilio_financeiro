@@ -31,12 +31,12 @@
             <Image url="@../../files/Carteira.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnInflacao" layoutX="150.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnCalculoAction" prefHeight="50.0" prefWidth="200.0" text="Inflação">
+      <Button fx:id="btnInflacao" layoutX="150.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnInflacaoAction" prefHeight="50.0" prefWidth="200.0" text="Inflação">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="btnDeflacao" layoutX="550.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnCalculoAction" prefHeight="50.0" prefWidth="200.0" text="Deflação">
+      <Button fx:id="btnDeflacao" layoutX="550.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnDeflacaoAction" prefHeight="50.0" prefWidth="200.0" text="Deflação">
          <font>
             <Font size="17.0" />
          </font>

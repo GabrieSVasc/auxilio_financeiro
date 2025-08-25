@@ -1,6 +1,7 @@
+/negocio/
+/util/
 /dados/
 /fachada/
 /iu/
-/module-info.class
 /main/
-/negocio/
+/module-info.class

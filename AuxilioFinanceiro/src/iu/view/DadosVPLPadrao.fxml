@@ -3,11 +3,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="352.0" prefWidth="346.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iu.viewController.DadosVPLPadraoViewController"> 
+<Pane prefHeight="508.0" prefWidth="346.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iu.viewController.DadosVPLPadraoViewController"> 
    <children>
       <Label alignment="CENTER" layoutY="10.0" prefWidth="346.0" text="Valor Presente Líquido">
          <font>
@@ -31,8 +32,8 @@
          </font>
       </Label>
       <TextField layoutX="47.0" layoutY="160.0" prefHeight="35.0" prefWidth="250.0" />
-      <Button fx:id="btnVoltar" layoutX="29.0" layoutY="303.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="35.0" prefWidth="125.0" text="Voltar" />
-      <Button layoutX="197.0" layoutY="303.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" text="Confirmar" />
+      <Button fx:id="btnVoltar" layoutX="29.0" layoutY="450.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="35.0" prefWidth="125.0" text="Voltar" />
+      <Button layoutX="194.0" layoutY="450.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" text="Confirmar" />
       <Label layoutX="47.0" layoutY="210.0" text="Tempo:">
          <font>
             <Font size="16.0" />
@@ -49,5 +50,11 @@
             <Font size="14.0" />
          </font>
       </CheckBox>
+      <TextArea layoutX="46.0" layoutY="325.0" prefHeight="100.0" prefWidth="250.0" promptText="Ex: (300, 200, 500, 800)" />
+      <Label layoutX="47.0" layoutY="300.0" text="Arrecadação:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

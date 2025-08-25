@@ -3,9 +3,12 @@ package iu.viewController;
 import fachada.Fachada;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import main.Main;
+import negocio.exceptions.CampoVazioException;
 
 public class NovaCategoriaViewController {
 	@FXML
@@ -26,7 +29,18 @@ public class NovaCategoriaViewController {
 	
 	@FXML
 	protected void btnConfirmarAction(ActionEvent e) {
-		fachada.criarCategoria(txtNome.getText());
-		Main.mudarTela("categorias");
+		try {
+			fachada.criarCategoria(txtNome.getText());
+			Main.mudarTela("categorias");
+		} catch (CampoVazioException e1) {
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("Campo do nome da categoria está vazio");
+			alerta.showAndWait();
+		}
+	}
+	
+	public void atualizandoTela() {
+		txtNome.setText("");
 	}
 }

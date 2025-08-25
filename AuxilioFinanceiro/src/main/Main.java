@@ -1,14 +1,27 @@
 package main;
 
 import iu.viewController.CategoriasViewController;
+import iu.viewController.DadosAmortizacaoViewController;
+import iu.viewController.DadosDescontoViewController;
+import iu.viewController.DadosInvestimentoViewController;
+import iu.viewController.DadosVariacaoViewController;
+import iu.viewController.EditarCategoriaViewController;
 import iu.viewController.EditarGastoViewController;
+import iu.viewController.EditarLembreteViewController;
+import iu.viewController.EditarLimiteViewController;
 import iu.viewController.EditarMetaViewController;
 import iu.viewController.GastosViewController;
 import iu.viewController.GerenciarGastosViewController;
+import iu.viewController.LembretesViewController;
+import iu.viewController.LimitesViewController;
 import iu.viewController.MetasViewController;
+import iu.viewController.NovaCategoriaViewController;
 import iu.viewController.NovaMetaViewController;
 import iu.viewController.NovoGastoViewController;
+import iu.viewController.NovoLembreteViewController;
+import iu.viewController.NovoLimiteViewController;
 import iu.viewController.ResumosGastosViewController;
+import iu.viewController.TutoriaisViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -59,6 +72,19 @@ public class Main extends Application {
 	private static NovaMetaViewController nmVC;
 	private static EditarGastoViewController egVC;
 	private static CategoriasViewController cVC;
+	private static EditarCategoriaViewController ecVC;
+	private static NovaCategoriaViewController ncVC;
+	private static NovoLimiteViewController nlVC;
+	private static NovoLembreteViewController nlembreteVC;
+	private static LimitesViewController lgVC;
+	private static LembretesViewController lVC;
+	private static EditarLembreteViewController eLembreteVC;
+	private static EditarLimiteViewController eLimiteVC;
+	private static DadosAmortizacaoViewController daVC;
+	private static DadosDescontoViewController ddVC;
+	private static DadosVariacaoViewController dvVC;
+	private static DadosInvestimentoViewController diVC;
+	private static TutoriaisViewController tVC;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -80,17 +106,21 @@ public class Main extends Application {
 			cenaResumosGastos = new Scene(resumosGastos);
 			rgVC = loaderResumosGastos.getController();
 
-			Parent limites = FXMLLoader.load(getClass().getResource("/iu/view/Limites.fxml"));
+			FXMLLoader loaderLimites = new FXMLLoader(getClass().getResource("/iu/view/Limites.fxml"));
+			Parent limites = loaderLimites.load();
 			cenaLimites = new Scene(limites);
+			lgVC = loaderLimites.getController();
 
-			Parent lembretes = FXMLLoader.load(getClass().getResource("/iu/view/Lembretes.fxml"));
+			FXMLLoader loaderLembretes = new FXMLLoader(getClass().getResource("/iu/view/Lembretes.fxml"));
+			Parent lembretes = loaderLembretes.load();
 			cenaLembretes = new Scene(lembretes);
+			lVC = loaderLembretes.getController();
 
 			FXMLLoader loaderMetas = new FXMLLoader(getClass().getResource("/iu/view/Metas.fxml"));
 			Parent metas = loaderMetas.load();
 			cenaMetas = new Scene(metas);
 			mVC = loaderMetas.getController();
-			
+
 			FXMLLoader loaderGastos = new FXMLLoader(getClass().getResource("/iu/view/Gastos.fxml"));
 			Parent gastos = loaderGastos.load();
 			cenaGastos = new Scene(gastos);
@@ -101,46 +131,60 @@ public class Main extends Application {
 			cenaCategorias = new Scene(categorias);
 			cVC = loaderCategorias.getController();
 
-			Parent novoLembrete = FXMLLoader.load(getClass().getResource("/iu/view/NovoLembrete.fxml"));
+			FXMLLoader loaderNovoLembrete = new FXMLLoader(getClass().getResource("/iu/view/NovoLembrete.fxml"));
+			Parent novoLembrete = loaderNovoLembrete.load();
 			cenaNovoLembrete = new Scene(novoLembrete);
+			nlembreteVC = loaderNovoLembrete.getController();
 
 			FXMLLoader loaderNovoGasto = new FXMLLoader(getClass().getResource("/iu/view/NovoGasto.fxml"));
 			Parent novoGasto = loaderNovoGasto.load();
 			cenaNovoGasto = new Scene(novoGasto);
 			ngVC = loaderNovoGasto.getController();
 
-			Parent novoLimite = FXMLLoader.load(getClass().getResource("/iu/view/NovoLimite.fxml"));
+			FXMLLoader loaderNovoLimite = new FXMLLoader(getClass().getResource("/iu/view/NovoLimite.fxml"));
+			Parent novoLimite = loaderNovoLimite.load();
 			cenaNovoLimite = new Scene(novoLimite);
-			
+			nlVC = loaderNovoLimite.getController();
+
 			FXMLLoader loaderNovaMeta = new FXMLLoader(getClass().getResource("/iu/view/NovaMeta.fxml"));
 			Parent novaMeta = loaderNovaMeta.load();
 			cenaNovaMeta = new Scene(novaMeta);
 			nmVC = loaderNovaMeta.getController();
 
-			Parent novaCategoria = FXMLLoader.load(getClass().getResource("/iu/view/NovaCategoria.fxml"));
+			FXMLLoader loaderNovaCategoria = new FXMLLoader(getClass().getResource("/iu/view/NovaCategoria.fxml"));
+			Parent novaCategoria = loaderNovaCategoria.load();
 			cenaNovaCategoria = new Scene(novaCategoria);
+			ncVC = loaderNovaCategoria.getController();
 
-			Parent editarLembrete = FXMLLoader.load(getClass().getResource("/iu/view/EditarLembrete.fxml"));
+			FXMLLoader loaderEditarLembrete = new FXMLLoader(getClass().getResource("/iu/view/EditarLembrete.fxml"));
+			Parent editarLembrete = loaderEditarLembrete.load();
 			cenaEditarLembrete = new Scene(editarLembrete);
-			
+			eLembreteVC = loaderEditarLembrete.getController();
+
 			FXMLLoader loaderEditarGasto = new FXMLLoader(getClass().getResource("/iu/view/EditarGasto.fxml"));
 			Parent editarGasto = loaderEditarGasto.load();
 			cenaEditarGasto = new Scene(editarGasto);
 			egVC = loaderEditarGasto.getController();
 
-			Parent editarLimite = FXMLLoader.load(getClass().getResource("/iu/view/EditarLimite.fxml"));
+			FXMLLoader loaderEditarLimite = new FXMLLoader(getClass().getResource("/iu/view/EditarLimite.fxml"));
+			Parent editarLimite = loaderEditarLimite.load();
 			cenaEditarLimite = new Scene(editarLimite);
+			eLimiteVC = loaderEditarLimite.getController();
 
 			FXMLLoader loaderEditarMeta = new FXMLLoader(getClass().getResource("/iu/view/EditarMeta.fxml"));
 			Parent editarMeta = loaderEditarMeta.load();
 			cenaEditarMeta = new Scene(editarMeta);
 			emVC = loaderEditarMeta.getController();
 
-			Parent editarCategoria = FXMLLoader.load(getClass().getResource("/iu/view/EditarCategoria.fxml"));
+			FXMLLoader loaderEditarCategoria = new FXMLLoader(getClass().getResource("/iu/view/EditarCategoria.fxml"));
+			Parent editarCategoria = loaderEditarCategoria.load();
 			cenaEditarCategoria = new Scene(editarCategoria);
-
-			Parent tutoriais = FXMLLoader.load(getClass().getResource("/iu/view/Tutoriais.fxml"));
+			ecVC = loaderEditarCategoria.getController();
+			
+			FXMLLoader loaderTutoriais = new FXMLLoader(getClass().getResource("/iu/view/Tutoriais.fxml"));
+			Parent tutoriais = loaderTutoriais.load();
 			cenaTutoriais = new Scene(tutoriais);
+			tVC = loaderTutoriais.getController();
 
 			Parent principalInvestimentos = FXMLLoader
 					.load(getClass().getResource("/iu/view/PrincipalInvestimentos.fxml"));
@@ -148,21 +192,27 @@ public class Main extends Application {
 
 			Parent investimentos = FXMLLoader.load(getClass().getResource("/iu/view/Investimentos.fxml"));
 			cenaInvestimentos = new Scene(investimentos);
-
-			Parent dadosInvestimento = FXMLLoader.load(getClass().getResource("/iu/view/DadosInvestimento.fxml"));
+			
+			FXMLLoader loaderDadosInvestimento = new FXMLLoader(getClass().getResource("/iu/view/DadosInvestimento.fxml"));
+			Parent dadosInvestimento = loaderDadosInvestimento.load();
 			cenaDadosInvestimento = new Scene(dadosInvestimento);
+			diVC = loaderDadosInvestimento.getController();
 
 			Parent amortizacao = FXMLLoader.load(getClass().getResource("/iu/view/Amortizacao.fxml"));
 			cenaAmortizacao = new Scene(amortizacao);
-
-			Parent dadosAmortizacao = FXMLLoader.load(getClass().getResource("/iu/view/DadosAmortizacao.fxml"));
+			
+			FXMLLoader loaderDadosAmortizacao = new FXMLLoader(getClass().getResource("/iu/view/DadosAmortizacao.fxml"));
+			Parent dadosAmortizacao = loaderDadosAmortizacao.load();
 			cenaDadosAmortizacao = new Scene(dadosAmortizacao);
+			daVC = loaderDadosAmortizacao.getController();
 
 			Parent variacao = FXMLLoader.load(getClass().getResource("/iu/view/Variacao.fxml"));
 			cenaVariacao = new Scene(variacao);
-
-			Parent dadosVariacao = FXMLLoader.load(getClass().getResource("/iu/view/DadosVariacao.fxml"));
+			
+			FXMLLoader loaderDadosVariacao = new FXMLLoader(getClass().getResource("/iu/view/DadosVariacao.fxml"));
+			Parent dadosVariacao = loaderDadosVariacao.load();
 			cenaDadosVariacao = new Scene(dadosVariacao);
+			dvVC = loaderDadosVariacao.getController();
 
 			Parent valorPresenteLiquido = FXMLLoader.load(getClass().getResource("/iu/view/ValorPresenteLiquido.fxml"));
 			cenaValorPresenteLiquido = new Scene(valorPresenteLiquido);
@@ -176,9 +226,11 @@ public class Main extends Application {
 
 			Parent descontoTitulo = FXMLLoader.load(getClass().getResource("/iu/view/DescontoTitulo.fxml"));
 			cenaDescontoTitulo = new Scene(descontoTitulo);
-
-			Parent dadosDesconto = FXMLLoader.load(getClass().getResource("/iu/view/DadosDesconto.fxml"));
+			
+			FXMLLoader loaderDadosDesconto = new FXMLLoader(getClass().getResource("/iu/view/DadosDesconto.fxml"));
+			Parent dadosDesconto = loaderDadosDesconto.load();
 			cenaDadosDesconto = new Scene(dadosDesconto);
+			ddVC = loaderDadosDesconto.getController();
 
 			primaryStage.setScene(cenaInicial);
 			primaryStage.show();
@@ -186,6 +238,8 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public static String telaAtual;
 
 	public static void mudarTela(String nome) {
 		switch (nome) {
@@ -206,9 +260,11 @@ public class Main extends Application {
 			break;
 		case "limitesGastos":
 			stage.setScene(cenaLimites);
+			lgVC.inicializaValores();
 			break;
 		case "lembretes":
 			stage.setScene(cenaLembretes);
+			lVC.inicializaValores();
 			break;
 		case "metas":
 			stage.setScene(cenaMetas);
@@ -224,6 +280,7 @@ public class Main extends Application {
 			break;
 		case "novoLembrete":
 			stage.setScene(cenaNovoLembrete);
+			nlembreteVC.atualizandoTela();
 			break;
 		case "novoGasto":
 			stage.setScene(cenaNovoGasto);
@@ -231,6 +288,7 @@ public class Main extends Application {
 			break;
 		case "novoLimite":
 			stage.setScene(cenaNovoLimite);
+			nlVC.atualizandoTela();
 			break;
 		case "novaMeta":
 			stage.setScene(cenaNovaMeta);
@@ -238,9 +296,7 @@ public class Main extends Application {
 			break;
 		case "novaCategoria":
 			stage.setScene(cenaNovaCategoria);
-			break;
-		case "tutoriais":
-			stage.setScene(cenaTutoriais);
+			ncVC.atualizandoTela();
 			break;
 		case "principalInvestimentos":
 			stage.setScene(cenaPrincipalInvestimentos);
@@ -248,23 +304,68 @@ public class Main extends Application {
 		case "investimento":
 			stage.setScene(cenaInvestimentos);
 			break;
-		case "dadosInvestimento":
-			stage.setScene(cenaDadosInvestimento);
-			break;
 		case "amortizacao":
 			stage.setScene(cenaAmortizacao);
-			break;
-		case "dadosAmortizacao":
-			stage.setScene(cenaDadosAmortizacao);
 			break;
 		case "variacao":
 			stage.setScene(cenaVariacao);
 			break;
-		case "dadosVariacao":
-			stage.setScene(cenaDadosVariacao);
-			break;
 		case "valorPresenteLiquido":
 			stage.setScene(cenaValorPresenteLiquido);
+			break;
+		case "descontoTitulo":
+			stage.setScene(cenaDescontoTitulo);
+			break;
+		case "tutoriais":
+			tVC.atualizandoTela(telaAtual);
+			stage.setScene(cenaTutoriais);
+			break;
+		default:
+			System.out.println("Tela " + nome + " inexistente");
+		}
+		telaAtual = nome;
+	}
+
+	public static void mudarTelaEdicao(String nome, int v) {
+		switch (nome) {
+		case "editarLembrete":
+			eLembreteVC.lembreteEscolhido(v);
+			stage.setScene(cenaEditarLembrete);
+			break;
+		case "editarGasto":
+			egVC.gastoEscolhido(v);
+			stage.setScene(cenaEditarGasto);
+			break;
+		case "editarLimite":
+			eLimiteVC.limiteEscolhido(v);
+			stage.setScene(cenaEditarLimite);
+			break;
+		case "editarMeta":
+			emVC.metaEscolhida(v);
+			stage.setScene(cenaEditarMeta);
+			break;
+		case "editarCategoria":
+			ecVC.categoriaEscolhida(v);
+			stage.setScene(cenaEditarCategoria);
+			break;
+		default:
+			System.out.println("Tela " + nome + " inexistente");
+		}
+	}
+
+	public static void mudarTelaDadosInvestimentos(String nome, int input) {
+		switch (nome) {
+		case "dadosInvestimento":
+			diVC.tipoInvestimento(input);
+			stage.setScene(cenaDadosInvestimento);
+			break;
+		case "dadosAmortizacao":
+			daVC.tipoAmortizacao(input);
+			stage.setScene(cenaDadosAmortizacao);
+			break;
+		case "dadosVariacao":
+			dvVC.tipoVariacao(input);
+			stage.setScene(cenaDadosVariacao);
 			break;
 		case "dadosTaxaInternaRetorno":
 			stage.setScene(cenaDadosTaxaInternaRetorno);
@@ -272,39 +373,14 @@ public class Main extends Application {
 		case "dadosVPLPadrao":
 			stage.setScene(cenaDadosVPLPadrao);
 			break;
-		case "descontoTitulo":
-			stage.setScene(cenaDescontoTitulo);
-			break;
 		case "dadosDesconto":
+			ddVC.tipoDesconto(input);
 			stage.setScene(cenaDadosDesconto);
 			break;
 		default:
 			System.out.println("Tela " + nome + " inexistente");
 		}
 	}
-
-	public static void mudarTelaEdicao(String nome, int v) {
-		switch (nome) {
-		case "editarLembrete":
-			stage.setScene(cenaEditarLembrete);
-			break;
-		case "editarGasto":
-			stage.setScene(cenaEditarGasto);
-			egVC.gastoEscolhido(v);
-			break;
-		case "editarLimite":
-			stage.setScene(cenaEditarLimite);
-			break;
-		case "editarMeta":
-			stage.setScene(cenaEditarMeta);
-			emVC.metaEscolhida(v);
-			break;
-		case "editarCategoria":
-			stage.setScene(cenaEditarCategoria);
-			break;
-		}
-	}
-
 	public static void main(String[] args) {
 		launch(args);
 	}

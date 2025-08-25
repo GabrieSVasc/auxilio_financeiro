@@ -13,4 +13,7 @@ public class NovoLembreteViewController {
 	protected void btnVoltarAction(ActionEvent e) {
 		Main.mudarTela("lembretes");
 	}
+	public void atualizandoTela() {
+		//TODO ajustar o que esse metodo faz
+	}
 }

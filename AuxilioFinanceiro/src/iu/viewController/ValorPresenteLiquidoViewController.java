@@ -47,11 +47,11 @@ public class ValorPresenteLiquidoViewController implements Initializable{
 	
 	@FXML
 	protected void btnPadraoAction(ActionEvent e) {
-		Main.mudarTela("dadosVPLPadrao");
+		Main.mudarTelaDadosInvestimentos("dadosVPLPadrao", 0);
 	}
 	
 	@FXML
 	protected void btnTaxaInternaRetornoAction(ActionEvent e) {
-		Main.mudarTela("dadosTaxaInternaRetorno");
+		Main.mudarTelaDadosInvestimentos("dadosTaxaInternaRetorno", 0);
 	}
 }

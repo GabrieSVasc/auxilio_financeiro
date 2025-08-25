@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import fachada.Fachada;
+import fachada.ValorLista;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -72,8 +73,15 @@ public class ResumosGastosViewController implements Initializable {
 		cbMeses.setVisibleRowCount(5);
 		cbMeses.getSelectionModel().select(0);
 
-		ArrayList<String> categorias = fachada.inicializarCategorias();
-		ObservableList<String> listaC = FXCollections.observableArrayList(categorias);
+		ArrayList<ValorLista> categorias = fachada.inicializarCategorias();
+		
+		ArrayList<String> nomes = new ArrayList<>();
+		
+		for(ValorLista c: categorias) {
+			nomes.add(c.getStringLista());
+		}
+		
+		ObservableList<String> listaC = FXCollections.observableArrayList(nomes);
 		cbCategorias.setItems(listaC);
 		cbCategorias.setVisibleRowCount(5);
 		cbCategorias.getSelectionModel().select(0);

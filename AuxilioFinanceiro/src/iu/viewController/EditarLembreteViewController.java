@@ -13,4 +13,8 @@ public class EditarLembreteViewController {
 	protected void btnVoltarAction(ActionEvent e) {
 		Main.mudarTela("lembretes");
 	}
+	
+	public void lembreteEscolhido(int v) {
+		//TODO lembrar de ajustar isso
+	}
 }

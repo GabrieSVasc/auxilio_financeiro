@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -21,8 +21,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="34.0" layoutY="74.0" prefHeight="32.0" prefWidth="225.0" />
-      <ComboBox layoutX="34.0" layoutY="141.0" prefHeight="32.0" prefWidth="191.0" />
+      <ComboBox fx:id="cbCategoria" layoutX="34.0" layoutY="141.0" prefHeight="32.0" prefWidth="191.0" />
       <Label layoutX="34.0" layoutY="121.0" text="Categoria:">
          <font>
             <Font size="16.0" />
@@ -35,6 +34,7 @@
       </ImageView>
       <Button fx:id="btnNovaCategoria" layoutX="225.0" layoutY="141.0" mnemonicParsing="false" onAction="#btnNovaCategoriaAction" prefHeight="32.0" prefWidth="32.0" />
       <Button fx:id="btnVoltar" layoutX="23.0" layoutY="197.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="32.0" prefWidth="96.0" text="Voltar" />
-      <Button layoutX="175.0" layoutY="197.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="96.0" text="Confirmar" />
+      <Button fx:id="btnConfirmar" layoutX="175.0" layoutY="197.0" mnemonicParsing="false" onAction="#btnConfirmarAction" prefHeight="32.0" prefWidth="96.0" text="Confirmar" />
+      <Spinner fx:id="spinnerValorLimite" layoutX="34.0" layoutY="74.0" prefHeight="32.0" prefWidth="225.0" />
    </children>
 </Pane>
