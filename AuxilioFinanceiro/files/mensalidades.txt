@@ -1,0 +1,6 @@
+2;Netflix;39.9;15-08-2025;2;01-08-2025;Mensal;false
+3;Spotify;21.9;25-08-2025;2;01-08-2025;Mensal;false
+5;Netflix;39.9;15-08-2025;2;01-08-2025;Mensal;false
+6;Spotify;21.9;25-08-2025;2;01-08-2025;Mensal;false
+8;Netflix;39.9;15-08-2025;2;01-08-2025;Mensal;false
+9;Spotify;21.9;25-08-2025;2;01-08-2025;Mensal;false
