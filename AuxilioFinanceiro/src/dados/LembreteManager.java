@@ -19,11 +19,9 @@ public class LembreteManager {
 	private final List<Lembrete> lembretes = new ArrayList<>();
 	private MensalidadeManager mensalidadeManager;
 	private LimiteManager limiteManager;
-	private final CategoriaManager categoriaManager;
 
-	public LembreteManager(MensalidadeManager mensalidadeManager, CategoriaManager categoriaManager) {
+	public LembreteManager(MensalidadeManager mensalidadeManager) {
 		this.mensalidadeManager = mensalidadeManager;
-		this.categoriaManager = categoriaManager;
 		carregarLembretes();
 	}
 

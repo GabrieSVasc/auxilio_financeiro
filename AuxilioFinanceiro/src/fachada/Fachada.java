@@ -44,7 +44,7 @@ public class Fachada implements Initializable{
 	private static CategoriaManager categoriaManager = new CategoriaManager(Categoria.carregarCategorias());
 	private static GastoManager gastoManager = new GastoManager(categoriaManager);
 	private static MensalidadeManager mensalidadeManager = new MensalidadeManager(categoriaManager);
-	private static LembreteManager lembreteManager = new LembreteManager(mensalidadeManager, categoriaManager);
+	private static LembreteManager lembreteManager = new LembreteManager(mensalidadeManager);
 	private static LimiteManager limiteManager = new LimiteManager(Categoria.carregarCategorias(), Limite.carregarLimites(Categoria.carregarCategorias()), lembreteManager);
 
 	@Override

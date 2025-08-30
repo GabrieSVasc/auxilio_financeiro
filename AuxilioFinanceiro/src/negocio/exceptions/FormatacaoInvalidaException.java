@@ -1,5 +1,6 @@
 package negocio.exceptions;
 
+@SuppressWarnings("serial")
 public class FormatacaoInvalidaException extends Exception{
 
     public FormatacaoInvalidaException() {

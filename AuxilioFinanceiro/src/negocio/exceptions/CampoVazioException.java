@@ -4,6 +4,7 @@ package negocio.exceptions;
  * 
  * @author Pedro Farias
  */
+@SuppressWarnings("serial")
 public class CampoVazioException extends Exception {
     public CampoVazioException(String campo) {
         super("O campo '" + campo + "' não pode ser vazio.");

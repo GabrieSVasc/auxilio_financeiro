@@ -4,6 +4,7 @@ package negocio.exceptions;
  * 
  * @author Pedro Farias
  */
+@SuppressWarnings("serial")
 public class ObjetoNuloException extends Exception {
     public ObjetoNuloException(String objeto) {
         super("O objeto '" + objeto + "' não pode ser nulo.");

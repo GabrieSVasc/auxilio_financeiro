@@ -4,6 +4,7 @@ package negocio.exceptions;
  * 
  * @author Pedro Farias
  */
+@SuppressWarnings("serial")
 public class ValorNegativoException extends Exception {
     public ValorNegativoException(String campo) {
         super("O campo '" + campo + "' não pode ter valor negativo.");
