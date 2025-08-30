@@ -1,2 +1,0 @@
-LIMITE;1;Alimentação - Limite de Alimentação;Limite de Alimentação;20-08-2025;27-08-2025;true;1
-MENSALIDADE;2;Pagar Spotify;Valor: R$ 21,90;20-08-2025;25-08-2025;true;10

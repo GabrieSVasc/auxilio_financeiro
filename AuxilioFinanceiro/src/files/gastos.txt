@@ -1,2 +1,0 @@
-5;Netflix;39,90;01-08-2025;Assinaturas,false,15-08-2025,Mensal
-10;Spotify;21,90;01-08-2025;Assinaturas,false,25-08-2025,Mensal
