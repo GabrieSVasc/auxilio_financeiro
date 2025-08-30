@@ -36,7 +36,7 @@ public class GastoManager {
 		GastoRepository.salvar(gastos);
 	}
 
-	public boolean editarGasto(int id, String novoNome, Double novoValor, LocalDate novaData, Categoria novaCategoria)
+	public boolean editarGasto(int id, String novoNome, Double novoValor, LocalDate novaData)
 			throws IOException, CampoVazioException {
 		Gasto gasto = buscarPorId(id);
 		if (gasto == null) {
@@ -51,8 +51,6 @@ public class GastoManager {
 		if (novaData != null) {
 			gasto.setDataCriacao(novaData);
 		}
-		// A categoria não pode ser alterada pois agora é final na classe Gasto
-		// A chamada a setCategoria() foi removida.
 
 		GastoRepository.salvar(gastos);
 		return true;

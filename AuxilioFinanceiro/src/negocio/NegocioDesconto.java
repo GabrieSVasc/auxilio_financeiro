@@ -7,7 +7,7 @@ import negocio.entidades.tiposdesconto.DescontoSimples;
 import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.ValorInvalidoException;
 
-public class menuDesconto {
+public class NegocioDesconto {
     public RetornoInvestimento inputMenuDesconto(int input2, double montante, double taxa, int tipo, double tempo) throws OpcaoInvalidaException, ValorInvalidoException {
         Desconto descon;
         switch (input2){

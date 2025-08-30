@@ -21,7 +21,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import main.Main;
 import negocio.entidades.ValorLista;
-import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ValorNegativoException;
 
@@ -116,7 +115,6 @@ public class LimitesViewController implements Initializable{
 					} catch (ValorNegativoException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				});

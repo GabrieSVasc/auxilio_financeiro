@@ -73,16 +73,13 @@ public class DadosVPLPadraoViewController implements Initializable {
 			alerta.setContentText("O resultado da simulação foi: "+String.format("%.2f", r.getVPL()));
 			alerta.showAndWait();
 		} catch (OpcaoInvalidaException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (ValorInvalidoException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (FormatacaoInvalidaException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (TIRImpossivelException e1) {
-			// TODO Auto-generated catch block
+			//TODO Fazer isso
 			e1.printStackTrace();
 		}
 	}

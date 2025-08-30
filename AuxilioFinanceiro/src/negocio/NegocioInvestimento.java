@@ -8,7 +8,7 @@ import negocio.entidades.tiposinvestimentos.JurosSimples;
 import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.ValorInvalidoException;
 
-public class menuInvestimento {
+public class NegocioInvestimento {
     public RetornoInvestimento inputMenuInvestimento(int input2, double montante, double taxa, int tipo, double tempo) throws OpcaoInvalidaException, ValorInvalidoException{
         Investimento invest;
         switch (input2){

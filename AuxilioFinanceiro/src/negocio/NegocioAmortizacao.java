@@ -8,7 +8,7 @@ import negocio.entidades.tiposamortizacao.AmortPrice;
 import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.ValorInvalidoException;
 
-public class menuAmortizacao {
+public class NegocioAmortizacao {
     public RetornoInvestimento inputMenuAmortizacao(int input2, double montante, double taxa, int numParcelas) throws OpcaoInvalidaException, ValorInvalidoException {
         Amortizacao amort;
         switch (input2){

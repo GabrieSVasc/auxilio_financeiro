@@ -7,7 +7,7 @@ import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.TIRImpossivelException;
 import negocio.exceptions.ValorInvalidoException;
 
-public class menuVPL {
+public class NegocioVPL {
     public RetornoInvestimento inputMenuVPL(int input2, double custoInicial, double taxa, int tipo, double tempo, String arrecadacao) throws OpcaoInvalidaException, ValorInvalidoException, FormatacaoInvalidaException, TIRImpossivelException{
         ValorPresenteLiquido objeto = new ValorPresenteLiquido(custoInicial, taxa, tipo, tempo, arrecadacao);
         switch (input2){

@@ -5,7 +5,7 @@ import negocio.entidades.VariacaoDePreco;
 import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.ValorInvalidoException;
 
-public class menuVariacaoPreco {
+public class NegocioVariacaoPreco {
     public RetornoInvestimento inputMenuVariacaoPreco(int input2, double valor, double taxa) throws OpcaoInvalidaException, ValorInvalidoException{
         VariacaoDePreco preco = new VariacaoDePreco(valor, taxa);
         switch (input2){

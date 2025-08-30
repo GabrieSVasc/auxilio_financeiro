@@ -95,7 +95,7 @@ public class EditarGastoViewController implements Initializable{
 	@FXML
 	protected void btnConfirmarAction(ActionEvent e) {
 		try {
-			fachada.editarGasto(idGasto, txtNome.getText(), spinnerValor.getValue(), dateData.getValue(), "");
+			fachada.editarGasto(idGasto, txtNome.getText(), spinnerValor.getValue(), dateData.getValue());
 			Main.mudarTela("gastos");
 		} catch (CampoVazioException e1) {
 			Alert alerta = new Alert(AlertType.INFORMATION);

@@ -15,7 +15,7 @@ import dados.MensalidadeManager;
 import javafx.fxml.Initializable;
 import negocio.NegocioGrafico;
 import negocio.NegocioMes;
-import negocio.menuPrincipal;
+import negocio.NegocioInvestimentosPrincipal;
 import negocio.entidades.Categoria;
 import negocio.entidades.Gasto;
 import negocio.entidades.GraficoBarras;
@@ -49,7 +49,7 @@ public class Fachada implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		this.lembreteManager.setLimiteManager(limiteManager);
+		lembreteManager.setLimiteManager(limiteManager);
 	}
 	
 	//Gastos
@@ -81,10 +81,9 @@ public class Fachada implements Initializable{
 		return gastoManager.listarGastos().stream().filter(x->x.getId()==v).findFirst().orElse(null);
 	}
 	
-	public void editarGasto(int id, String nome, Double valor, LocalDate data, String categoria) throws CampoVazioException{
-		Categoria c = Categoria.carregarCategorias().stream().filter(x->x.getNome().equals(categoria)).findFirst().orElse(null);
+	public void editarGasto(int id, String nome, Double valor, LocalDate data) throws CampoVazioException{
 		try {
-			gastoManager.editarGasto(id, nome, valor, data, c);
+			gastoManager.editarGasto(id, nome, valor, data);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -247,7 +246,7 @@ public class Fachada implements Initializable{
 	
 	//Investimentos
 	public RetornoInvestimento investimentos(Parametros p) throws OpcaoInvalidaException, ValorInvalidoException, FormatacaoInvalidaException, TIRImpossivelException {
-		menuPrincipal mp = new menuPrincipal();
+		NegocioInvestimentosPrincipal mp = new NegocioInvestimentosPrincipal();
 		return mp.inputMenu(p.getInput1(), p.getInput2(), p.getValor(), p.getTaxa(), p.getNumParcelas(), p.getTipo(), p.getTempo(), p.getArrecadacao());
 	}
 }

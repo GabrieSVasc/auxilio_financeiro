@@ -14,6 +14,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -128,10 +130,11 @@ public class NovoLimiteViewController implements Initializable {
 		} catch (ObjetoNuloException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (CampoVazioException e1) {
-			// TODO Auto-generated catch block
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Criando Limite");
+			alerta.setContentText("O campo de valor deve estar preenchido");
 			e1.printStackTrace();
 		}
 	}
