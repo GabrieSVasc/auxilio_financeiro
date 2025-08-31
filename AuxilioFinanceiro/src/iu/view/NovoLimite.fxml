@@ -29,7 +29,7 @@
       </Label>
       <ImageView fx:id="imgMais" fitHeight="25.0" fitWidth="25.0" layoutX="225.0" layoutY="144.0">
          <image>
-            <Image url="@../../files/Mais.png" />
+            <Image url="@../../../files/Mais.png" />
          </image>
       </ImageView>
       <Button fx:id="btnNovaCategoria" layoutX="225.0" layoutY="141.0" mnemonicParsing="false" onAction="#btnNovaCategoriaAction" prefHeight="32.0" prefWidth="32.0" />

@@ -27,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import main.Main;
 import negocio.entidades.Parametros;
@@ -43,6 +44,12 @@ public class DadosAmortizacaoViewController implements Initializable {
 
 	@FXML
 	private Button btnConfirmar;
+	
+	@FXML
+	private ImageView imgTutoriais;
+
+	@FXML
+	private Button btnTutoriais;
 
 	@FXML
 	private Label lblTipoAmortizacao;
@@ -197,6 +204,7 @@ public class DadosAmortizacaoViewController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		btnTutoriais.setGraphic(imgTutoriais);
 		SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0,
 				Double.MAX_VALUE, 0.0, 0.01);
 		SpinnerValueFactory<Double> vlFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE,
@@ -257,5 +265,10 @@ public class DadosAmortizacaoViewController implements Initializable {
 		vlFactory.valueProperty().bindBidirectional(txtForm.valueProperty());
 		spinnerParcelas.setValueFactory(valueInt);
 		spinnerParcelas.setEditable(true);
+	}
+	
+	@FXML
+	protected void btnTutoriaisAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("tutoriais", tipoAmort);
 	}
 }

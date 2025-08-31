@@ -330,10 +330,6 @@ public class Main extends Application {
 		case "descontoTitulo":
 			stage.setScene(cenaDescontoTitulo);
 			break;
-		case "tutoriais":
-			tVC.atualizandoTela(telaAtual);
-			stage.setScene(cenaTutoriais);
-			break;
 		default:
 			System.out.println("Tela " + nome + " inexistente");
 		}
@@ -365,6 +361,7 @@ public class Main extends Application {
 		default:
 			System.out.println("Tela " + nome + " inexistente");
 		}
+		telaAtual = nome;
 	}
 
 	public static void mudarTelaDadosInvestimentos(String nome, int input) {
@@ -393,9 +390,14 @@ public class Main extends Application {
 			ddVC.tipoDesconto(input);
 			stage.setScene(cenaDadosDesconto);
 			break;
+		case "tutoriais":
+			tVC.atualizandoTela(telaAtual, input);
+			stage.setScene(cenaTutoriais);
+			break;
 		default:
 			System.out.println("Tela " + nome + " inexistente");
 		}
+		telaAtual = nome;
 	}
 
 	public static void main(String[] args) {

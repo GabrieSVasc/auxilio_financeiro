@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -32,6 +33,12 @@ public class DadosInvestimentoViewController implements Initializable{
 	
 	@FXML
 	private Label lblTipoInvestimento;
+	
+	@FXML
+	private ImageView imgTutoriais;
+
+	@FXML
+	private Button btnTutoriais;
 	
 	@FXML
 	private Spinner<Double> spinnerValor;
@@ -114,6 +121,7 @@ public class DadosInvestimentoViewController implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		btnTutoriais.setGraphic(imgTutoriais);
 		SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 0.0, 0.01);
 		SpinnerValueFactory<Double> vlFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 0.0, 0.01);
 		DecimalFormat format = new DecimalFormat("#.##");
@@ -200,5 +208,10 @@ public class DadosInvestimentoViewController implements Initializable{
 	@FXML
 	protected void chAnosAction(ActionEvent e) {
 		chMeses.setSelected(false);
+	}
+	
+	@FXML
+	protected void btnTutoriaisAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("tutoriais", tipoInvestimentoInt);
 	}
 }

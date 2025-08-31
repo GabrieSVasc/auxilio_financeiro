@@ -45,7 +45,7 @@ public class AmortizacaoViewController implements Initializable{
 	
 	@FXML
 	protected void btnTutoriaisAction(ActionEvent e) {
-		Main.mudarTela("tutoriais");
+		Main.mudarTelaDadosInvestimentos("tutoriais", 0);
 	}
 	
 	@FXML

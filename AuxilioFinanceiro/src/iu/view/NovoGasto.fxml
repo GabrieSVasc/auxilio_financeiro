@@ -39,7 +39,7 @@
       <ComboBox fx:id="cbCategoria" layoutX="34.0" layoutY="278.0" prefHeight="32.0" prefWidth="191.0" />
       <ImageView fx:id="imgMais" fitHeight="25.0" fitWidth="25.0" layoutX="226.0" layoutY="282.0">
          <image>
-            <Image url="@../../files/Mais.png" />
+            <Image url="@../../../files/Mais.png" />
          </image>
       </ImageView>
       <Button fx:id="btnNovaCategoria" layoutX="223.0" layoutY="278.0" mnemonicParsing="false" onAction="#btnNovaCategoriaAction" prefHeight="32.0" prefWidth="32.0" />

@@ -11,7 +11,7 @@
     <children>
        <ImageView fx:id="imgVoltar" fitHeight="40.0" fitWidth="40.0" layoutX="19.0" layoutY="14.0" onMouseClicked="#btnVoltarAction">
          <image>
-            <Image url="@../../files/Voltar.png" />
+            <Image url="@../../../files/Voltar.png" />
          </image>
       </ImageView>
       <Button fx:id="btnVoltar" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnVoltarAction" prefHeight="40.0" prefWidth="40.0" />
@@ -22,13 +22,13 @@
       </Label>
       <ImageView fx:id="imgTutoriais" fitHeight="55.0" fitWidth="55.0" layoutX="818.0" layoutY="420.0">
          <image>
-            <Image url="@../../files/Tutoriais.png" />
+            <Image url="@../../../files/Tutoriais.png" />
          </image>
       </ImageView>
       <Button fx:id="btnTutoriais" layoutX="818.0" layoutY="420.0" mnemonicParsing="false" onAction="#btnTutoriaisAction" prefHeight="70.0" prefWidth="70.0" />
       <ImageView fitHeight="350.0" fitWidth="350.0" layoutX="285.0" layoutY="111.0">
          <image>
-            <Image url="@../../files/Carteira.png" />
+            <Image url="@../../../files/Carteira.png" />
          </image>
       </ImageView>
       <Button fx:id="btnAmortPrice" layoutX="160.0" layoutY="202.0" mnemonicParsing="false" onAction="#btnAmortPriceAction" prefHeight="50.0" prefWidth="200.0" text="Amort. PRICE">

@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.ImageView;
 import main.Main;
 import negocio.entidades.Parametros;
 import negocio.entidades.RetornoInvestimento;
@@ -33,6 +34,12 @@ public class DadosDescontoViewController implements Initializable{
 	@FXML
 	private Label lblTipoDesconto;
 	
+	@FXML
+	private ImageView imgTutoriais;
+
+	@FXML
+	private Button btnTutoriais;
+
 	@FXML
 	private Spinner<Double> spinnerValor;
 	
@@ -106,6 +113,7 @@ public class DadosDescontoViewController implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		btnTutoriais.setGraphic(imgTutoriais);
 		SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 0.0, 0.01);
 		SpinnerValueFactory<Double> vlFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 0.0, 0.01);
 		DecimalFormat format = new DecimalFormat("#.##");
@@ -192,5 +200,10 @@ public class DadosDescontoViewController implements Initializable{
 	@FXML
 	protected void chAnosAction(ActionEvent e) {
 		chMeses.setSelected(false);
+	}
+	
+	@FXML
+	protected void btnTutoriaisAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("tutoriais", tipoDesconto);
 	}
 }

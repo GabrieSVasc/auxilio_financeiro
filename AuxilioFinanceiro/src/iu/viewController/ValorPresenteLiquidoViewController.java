@@ -18,12 +18,6 @@ public class ValorPresenteLiquidoViewController implements Initializable{
 	private Button btnVoltar;
 	
 	@FXML
-	private ImageView imgTutoriais;
-
-	@FXML
-	private Button btnTutoriais;
-	
-	@FXML
 	private Button btnPadrao;
 	
 	@FXML
@@ -32,17 +26,11 @@ public class ValorPresenteLiquidoViewController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle rb) {
 		btnVoltar.setGraphic(imgVoltar);
-		btnTutoriais.setGraphic(imgTutoriais);
 	}
 	
 	@FXML
 	protected void btnVoltarAction(ActionEvent e) {
 		Main.mudarTela("principalInvestimentos");
-	}
-	
-	@FXML
-	protected void btnTutoriaisAction(ActionEvent e) {
-		Main.mudarTela("tutoriais");
 	}
 	
 	@FXML

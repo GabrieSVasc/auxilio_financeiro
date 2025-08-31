@@ -7,7 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import main.Main;
 
 public class InvestimentosViewController implements Initializable{
@@ -45,7 +47,7 @@ public class InvestimentosViewController implements Initializable{
 	
 	@FXML
 	protected void btnTutoriaisAction(ActionEvent e) {
-		Main.mudarTela("tutoriais");
+		Main.mudarTelaDadosInvestimentos("tutoriais", 0);
 	}
 	
 	@FXML

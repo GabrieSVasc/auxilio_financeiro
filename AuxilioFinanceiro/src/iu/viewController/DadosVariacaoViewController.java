@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -28,6 +29,12 @@ import negocio.exceptions.ValorInvalidoException;
 public class DadosVariacaoViewController implements Initializable{
 	@FXML
 	private Button btnVoltar;
+	
+	@FXML
+	private ImageView imgTutoriais;
+
+	@FXML
+	private Button btnTutoriais;
 	
 	@FXML
 	private Spinner<Double> spinnerValor;
@@ -85,6 +92,7 @@ public class DadosVariacaoViewController implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		btnTutoriais.setGraphic(imgTutoriais);
 		SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 0.0, 0.01);
 		SpinnerValueFactory<Double> vlFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 0.0, 0.01);
 		DecimalFormat format = new DecimalFormat("#.##");
@@ -157,5 +165,10 @@ public class DadosVariacaoViewController implements Initializable{
 		spinnerInflacao.setEditable(true);
 		valueFactory.valueProperty().bindBidirectional(textFormatter.valueProperty());
 		vlFactory.valueProperty().bindBidirectional(txtForm.valueProperty());
+	}
+	
+	@FXML
+	protected void btnTutoriaisAction(ActionEvent e) {
+		Main.mudarTelaDadosInvestimentos("tutoriais", tipoVariacao);
 	}
 }

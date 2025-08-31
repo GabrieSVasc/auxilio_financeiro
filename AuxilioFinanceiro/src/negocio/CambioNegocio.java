@@ -22,7 +22,7 @@ public class CambioNegocio {
 	private static final String KEY = "KEY DO EXCHANGERATE";
 
 	public CambioNegocio() throws IOException {
-		String caminhoArquivo = "src/files/Valores.txt";
+		String caminhoArquivo = "files/Valores.txt";
 		String arquivo = "";
 		arquivo = new String(Files.readAllBytes(Paths.get(caminhoArquivo)));
 		JSONObject obj = new JSONObject(arquivo);

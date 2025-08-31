@@ -19,12 +19,6 @@ public class PrincipalInvestimentosViewController implements Initializable	{
 	private Button btnVoltar;
 	
 	@FXML
-	private ImageView imgTutoriais;
-
-	@FXML
-	private Button btnTutoriais;
-	
-	@FXML
 	private Pane pnListaMetas;
 	
 	@FXML
@@ -45,8 +39,8 @@ public class PrincipalInvestimentosViewController implements Initializable	{
 	@Override
 	public void initialize(URL location, ResourceBundle rb) {
 		btnVoltar.setGraphic(imgVoltar);
-		btnTutoriais.setGraphic(imgTutoriais);
 	}
+
 	@FXML
 	protected void btnVoltarAction(ActionEvent e) {
 		Main.mudarTela("inicial");
@@ -75,10 +69,5 @@ public class PrincipalInvestimentosViewController implements Initializable	{
 	@FXML
 	protected void btnVPLAction(ActionEvent e) {
 		Main.mudarTela("valorPresenteLiquido");
-	}
-	
-	@FXML
-	protected void btnTutoriaisAction(ActionEvent e) {
-		Main.mudarTela("tutoriais");
 	}
 }

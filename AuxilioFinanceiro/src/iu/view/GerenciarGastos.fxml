@@ -17,7 +17,7 @@
       </Label>
       <ImageView fx:id="imgVoltar" fitHeight="40.0" fitWidth="40.0" layoutX="19.0" layoutY="14.0" onMouseClicked="#btnVoltarAction">
          <image>
-            <Image url="@../../files/Voltar.png" />
+            <Image url="@../../../files/Voltar.png" />
          </image>
       </ImageView>
       <Button fx:id="btnResumosGastos" layoutX="240.0" layoutY="608.0" mnemonicParsing="false" onAction="#btnResumosGastosAction" prefHeight="39.0" prefWidth="120.0" text="Resumos de Gastos" />

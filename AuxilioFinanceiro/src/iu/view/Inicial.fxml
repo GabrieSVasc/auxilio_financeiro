@@ -20,7 +20,7 @@
       <Button fx:id="btnExLembrete1" layoutX="1044.0" mnemonicParsing="false" onAction="#btnLembretesAction" prefHeight="54.0" prefWidth="225.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" stylesheets="@../application/application.css" wrapText="true" />
       <ImageView fitHeight="500.0" fitWidth="500.0" layoutX="390.0" layoutY="110.0">
          <image>
-            <Image url="@../../files/Carteira.png" />
+            <Image url="@../../../files/Carteira.png" />
          </image>
       </ImageView>
       <Button fx:id="btnCalcularInvestimentos" layoutX="375.0" layoutY="175.0" mnemonicParsing="false" onAction="#btnCalcularInvestimentosAction" prefHeight="57.0" prefWidth="149.0" stylesheets="@../application/application.css" text="Calcular Investimentos" textAlignment="CENTER" wrapText="true">
@@ -45,22 +45,22 @@
       </Button>
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="250.0" layoutY="654.0">
          <image>
-            <Image url="@../../files/Git.png" />
+            <Image url="@../../../files/Git.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="399.0" layoutY="654.0">
          <image>
-            <Image url="@../../files/Git.png" />
+            <Image url="@../../../files/Git.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="621.0" layoutY="654.0">
          <image>
-            <Image url="@../../files/Git.png" />
+            <Image url="@../../../files/Git.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="790.0" layoutY="654.0">
          <image>
-            <Image url="@../../files/Git.png" />
+            <Image url="@../../../files/Git.png" />
          </image>
       </ImageView>
       <Label layoutX="288.0" layoutY="654.0" prefHeight="30.0" prefWidth="61.0" text="DivBruno">
