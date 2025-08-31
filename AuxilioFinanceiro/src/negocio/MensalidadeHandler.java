@@ -1,4 +1,4 @@
-package dados;
+package negocio;
 
 import negocio.entidades.MensalidadeLembrete;
 

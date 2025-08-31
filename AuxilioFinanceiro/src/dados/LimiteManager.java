@@ -50,7 +50,7 @@ public class LimiteManager implements CrudMenu {
         }
     }
 
-    private void atualizarLembretesLimite(Limite limite) {
+    public void atualizarLembretesLimite(Limite limite) {
         try {
             List<LembreteLimite> lembretes = lembreteManager.listarLembretesLimite()
                 .stream()
