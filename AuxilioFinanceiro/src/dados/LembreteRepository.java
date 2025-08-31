@@ -11,44 +11,76 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import negocio.entidades.Lembrete;
 import negocio.entidades.LembreteLimite;
 import negocio.entidades.Limite;
 import negocio.entidades.Mensalidade;
 import negocio.entidades.MensalidadeLembrete;
 
+/**
+ * Classe de repositório responsável pela persistência dos objetos Lembrete.
+ * 
+ * Essa classe abstrai o acesso ao sistema de arquivos, garantindo que a leitura e escrita
+ * dos dados sejam feitas de forma consistente e segura.
+ * 
+ * Utiliza o padrão de projeto Repository para centralizar a lógica de persistência,
+ * facilitando manutenção e reutilização.
+ * 
+ * @author Halina Mochel
+ */
 public class LembreteRepository {
+    // Caminho do arquivo onde os lembretes são armazenados
     private static final String CAMINHO_ARQUIVO = "files/lembretes.txt";
+    // Formato padrão para leitura e escrita das datas
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+    /**
+     * Garante que o arquivo e seu diretório existam antes de qualquer operação de leitura ou escrita.
+     * Isso evita erros de arquivo não encontrado e facilita a criação automática do ambiente.
+     * 
+     * @throws IOException Caso ocorra erro ao criar diretórios ou arquivo
+     */
     private static void garantirArquivo() throws IOException {
         Path path = Paths.get(CAMINHO_ARQUIVO);
         Path dir = path.getParent();
         if (dir != null && !Files.exists(dir)) {
-            Files.createDirectories(dir);
+            Files.createDirectories(dir); // Cria diretórios se não existirem
         }
         if (!Files.exists(path)) {
-            Files.createFile(path);
+            Files.createFile(path); // Cria o arquivo se não existir
         }
     }
 
+    /**
+     * Salva a lista de lembretes no arquivo, sobrescrevendo o conteúdo anterior.
+     * Utiliza BufferedWriter para escrita eficiente e segura.
+     * 
+     * @param lembretes Lista de objetos Lembrete a serem salvos
+     * @throws IOException Caso ocorra erro na escrita do arquivo
+     */
     public static void salvar(List<Lembrete> lembretes) throws IOException {
         garantirArquivo();
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(CAMINHO_ARQUIVO))) {
             for (Lembrete lembrete : lembretes) {
-                writer.write(lembrete.toFileString());
+                writer.write(lembrete.toFileString()); // Converte o lembrete para formato texto
                 writer.newLine();
             }
         }
     }
 
     /**
-     * Carrega todos os lembretes do arquivo, lidando com suas dependências.
-     * @param mensalidades Lista de mensalidades para encontrar a associada ao lembrete.
-     * @param limites Lista de limites para encontrar o associado ao lembrete.
-     * @return Uma lista de objetos Lembrete.
-     * @throws IOException
+     * Carrega todos os lembretes do arquivo, reconstruindo os objetos Lembrete e suas subclasses
+     * a partir das linhas lidas, associando-os às mensalidades e limites correspondentes.
+     * 
+     * Recebe listas de mensalidades e limites para garantir a associação correta,
+     * respeitando a integridade referencial.
+     * 
+     * Trata erros de parsing e associações inválidas, reportando avisos sem interromper a carga.
+     * 
+     * @param mensalidades Lista de mensalidades existentes para associação
+     * @param limites Lista de limites existentes para associação
+     * @return Lista de objetos Lembrete carregados do arquivo
+     * @throws IOException Caso ocorra erro na leitura do arquivo
      */
     public static List<Lembrete> carregar(List<Mensalidade> mensalidades, List<Limite> limites) throws IOException {
         garantirArquivo();
@@ -57,10 +89,11 @@ public class LembreteRepository {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(CAMINHO_ARQUIVO))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
-                if (linha.trim().isEmpty()) continue;
+                if (linha.trim().isEmpty()) continue; // Ignora linhas vazias
                 try {
-                    String[] partes = linha.split(";", 8); // Ajustado para 8 partes
-                    String tipo = partes[0].trim();
+                    // Divide a linha em até 8 partes para capturar todos os campos esperados
+                    String[] partes = linha.split(";", 8);
+                    String tipo = partes[0].trim(); // Tipo do lembrete (ex: LIMITE, MENSALIDADE, LEMBRETE)
                     int id = Integer.parseInt(partes[1].trim());
                     String titulo = partes[2].trim();
                     String descricao = partes[3].trim();
@@ -70,8 +103,11 @@ public class LembreteRepository {
 
                     switch (tipo) {
                         case "LIMITE":
+                            // Para lembretes do tipo limite, associa o limite correspondente pelo ID
                             int limiteId = Integer.parseInt(partes[7].trim());
-                            Optional<Limite> limite = limites.stream().filter(l -> l.getId() == limiteId).findFirst();
+                            Optional<Limite> limite = limites.stream()
+                                .filter(l -> l.getId() == limiteId)
+                                .findFirst();
                             if (limite.isPresent()) {
                                 lembretes.add(new LembreteLimite(id, titulo, descricao, dataCriacao, dataAlerta, ativo, limite.get()));
                             } else {
@@ -79,23 +115,29 @@ public class LembreteRepository {
                             }
                             break;
                         case "MENSALIDADE":
+                            // Para lembretes do tipo mensalidade, associa a mensalidade correspondente pelo ID
                             int mensalidadeId = Integer.parseInt(partes[7].trim());
-                            Optional<Mensalidade> mensalidade = mensalidades.stream().filter(m -> m.getId() == mensalidadeId).findFirst();
+                            Optional<Mensalidade> mensalidade = mensalidades.stream()
+                                .filter(m -> m.getId() == mensalidadeId)
+                                .findFirst();
                             if (mensalidade.isPresent()) {
+                                // Note que aqui é passado o ID da mensalidade, pode ser que o construtor use isso para buscar a mensalidade
                                 lembretes.add(new MensalidadeLembrete(id, titulo, descricao, dataCriacao, dataAlerta, ativo, mensalidadeId));
                             } else {
                                 System.err.println("Erro ao carregar MensalidadeLembrete: Mensalidade ID " + mensalidadeId + " não encontrada.");
                             }
                             break;
                         case "LEMBRETE":
-                        	lembretes.add(new Lembrete(id, titulo, descricao, dataCriacao, dataAlerta, ativo));
-                        	break;
-                        // Adicionar outros tipos de lembretes aqui
+                            // Lembrete genérico sem associação extra
+                            lembretes.add(new Lembrete(id, titulo, descricao, dataCriacao, dataAlerta, ativo));
+                            break;
+                        // Caso surjam outros tipos de lembretes, podem ser adicionados aqui
                         default:
                             System.err.println("Tipo de lembrete desconhecido: " + tipo + " na linha: " + linha);
                             break;
                     }
                 } catch (Exception e) {
+                    // Captura erros de parsing e exibe mensagem para facilitar depuração
                     System.err.println("Erro ao carregar lembrete: " + e.getMessage() + " | Linha: " + linha);
                 }
             }
