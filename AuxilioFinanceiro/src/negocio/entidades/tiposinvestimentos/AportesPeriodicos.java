@@ -5,6 +5,15 @@ import negocio.entidades.Investimento;
 import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.ValorInvalidoException;
 
+/**
+ * Subclasse da classe abstrata Investimento
+ * 
+ * AportesPeriodicos Calcula o montante que será recebido após determinado período, baseando-se em uma taxa de juros
+ * 
+ * Utiliza a técnica de capitalização, que é o investimento de um valor fixo a cada inicio de período.
+ * 
+ * @author Divancy Bruno
+ */
 public class AportesPeriodicos extends Investimento {
     public AportesPeriodicos(double capital, double taxa, Duracao duracao) throws ValorInvalidoException{
         super(capital, taxa, duracao);
@@ -13,6 +22,9 @@ public class AportesPeriodicos extends Investimento {
         super(capital, taxa, tipo, tempo);
     }
 
+    /**
+     * Realiza o cálculo do montante com a técnica de capitalização, isto é, o investimento de um valor fixo a cada inicio de período.
+     */
     @Override
     public double calcularMontante(){
         double tempo = duracao.getTempo();

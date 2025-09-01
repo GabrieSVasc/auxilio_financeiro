@@ -3,11 +3,28 @@ package negocio.entidades.tiposamortizacao;
 import negocio.entidades.Amortizacao;
 import negocio.exceptions.ValorInvalidoException;
 
+/**
+ * Subclasse de amortização, ou seja, é um:
+ * 
+ * Tipo de amortização, usando o sistema de amortização constante (SAC)
+ * 
+ * @author Divancy Bruno
+*/
 public class AmortConstante extends Amortizacao {
     public AmortConstante(double montante, double taxa, int numParcelas) throws ValorInvalidoException{
         super(montante, taxa, numParcelas);
     }
 
+    /**
+     * Sobrescreve o método abstrato calcularTudo da classe abstrata Amortizacao;
+     * 
+     * Sua função é:
+     * Calcular todos os valores importantes através do sistema de amortização constante
+     * 
+     * Nele a amortização é constante, ou seja, não muda.
+     * Enquanto a parcela e os juros decrescem
+     * 
+     */
     @Override
     public void calcularTudo(){
         this.saldoDevedor.add(montante);

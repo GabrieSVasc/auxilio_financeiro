@@ -3,12 +3,33 @@ package negocio.entidades;
 import java.util.ArrayList;
 
 import negocio.exceptions.ValorInvalidoException;
-
+/**
+ * Classe abstrata para calcular uma amortização.
+ * 
+ * Calcula a amortização de uma dívida, ou seja,
+ * Calcula quanto será o custo de cada parcela
+ * Quanto será amortizado por cada parcela
+ * E quanto é pago de juros
+ * 
+ * Pode ser do sistema de amortização constante (SAC), francesa (PRICE) ou misto (SAM).
+ * 
+ * @author Divancy Bruno
+ */
 public abstract  class Amortizacao {
     protected double montante, taxa;
     protected ArrayList<Double> parcela, amortizacao, juros, saldoDevedor;
     protected int numParcelas;
 
+    /** 
+     * Construtor de Amortizacao
+     * 
+     * Construtor padrão, necessita dos parâmetros:
+     * @param montante, valor total do empréstimo
+     * @param taxa, taxa de juros por período do empréstimo
+     * @param numParcelas, quantidade de parcelas do empréstimo
+     * 
+     * @throws ValorInvalidoException, se algum parâmetro for menor ou igual a zero
+     */
     public Amortizacao(double montante, double taxa, int numParcelas) throws ValorInvalidoException{
         if (montante <= 0 || taxa <= 0 || numParcelas <= 0){
             throw new ValorInvalidoException();
@@ -48,6 +69,11 @@ public abstract  class Amortizacao {
         else this.numParcelas = novoNumParcela; 
     }
 
-    
+    /** 
+     * Calcula tudo que é importante em uma amortização, ou seja:
+     * Calcula as parcelas, os juros, a amortização e o saldo devedor (Quanto falta para quitar a dívida).
+     * 
+     * @throws ValorInvalidoException, se algum parâmetro for menor ou igual a zero
+    */
     public abstract void calcularTudo() throws ValorInvalidoException;
 }
