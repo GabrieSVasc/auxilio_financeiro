@@ -157,6 +157,7 @@ public class NovoGastoViewController implements Initializable{
 			alerta.showAndWait();
 		} catch (IOException e1) {
 			e1.printStackTrace();
+			//Problema ao tentar salvar coisas no arquivo
 		}
 	}
 }

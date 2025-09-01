@@ -11,6 +11,8 @@ import fachada.Fachada;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -82,11 +84,18 @@ public class EditarLimiteViewController implements Initializable{
 			fachada.editarLimite(idLimite, spinnerValorLimite.getValue().doubleValue());
 			Main.mudarTela("limitesGastos");
 		} catch (ObjetoNaoEncontradoException e1) {
-			e1.printStackTrace();
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("Tentando editar limite inexistente");
+			alerta.showAndWait();
 		} catch (ValorNegativoException e1) {
-			e1.printStackTrace();
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("O valor não pode ser negativo");
+			alerta.showAndWait();
 		} catch (IOException e1) {
 			e1.printStackTrace();
+			//Problema ao tentar ler o arquivo
 		}
 	}
 	

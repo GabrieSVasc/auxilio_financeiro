@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import dados.RepositorioMeses;
 import negocio.entidades.Mes;
 
+/**
+ * Classe que lida com os meses
+ * @author Maria Gabriela
+ */
+
 public class NegocioMes {
 	private RepositorioMeses rm;
 

@@ -108,8 +108,12 @@ public class EditarGastoViewController implements Initializable{
 			alerta.showAndWait();
 		} catch (IOException e1) {
 			e1.printStackTrace();
+			//Problema de leitura de arquivo
 		} catch (ObjetoNaoEncontradoException e1) {
-			e1.printStackTrace();
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("Tentando editar gasto inexistente");
+			alerta.showAndWait();
 		}
 	}
 }

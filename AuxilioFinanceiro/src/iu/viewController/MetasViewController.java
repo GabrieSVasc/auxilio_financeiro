@@ -1,5 +1,6 @@
 package iu.viewController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -11,6 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -20,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import main.Main;
 import negocio.entidades.ValorLista;
+import negocio.exceptions.ObjetoNaoEncontradoException;
 
 public class MetasViewController implements Initializable{
 	@FXML
@@ -103,7 +107,17 @@ public class MetasViewController implements Initializable{
 				HBox.setHgrow(btn, Priority.ALWAYS);
 				btn.setOnAction(event ->{
 					ValorLista tl = getTableView().getItems().get(getIndex());
-					fachada.removerMeta(tl.getId());
+					try {
+						fachada.removerMeta(tl.getId());
+					} catch (ObjetoNaoEncontradoException e) {
+						Alert alerta = new Alert(AlertType.ERROR);
+						alerta.setTitle("Erro");
+						alerta.setContentText("Tentando remover uma meta que não está cadastrada");
+						alerta.showAndWait();
+					} catch (IOException e) {
+						//Problemas ao manipular um arquivo
+						e.printStackTrace();
+					}
 					inicializaValores();
 				});
 			}

@@ -8,6 +8,11 @@ import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
 
+/**
+ * Classe que representa gráficos de barras associados a uma categoria
+ * @author Maria Gabriela
+ */
+
 public class GraficoBarras {
 	private Categoria categoria;
 	private ArrayList<Barra> barras;

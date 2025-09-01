@@ -124,13 +124,20 @@ public class NovoLimiteViewController implements Initializable {
 			fachada.criarLimite(cbCategoria.getSelectionModel().getSelectedItem().getId(), spinnerValorLimite.getValue().doubleValue());
 			Main.mudarTela("limitesGastos");
 		} catch (ObjetoNaoEncontradoException e1) {
-			e1.printStackTrace();
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("Tentando criar limite para uma categoria inexistente");
+			alerta.showAndWait();
 		} catch (ValorNegativoException e1) {
-			e1.printStackTrace();
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("O valor não pode ser negativo");
+			alerta.showAndWait();
 		} catch (ObjetoNuloException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
 			e1.printStackTrace();
+			//Problema na manipulação de arquivos
 		} catch (CampoVazioException e1) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Criando Limite");

@@ -8,10 +8,23 @@ import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
 
+/**
+ * Classe que representa um setor do gráfico de setores
+ * @author Maria Gabriela
+ */
+
 public class Setor{
 	private ArrayList<Gasto> gastos;
 	private Categoria categoria;
 	
+	/**
+	 * Construtor, busca por todos os gastos associados à categoria
+	 * @param Categoria
+	 * @param GastoManager
+	 * @param Mes
+	 * @throws MesSemGastosException
+	 * @throws CampoVazioException
+	 */
 	public Setor(Categoria c, GastoManager gm, Mes mes) throws MesSemGastosException, CampoVazioException {
 		this.categoria = c;
 		gastos = new ArrayList<Gasto>();
@@ -23,10 +36,18 @@ public class Setor{
 		}
 	}
 	
+	/**
+	 * Método que retorna o nome do setor (nome da categoria associada ao setor)
+	 * @return nome da categoria
+	 */
 	public String getTituloSetor() {
 		return this.categoria.getNome();
 	}
 	
+	/**
+	 * Método que retorna a soma dos valores dos gastos da categoria
+	 * @return soma
+	 */
 	public double getValorTotal() {
 		double soma = 0;
 		for(Gasto g: this.gastos) {

@@ -6,6 +6,11 @@ import java.util.ArrayList;
 
 import negocio.entidades.Mes;
 
+/**
+ * Classe que armazena os meses usados na execução do sistema
+ * @author Maria Gabriela
+ */
+
 public class RepositorioMeses {
 	private ArrayList<Mes> meses;
 
@@ -13,6 +18,9 @@ public class RepositorioMeses {
 		carregarMeses();
 	}
 
+	/**
+	 * Carrega os últimos 12 meses
+	 */
 	private void carregarMeses() {
 		this.meses = new ArrayList<>();
 		LocalDate dia = LocalDate.now();

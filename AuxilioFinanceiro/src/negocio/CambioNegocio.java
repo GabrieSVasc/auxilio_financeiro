@@ -16,7 +16,10 @@ import org.json.JSONObject;
 
 import negocio.exceptions.ErroAoReceberConversaoException;
 import negocio.exceptions.LimiteDeConvesoesException;
-
+/**
+ * Classe que lida com a conversão de moedas
+ * @author Maria Gabriela
+ */
 public class CambioNegocio {
 	private static final ArrayList<String> MOEDASDESTINO = new ArrayList<String>();
 	private static final String KEY = "KEY DO EXCHANGERATE";
@@ -34,10 +37,24 @@ public class CambioNegocio {
 		}
 	}
 
+	/**
+	 * Método que recupera todas as moedas destino possíveis
+	 * @return Um arraylist de strings com as moedas destino
+	 */
 	public ArrayList<String> getMoedasdestino() {
 		return MOEDASDESTINO;
 	}
 
+	/**
+	 * Método que realiza a conversão
+	 * @param valor
+	 * @param moedaEscolhida
+	 * @return resultado da conversão
+	 * @throws URISyntaxException
+	 * @throws IOException
+	 * @throws LimiteDeConvesoesException
+	 * @throws ErroAoReceberConversaoException
+	 */
 	public double realizarCambio(double valor, String moedaEscolhida) throws URISyntaxException, IOException, LimiteDeConvesoesException, ErroAoReceberConversaoException {
 		String urlStr = "http://api.exchangerate.host/convert?access_key=" + KEY + "&from=BRL&to=" + moedaEscolhida
 				+ "&amount=" + valor;

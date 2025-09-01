@@ -7,10 +7,24 @@ import dados.GastoManager;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.MesSemGastosException;
 
+/**
+ * Classe que representa um gráfico de setores associado a um mês
+ * @author Maria Gabriela
+ */
+
 public class GraficoSetores{
     private Mes mes;
 	private ArrayList<Setor> setores;
 	
+	 /**
+	  * Construtor que recebe mês e ano separados
+	  * @param mes
+	  * @param ano
+	  * @param categoriaManager
+	  * @param gastoManager
+	  * @throws MesSemGastosException
+	  * @throws CampoVazioException
+	  */
 	public GraficoSetores(int m, int a, CategoriaManager cm, GastoManager gm) throws MesSemGastosException, CampoVazioException {
 		this.mes = new Mes(m, a);
 		setores = new ArrayList<Setor>();
@@ -19,6 +33,14 @@ public class GraficoSetores{
 		}
 	}
 	
+	/**
+	 * Construtor que recebe a classe mês
+	 * @param Mês
+	 * @param categoriaManager
+	 * @param gastoManager
+	 * @throws MesSemGastosException
+	 * @throws CampoVazioException
+	 */
 	public GraficoSetores(Mes m, CategoriaManager cm, GastoManager gm) throws MesSemGastosException, CampoVazioException {
 		this.mes = m;
 		setores = new ArrayList<Setor>();

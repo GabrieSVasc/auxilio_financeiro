@@ -108,6 +108,7 @@ public class InicialViewController implements Initializable {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			//Problema ao tentar ler um arquivo
 		}
 
 	}

@@ -5,6 +5,8 @@ import java.io.IOException;
 import fachada.Fachada;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -51,11 +53,18 @@ public class EditarLembreteViewController {
 			fachada.atualizarLembrete(idLembrete, txtTitulo.getText(), txtDescricao.getText(), dtpData.getValue());
 			Main.mudarTela("lembretes");
 		} catch (ObjetoNaoEncontradoException e1) {
-			e1.printStackTrace();
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("Tentando editar lembrete inexistente");
+			alerta.showAndWait();
 		} catch (IOException e1) {
 			e1.printStackTrace();
+			//Problema ao tentar ler um arquivo
 		} catch (CampoVazioException e1) {
-			e1.printStackTrace();
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("Todos os campos devem estar preenchidos");
+			alerta.showAndWait();
 		}
 	}
 }

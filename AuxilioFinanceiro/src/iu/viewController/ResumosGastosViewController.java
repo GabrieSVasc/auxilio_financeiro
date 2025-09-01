@@ -112,8 +112,6 @@ public class ResumosGastosViewController implements Initializable {
 			alerta.setContentText("Não há gastos cadastrados nesse mês");
 			alerta.showAndWait();
 			cbMeses.getSelectionModel().select(0);
-		} catch (CampoVazioException e) {
-			e.printStackTrace();
 		}
 	}
 

@@ -46,6 +46,7 @@ public class NovoLembreteViewController {
 			Main.mudarTela("lembretes");
 		} catch (IOException e1) {
 			e1.printStackTrace();
+			//Problema ao tentar salvar coisas no arquivo
 		} catch (ObjetoNuloException e1) {
 			e1.printStackTrace();
 		}

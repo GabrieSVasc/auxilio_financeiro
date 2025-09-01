@@ -109,13 +109,22 @@ public class DadosInvestimentoViewController implements Initializable{
 			alerta.setContentText("O valor do investimento simulado é: "+ String.format("%.2f", r.getMontanteCalculado()));
 			alerta.showAndWait();
 		} catch (OpcaoInvalidaException e1) {
-			e1.printStackTrace();
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("A opção é inválida");
+			alerta.showAndWait();
 		} catch (ValorInvalidoException e1) {
-			e1.printStackTrace();
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("O Valor é inválido");
+			alerta.showAndWait();
 		} catch (FormatacaoInvalidaException e1) {
-			e1.printStackTrace();
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("A formatação é inválida");
+			alerta.showAndWait();
 		} catch (TIRImpossivelException e1) {
-			e1.printStackTrace();
+			//Essa exceção não acontece para este tipo de simulação
 		}
 	}
 	

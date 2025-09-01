@@ -44,7 +44,15 @@ public class EditarCategoriaViewController {
 			fachada.editarCategoria(idCategoria, txtNome.getText());
 			Main.mudarTela("categorias");
 		} catch (ValorNegativoException e1) {
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("O valor não deve ser negativo");
+			alerta.showAndWait();
 		} catch (ObjetoNaoEncontradoException e1) {
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("Tentando editar categoria inexistente");
+			alerta.showAndWait();
 		} catch (CampoVazioException e1) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Erro");

@@ -1,9 +1,15 @@
 package negocio.entidades;
 
+/**
+ * Classe feita para facilitar a parametrização de valores para a simulação de investimentos
+ * @author Maria Gabriela
+ */
+
 public class Parametros {
 	private int input1, input2, tipo, numParcelas;
 	private double valor, taxa, tempo;
 	private String arrecadacao;
+
 	public Parametros(int input1, int input2, double valor, double taxa, int numParcelas) {
 		this.input1 = input1;
 		this.input2 = input2;

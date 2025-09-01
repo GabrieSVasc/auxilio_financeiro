@@ -2,8 +2,12 @@ package negocio.entidades;
 
 import java.io.Serializable;
 
-public class Mes implements Serializable{
-    private static final long serialVersionUID = 1L;
+/**
+ * Classe que representa um mês de um ano para utilização na criação de gráficos
+ * @author Maria Gabriela
+ */
+
+public class Mes{
 	private int ano, mes;
 	
 	public Mes(int m, int a) {
