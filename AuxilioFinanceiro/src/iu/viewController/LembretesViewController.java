@@ -138,7 +138,7 @@ public class LembretesViewController implements Initializable {
 				HBox.setHgrow(btn, Priority.ALWAYS);
 				btn.setOnAction(event -> {
 					ValorLista tl = getTableView().getItems().get(getIndex());
-					Main.mudarTelaEdicao("editarLembrete", tl.getId());
+					Main.mudarTelaEdicao("editarLembrete", tl.getId(), "");
 				});
 			}
 

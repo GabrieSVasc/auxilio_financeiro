@@ -83,7 +83,7 @@ public class CategoriasViewController implements Initializable{
 				HBox.setHgrow(btn, Priority.ALWAYS);
 				btn.setOnAction(event -> {
 					ValorLista tl = getTableView().getItems().get(getIndex());
-					Main.mudarTelaEdicao("editarCategoria", tl.getId());
+					Main.mudarTelaEdicao("editarCategoria", tl.getId(), "");
 				});
 			}
 			@Override

@@ -22,6 +22,7 @@ import javafx.scene.layout.Priority;
 import main.Main;
 import negocio.entidades.ValorLista;
 import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.ObjetoNaoEncontradoException;
 
 public class GastosViewController implements Initializable {
 	@FXML
@@ -84,7 +85,7 @@ public class GastosViewController implements Initializable {
 				HBox.setHgrow(btn, Priority.ALWAYS);
 				btn.setOnAction(event -> {
 					ValorLista tl = getTableView().getItems().get(getIndex());
-					Main.mudarTelaEdicao("editarGasto", tl.getId());
+					Main.mudarTelaEdicao("editarGasto", tl.getId(), tl.getStringLista());
 				});
 			}
 
@@ -107,9 +108,9 @@ public class GastosViewController implements Initializable {
 				btn.setOnAction(event -> {
 					ValorLista tl = getTableView().getItems().get(getIndex());
 					try {
-						fachada.removerGasto(tl.getId());
+						fachada.removerGasto(tl.getId(), tl.getStringLista());
 						inicializaValores();
-					} catch (IOException | CampoVazioException e) {
+					} catch (IOException | CampoVazioException | ObjetoNaoEncontradoException e) {
 					}
 				});
 			}

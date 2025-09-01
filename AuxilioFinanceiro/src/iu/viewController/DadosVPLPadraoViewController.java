@@ -86,7 +86,6 @@ public class DadosVPLPadraoViewController implements Initializable {
 		} catch (FormatacaoInvalidaException e1) {
 			e1.printStackTrace();
 		} catch (TIRImpossivelException e1) {
-			//TODO Fazer isso
 			e1.printStackTrace();
 		}
 	}

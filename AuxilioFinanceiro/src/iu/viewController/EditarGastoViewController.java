@@ -1,5 +1,6 @@
 package iu.viewController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
@@ -21,6 +22,7 @@ import javafx.scene.control.TextFormatter;
 import main.Main;
 import negocio.entidades.Gasto;
 import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.ObjetoNaoEncontradoException;
 
 public class EditarGastoViewController implements Initializable{
 	@FXML
@@ -39,6 +41,8 @@ public class EditarGastoViewController implements Initializable{
 	private Button btnConfirmar;
 
 	private int idGasto;
+	
+	private Gasto g;
 	
 	private static Fachada fachada = new Fachada();
 	
@@ -84,9 +88,9 @@ public class EditarGastoViewController implements Initializable{
 		Main.mudarTela("gastos");
 	}
 	
-	public void gastoEscolhido(int v) {
+	public void gastoEscolhido(int v, String nome) {
 		idGasto = v;
-		Gasto g = fachada.getGasto(v);
+		Gasto g = fachada.getGasto(v, nome);
 		txtNome.setText(g.getNome());
 		spinnerValor.getValueFactory().setValue(g.getValor());
 		dateData.setValue(g.getDataCriacao());
@@ -95,13 +99,17 @@ public class EditarGastoViewController implements Initializable{
 	@FXML
 	protected void btnConfirmarAction(ActionEvent e) {
 		try {
-			fachada.editarGasto(idGasto, txtNome.getText(), spinnerValor.getValue(), dateData.getValue());
+			fachada.editarGasto(idGasto, txtNome.getText(), spinnerValor.getValue(), dateData.getValue(), g.getCategoria());
 			Main.mudarTela("gastos");
 		} catch (CampoVazioException e1) {
 			Alert alerta = new Alert(AlertType.INFORMATION);
 			alerta.setTitle("Erro");
 			alerta.setContentText("Todos os campos devem estar preenchidos");
 			alerta.showAndWait();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (ObjetoNaoEncontradoException e1) {
+			e1.printStackTrace();
 		}
 	}
 }

@@ -56,7 +56,7 @@ public class Categoria implements Exibivel {
 
 		if (linhas.isEmpty()) {
 			// Criar categorias padrão
-			String[] padrao = { "Comida", "Transporte", "Lazer", "Aluguel", "Saúde", "Educação" };
+			String[] padrao = { "Comida", "Transporte", "Lazer", "Aluguel", "Saúde", "Educação", "Mensal"};
 			for (String nome : padrao) {
 				try {
 					categorias.add(new Categoria(nome));

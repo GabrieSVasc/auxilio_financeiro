@@ -1,9 +1,11 @@
 package iu.viewController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
@@ -22,6 +24,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import main.Main;
 import negocio.entidades.ValorLista;
@@ -136,14 +139,24 @@ public class NovoGastoViewController implements Initializable{
 	
 	@FXML
 	protected void btnConfirmarAction(ActionEvent e) {
+		Optional<String> resultado = Optional.ofNullable("");
+		if(cbCategoria.getSelectionModel().getSelectedItem().equals("Mensal")) {
+			TextInputDialog dialog = new TextInputDialog();
+			dialog.setTitle("Recorrencia");
+			dialog.setHeaderText("Digite a recorrência: ");
+			dialog.setContentText("Recorrencia: ");
+			 resultado = dialog.showAndWait();
+		}
 		try {
-			fachada.criarGasto(txtNome.getText(), spinnerValor.getValue().doubleValue(), dateData.getValue(), cbCategoria.getSelectionModel().getSelectedItem().toString());
+			fachada.criarGasto(txtNome.getText(), spinnerValor.getValue().doubleValue(), dateData.getValue(), cbCategoria.getSelectionModel().getSelectedItem().toString(), resultado.get());
 			Main.mudarTela("gastos");
 		} catch (CampoVazioException e1) {
 			Alert alerta = new Alert(AlertType.INFORMATION);
 			alerta.setTitle("Erro");
 			alerta.setContentText("Todos os campos devem estar preenchidos");
 			alerta.showAndWait();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
 }

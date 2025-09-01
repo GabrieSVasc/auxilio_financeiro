@@ -34,7 +34,7 @@ public class Mensalidade extends Gasto {
      * @param recorrencia Frequência de pagamento (não pode ser vazia)
      * @throws CampoVazioException Se a recorrência for vazia ou nula
      */
-    public Mensalidade(String nome, double valor, String dataVencimento, Categoria categoria, LocalDate dataCriacao, String recorrencia) throws CampoVazioException {
+    public Mensalidade(String nome, double valor, LocalDate dataVencimento, Categoria categoria, LocalDate dataCriacao, String recorrencia) throws CampoVazioException {
         super(nome, valor, categoria, dataCriacao);
         setDataVencimento(dataVencimento);
         setRecorrencia(recorrencia);

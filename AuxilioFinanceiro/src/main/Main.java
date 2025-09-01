@@ -336,14 +336,14 @@ public class Main extends Application {
 		telaAtual = nome;
 	}
 
-	public static void mudarTelaEdicao(String nome, int v) {
+	public static void mudarTelaEdicao(String nome, int v, String Gasto) {
 		switch (nome) {
 		case "editarLembrete":
 			eLembreteVC.lembreteEscolhido(v);
 			stage.setScene(cenaEditarLembrete);
 			break;
 		case "editarGasto":
-			egVC.gastoEscolhido(v);
+			egVC.gastoEscolhido(v, Gasto);
 			stage.setScene(cenaEditarGasto);
 			break;
 		case "editarLimite":

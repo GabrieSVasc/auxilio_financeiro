@@ -86,7 +86,7 @@ public class LimitesViewController implements Initializable{
 				HBox.setHgrow(btn, Priority.ALWAYS);
 				btn.setOnAction(event -> {
 					ValorLista tl = getTableView().getItems().get(getIndex());
-					Main.mudarTelaEdicao("editarLimite", tl.getId());
+					Main.mudarTelaEdicao("editarLimite", tl.getId(), "");
 				});
 			}
 			@Override

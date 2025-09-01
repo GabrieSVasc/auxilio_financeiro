@@ -81,7 +81,7 @@ public class MetasViewController implements Initializable{
 				HBox.setHgrow(btn, Priority.ALWAYS);
 				btn.setOnAction(event ->{
 					ValorLista tl = getTableView().getItems().get(getIndex());
-					Main.mudarTelaEdicao("editarMeta", tl.getId());
+					Main.mudarTelaEdicao("editarMeta", tl.getId(), "");
 					
 				});
 			}

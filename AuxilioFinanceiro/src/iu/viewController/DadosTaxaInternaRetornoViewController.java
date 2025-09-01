@@ -27,16 +27,16 @@ import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.TIRImpossivelException;
 import negocio.exceptions.ValorInvalidoException;
 
-public class DadosTaxaInternaRetornoViewController implements Initializable{
+public class DadosTaxaInternaRetornoViewController implements Initializable {
 	@FXML
 	private Button btnVoltar;
-	
+
 	@FXML
 	private ImageView imgTutoriais;
 
 	@FXML
 	private Button btnTutoriais;
-	
+
 	@FXML
 	private CheckBox chMeses;
 
@@ -45,18 +45,18 @@ public class DadosTaxaInternaRetornoViewController implements Initializable{
 
 	@FXML
 	private TextArea txtArrecadacao;
-	
+
 	@FXML
 	private Spinner<Double> spinnerTempo;
 
 	@FXML
 	private Spinner<Double> spinnerCusto;
-	
+
 	@FXML
 	private Button btnConfirmar;
-	
+
 	private static Fachada fachada = new Fachada();
-	
+
 	public void inicializandoTela() {
 		spinnerCusto.getValueFactory().setValue(0.0);
 		spinnerTempo.getValueFactory().setValue(0.0);
@@ -65,25 +65,26 @@ public class DadosTaxaInternaRetornoViewController implements Initializable{
 		txtArrecadacao.setText("");
 		txtArrecadacao.setPromptText("Ex: (100, 200, 300, 400, 500)");
 	}
-	
+
 	@FXML
 	protected void btnVoltarAction(ActionEvent e) {
 		Main.mudarTela("valorPresenteLiquido");
 	}
-	
+
 	@FXML
 	protected void btnConfirmarAction(ActionEvent e) {
 		int tipoDuracao = 0;
-		if(chAnos.isSelected()) {
+		if (chAnos.isSelected()) {
 			tipoDuracao = 1;
 		}
-		Parametros p = new Parametros(5, 2, spinnerCusto.getValue().doubleValue(), spinnerTempo.getValue().doubleValue(),spinnerTempo.getValue().doubleValue(), tipoDuracao);
+		Parametros p = new Parametros(5, 2, spinnerCusto.getValue().doubleValue(),
+				spinnerTempo.getValue().doubleValue(), spinnerTempo.getValue().doubleValue(), tipoDuracao);
 		p.setArrecadacao(txtArrecadacao.getText());
 		try {
 			RetornoInvestimento r = fachada.investimentos(p);
 			Alert alerta = new Alert(AlertType.INFORMATION);
 			alerta.setTitle("Taxa Interna de Retorno");
-			alerta.setContentText("O resultado da simulação foi: "+ String.format("%.2f", r.getTIR()*100));
+			alerta.setContentText("O resultado da simulação foi: " + String.format("%.2f", r.getTIR() * 100));
 			alerta.showAndWait();
 		} catch (OpcaoInvalidaException e1) {
 			e1.printStackTrace();
@@ -92,9 +93,13 @@ public class DadosTaxaInternaRetornoViewController implements Initializable{
 		} catch (FormatacaoInvalidaException e1) {
 			e1.printStackTrace();
 		} catch (TIRImpossivelException e1) {
-			e1.printStackTrace();
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Taxa Interna de Retorno");
+			alerta.setContentText("Impossível calcular a Taxa Interna de Retorno dos dados apresentados");
+			alerta.showAndWait();
 		}
 	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		btnTutoriais.setGraphic(imgTutoriais);
@@ -155,16 +160,17 @@ public class DadosTaxaInternaRetornoViewController implements Initializable{
 		spinnerTempo.setEditable(true);
 		value.valueProperty().bindBidirectional(txtFormatt.valueProperty());
 	}
-	
+
 	@FXML
 	protected void chMesesAction(ActionEvent e) {
 		chAnos.setSelected(false);
 	}
-	
+
 	@FXML
 	protected void chAnosAction(ActionEvent e) {
 		chMeses.setSelected(false);
 	}
+
 	@FXML
 	protected void btnTutoriaisAction(ActionEvent e) {
 		Main.mudarTelaDadosInvestimentos("tutoriais", 1);

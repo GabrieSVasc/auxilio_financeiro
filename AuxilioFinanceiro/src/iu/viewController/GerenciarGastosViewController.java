@@ -73,8 +73,10 @@ public class GerenciarGastosViewController implements Initializable{
 			alerta.setTitle("Gráfico de gastos desse mês");
 			alerta.setContentText("Não há gastos cadastrados nesse mês");
 			alerta.showAndWait();
-			pcMesAtual.getData().add(new PieChart.Data("Vazio", 10));
-			pcMesAtual.setTitle("Gráfico do mês");
+			if(pcMesAtual.getData().size()==0) {
+				pcMesAtual.getData().add(new PieChart.Data("Vazio", 10));
+				pcMesAtual.setTitle("Gráfico do mês");
+			}
 		} catch (CampoVazioException e) {
 			e.printStackTrace();
 		}
