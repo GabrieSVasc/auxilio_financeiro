@@ -11,6 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import main.Main;
 
+/**
+ * Classe ligada ao fxml da tela de tutoriais
+ * 
+ * @author Maria Gabriela
+ */
+
 public class TutoriaisViewController implements Initializable {
 	@FXML
 	private ImageView imgVoltar;
@@ -141,7 +147,7 @@ public class TutoriaisViewController implements Initializable {
 	protected void btnVoltarAction(ActionEvent e) {
 		if (input == 0) {
 			Main.mudarTela(anterior);
-		}else {
+		} else {
 			Main.mudarTelaDadosInvestimentos(anterior, input);
 		}
 	}

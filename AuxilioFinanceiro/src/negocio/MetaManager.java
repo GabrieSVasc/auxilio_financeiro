@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import dados.MetaRepository;
+import negocio.entidades.CrudMenu;
 import negocio.entidades.LembreteMeta;
 import negocio.entidades.Meta;
 import negocio.exceptions.CampoVazioException;
@@ -22,11 +23,19 @@ public class MetaManager implements CrudMenu {
 	private final LembreteManager lembreteManager; // Injeção do LembreteManager
 	private final Scanner sc = new Scanner(System.in);
 
+	/**
+	 * Construtor que inicializa o repositório de metas
+	 * 
+	 * @param lembreteManager
+	 */
 	public MetaManager(LembreteManager lembreteManager) {
 		metaRepository = new MetaRepository();
 		this.lembreteManager = lembreteManager; // Inicializa o LembreteManager
 	}
 
+	/**
+	 * Método criado para o caso de uso do console como IU
+	 */
 	@Override
 	public void menu() throws CampoVazioException, ObjetoNuloException, ObjetoNaoEncontradoException {
 		String op;
@@ -49,8 +58,16 @@ public class MetaManager implements CrudMenu {
 		} while (!"0".equals(op));
 	}
 
-	public void criar(String desc, double objetivo, double atual, LocalDate prazo)
-			throws CampoVazioException, ObjetoNuloException {
+	/**
+	 * Método que estabelece a regra de negócio da criação de metas
+	 * 
+	 * @param desc     Descrição da meta
+	 * @param objetivo Valor de objetivo da meta
+	 * @param atual    Valor atual da meta
+	 * @param prazo    Prazo estabelecido
+	 * @throws ObjetoNuloException
+	 */
+	public void criar(String desc, double objetivo, double atual, LocalDate prazo) throws ObjetoNuloException {
 		Meta m = new Meta(desc, objetivo, atual, prazo);
 		metaRepository.criar(m);
 
@@ -59,6 +76,10 @@ public class MetaManager implements CrudMenu {
 		lembreteManager.criarLembrete(lembrete);
 	}
 
+	/**
+	 * Método criado para o caso de uso do console como IU, lista todas as metas no
+	 * console
+	 */
 	private void listar() {
 		if (metaRepository.isEmpty()) {
 			System.out.println("Nenhuma meta cadastrada.");
@@ -67,6 +88,17 @@ public class MetaManager implements CrudMenu {
 		System.out.println(metaRepository.listar());
 	}
 
+	/**
+	 * Método que lida com as regras de negócio da edição de metas
+	 * 
+	 * @param id       Id da meta
+	 * @param desc     Nova descrição
+	 * @param objetivo Novo valor objetivo
+	 * @param atual    Novo valor atual
+	 * @param data     Nova data de prazo
+	 * @throws ObjetoNaoEncontradoException
+	 * @throws CampoVazioException
+	 */
 	public void editar(int id, String desc, double objetivo, double atual, LocalDate data)
 			throws ObjetoNaoEncontradoException, CampoVazioException {
 		Meta m = metaRepository.consultar(id);
@@ -80,7 +112,13 @@ public class MetaManager implements CrudMenu {
 				"Acompanhamento da meta " + m.getDescricao(), m.getDataPrazo(), true);
 	}
 
-	public void deletar(int id) throws ObjetoNaoEncontradoException{
+	/**
+	 * Método que lida com as regras de negócio da remoção de metas
+	 * 
+	 * @param id Id da meta
+	 * @throws ObjetoNaoEncontradoException
+	 */
+	public void deletar(int id) throws ObjetoNaoEncontradoException {
 		Meta meta = metaRepository.consultar(id);
 		if (meta == null) {
 			throw new ObjetoNaoEncontradoException("Meta", id);
@@ -89,10 +127,21 @@ public class MetaManager implements CrudMenu {
 		metaRepository.remover(meta);
 	}
 
+	/**
+	 * Método que retorna todas as metas cadastradas
+	 * 
+	 * @return Lista com as metas cadastradas
+	 */
 	public List<Meta> getMetas() {
 		return metaRepository.getMetas();
 	}
 
+	/**
+	 * Método que busca uma meta específica
+	 * 
+	 * @param id Id da meta
+	 * @return Meta buscada ou null se não for encontrada
+	 */
 	public Meta getMeta(int id) {
 		return metaRepository.consultar(id);
 	}

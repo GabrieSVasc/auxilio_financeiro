@@ -11,6 +11,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import main.Main;
 
+/**
+ * Classe ligada ao fxml do HUB principal da simulação de investimentos
+ * 
+ * @author Maria Gabriela
+ */
+
 public class PrincipalInvestimentosViewController implements Initializable	{
 	@FXML
 	private ImageView imgVoltar;

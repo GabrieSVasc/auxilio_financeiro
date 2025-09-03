@@ -24,6 +24,12 @@ import main.Main;
 import negocio.entidades.ValorLista;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 
+/**
+ * Classe ligada ao fxml da tela de listagem de metas
+ * 
+ * @author Maria Gabriela
+ */
+
 public class MetasViewController implements Initializable{
 	@FXML
 	private ImageView imgVoltar;

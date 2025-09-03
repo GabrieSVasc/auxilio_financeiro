@@ -29,6 +29,12 @@ import main.Main;
 import negocio.entidades.ValorLista;
 import negocio.exceptions.CampoVazioException;
 
+/**
+ * Classe ligada ao fxml da tela de criação de gastos
+ * 
+ * @author Maria Gabriela
+ */
+
 public class NovoGastoViewController implements Initializable{
 	@FXML
 	private Button btnVoltar;

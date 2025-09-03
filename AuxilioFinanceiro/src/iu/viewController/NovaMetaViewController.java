@@ -22,6 +22,12 @@ import main.Main;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNuloException;
 
+/**
+ * Classe ligada ao fxml da tela de criação de metas
+ * 
+ * @author Maria Gabriela
+ */
+
 public class NovaMetaViewController implements Initializable{
 	@FXML
 	private Button btnVoltar;

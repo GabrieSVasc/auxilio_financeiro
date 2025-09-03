@@ -7,6 +7,12 @@ import negocio.entidades.tiposdesconto.DescontoSimples;
 import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.ValorInvalidoException;
 
+/**
+ * Menu que lida com a parte de desconto
+ * 
+ * @author Divancy Bruno
+ */
+
 public class NegocioDesconto {
     public RetornoInvestimento inputMenuDesconto(int input2, double montante, double taxa, int tipo, double tempo) throws OpcaoInvalidaException, ValorInvalidoException {
         Desconto descon;

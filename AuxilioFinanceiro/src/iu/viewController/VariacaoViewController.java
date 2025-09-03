@@ -10,6 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import main.Main;
 
+/**
+ * Classe ligada ao fxml da tela HUB de variação
+ * 
+ * @author Maria Gabriela
+ */
+
 public class VariacaoViewController implements Initializable{
 	@FXML
 	private ImageView imgVoltar;

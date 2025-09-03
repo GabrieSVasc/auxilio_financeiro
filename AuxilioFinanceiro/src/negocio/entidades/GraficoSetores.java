@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import negocio.CategoriaManager;
 import negocio.GastoManager;
-import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.MesSemGastosException;
 
 /**
@@ -23,9 +22,8 @@ public class GraficoSetores{
 	  * @param categoriaManager
 	  * @param gastoManager
 	  * @throws MesSemGastosException
-	  * @throws CampoVazioException
 	  */
-	public GraficoSetores(int m, int a, CategoriaManager cm, GastoManager gm) throws MesSemGastosException, CampoVazioException {
+	public GraficoSetores(int m, int a, CategoriaManager cm, GastoManager gm) throws MesSemGastosException{
 		this.mes = new Mes(m, a);
 		setores = new ArrayList<Setor>();
 		for(Categoria c: cm.getCategorias()) {
@@ -39,9 +37,8 @@ public class GraficoSetores{
 	 * @param categoriaManager
 	 * @param gastoManager
 	 * @throws MesSemGastosException
-	 * @throws CampoVazioException
 	 */
-	public GraficoSetores(Mes m, CategoriaManager cm, GastoManager gm) throws MesSemGastosException, CampoVazioException {
+	public GraficoSetores(Mes m, CategoriaManager cm, GastoManager gm) throws MesSemGastosException{
 		this.mes = m;
 		setores = new ArrayList<Setor>();
 		for(Categoria c: cm.getCategorias()) {

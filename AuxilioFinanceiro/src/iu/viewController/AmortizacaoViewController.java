@@ -10,6 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import main.Main;
 
+/**
+ * Classe ligada ao fxml do HUB de amortização
+ * 
+ * @author Maria Gabriela
+ */
+
 public class AmortizacaoViewController implements Initializable{
 	@FXML
 	private ImageView imgVoltar;

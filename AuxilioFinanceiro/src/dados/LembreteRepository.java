@@ -38,33 +38,61 @@ public class LembreteRepository {
 	// Formato padrão para leitura e escrita das datas
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+	/**
+	 * Construtor que inicializa a lista de lembretes
+	 * 
+	 * @param mm O manager de mensalidade
+	 * @param lm O manager de limite
+	 */
 	public LembreteRepository(MensalidadeManager mm, LimiteManager lm) {
 		lembretes = new ArrayList<Lembrete>();
 		lembretes = carregar(mm, lm);
 	}
 
-	
-	
-	public List<Lembrete> getLembretes(){
+	/**
+	 * Método que retorna todos os lembretes cadastrados
+	 * 
+	 * @return A lista de lembretes cadastrados
+	 */
+	public List<Lembrete> getLembretes() {
 		return lembretes;
 	}
-	
+
+	/**
+	 * Método que cria um lembrete e salva no arquivo
+	 * 
+	 * @param l Lembrete a ser adicionado
+	 */
 	public void criar(Lembrete l) {
 		lembretes.add(l);
 		salvar();
 	}
-	
+
+	/**
+	 * Método que remove um lembrete e salva o arquivo sem ele
+	 * 
+	 * @param l Lembrete a ser removido
+	 */
 	public void remover(Lembrete l) {
 		int indice = lembretes.indexOf(l);
-		if(indice != -1) {
+		if (indice != -1) {
 			lembretes.remove(l);
 			salvar();
 		}
 	}
-	
+
+	/**
+	 * Método que atualiza um lembrete e salva no arquivo
+	 * 
+	 * @param l     Lembrete a ser atualizado
+	 * @param nT    Novo titulo do lembrete
+	 * @param nD    Nova descrição do lembrete
+	 * @param nDa   Nova data do lembrete
+	 * @param ativo Novo estado do lembrete
+	 */
 	public void atualizar(Lembrete l, String nT, String nD, LocalDate nDa, boolean ativo) {
 		int indice = lembretes.indexOf(l);
-		if(indice != -1) {
+		if (indice != -1) {
 			lembretes.get(indice).setTitulo(nT);
 			lembretes.get(indice).setDescricao(nD);
 			lembretes.get(indice).setDataAlerta(nDa);
@@ -72,11 +100,17 @@ public class LembreteRepository {
 			salvar();
 		}
 	}
-	
+
+	/**
+	 * Método que consulta um lembrete listado
+	 * 
+	 * @param id Id do lembrete
+	 * @return O lembrete encontrado ou null se não for encontrado
+	 */
 	public Lembrete consultar(int id) {
-		return lembretes.stream().filter(l ->l.getId() == id).findFirst().orElse(null);
+		return lembretes.stream().filter(l -> l.getId() == id).findFirst().orElse(null);
 	}
-	
+
 	/**
 	 * Garante que o arquivo e seu diretório existam antes de qualquer operação de
 	 * leitura ou escrita. Isso evita erros de arquivo não encontrado e facilita a
@@ -101,14 +135,14 @@ public class LembreteRepository {
 	 * Salva a lista de lembretes no arquivo, sobrescrevendo o conteúdo anterior.
 	 * Utiliza BufferedWriter para escrita eficiente e segura.
 	 */
-	private void salvar(){
+	private void salvar() {
 		garantirArquivo();
 		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(CAMINHO_ARQUIVO))) {
 			for (Lembrete lembrete : lembretes) {
 				writer.write(lembrete.toFileString()); // Converte o lembrete para formato texto
 				writer.newLine();
 			}
-		}catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -118,17 +152,14 @@ public class LembreteRepository {
 	 * suas subclasses a partir das linhas lidas, associando-os às mensalidades e
 	 * limites correspondentes.
 	 * 
-	 * Recebe listas de mensalidades e limites para garantir a associação correta,
-	 * respeitando a integridade referencial.
+	 * Recebe os managers de mensalidades e limites para garantir a associação
+	 * correta, respeitando a integridade referencial.
 	 * 
-	 * Trata erros de parsing e associações inválidas, reportando avisos sem
-	 * interromper a carga.
-	 * 
-	 * @param mm 	Manager de mensalidades
-	 * @param lm	Manager de limites
+	 * @param mm Manager de mensalidades
+	 * @param lm Manager de limites
 	 * @return Lista de objetos Lembrete carregados do arquivo
 	 */
-	private List<Lembrete> carregar(MensalidadeManager mm, LimiteManager lm){
+	private List<Lembrete> carregar(MensalidadeManager mm, LimiteManager lm) {
 		garantirArquivo();
 		List<Limite> limites = lm.getLimites();
 		List<Mensalidade> mensalidades = mm.listarMensalidades();
@@ -192,7 +223,7 @@ public class LembreteRepository {
 					System.err.println("Erro ao carregar lembrete: " + e.getMessage() + " | Linha: " + linha);
 				}
 			}
-		}catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return lembretes;

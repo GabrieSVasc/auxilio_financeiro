@@ -63,6 +63,7 @@ public class LembreteManager {
 	 * @param novoTitulo    Novo título (pode ser null para não alterar)
 	 * @param novaDescricao Nova descrição (pode ser null para não alterar)
 	 * @param novaData      Nova data de alerta (pode ser null para não alterar)
+	 * @param ativo         Novo estado do lembrete
 	 * @throws ObjetoNaoEncontradoException Caso o lembrete não seja encontrado
 	 * @throws CampoVazioException          Caso algum campo obrigatório esteja
 	 *                                      vazio
@@ -104,7 +105,7 @@ public class LembreteManager {
 	 * @param id Identificador do lembrete a ser removido
 	 * @throws ObjetoNaoEncontradoException Caso o lembrete não exista
 	 */
-	public void removerLembrete(int id) throws ObjetoNaoEncontradoException{
+	public void removerLembrete(int id) throws ObjetoNaoEncontradoException {
 		Lembrete encontrado = lembreteRepository.consultar(id);
 		if (encontrado == null) {
 			throw new ObjetoNaoEncontradoException("Lembrete", id);

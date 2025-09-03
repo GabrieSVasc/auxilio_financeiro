@@ -16,18 +16,28 @@ import org.json.JSONObject;
 
 import negocio.exceptions.ErroAoReceberConversaoException;
 import negocio.exceptions.LimiteDeConvesoesException;
+
 /**
  * Classe que lida com a conversão de moedas
+ * 
  * @author Maria Gabriela
  */
 public class CambioNegocio {
 	private static final ArrayList<String> MOEDASDESTINO = new ArrayList<String>();
+	// Key ocultada para proteção no github
 	private static final String KEY = "KEY DO EXCHANGERATE";
 
-	public CambioNegocio() throws IOException {
+	/**
+	 * Construtor, prepara para o envio de requisições
+	 */
+	public CambioNegocio() {
 		String caminhoArquivo = "files/Valores.txt";
 		String arquivo = "";
-		arquivo = new String(Files.readAllBytes(Paths.get(caminhoArquivo)));
+		try {
+			arquivo = new String(Files.readAllBytes(Paths.get(caminhoArquivo)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		JSONObject obj = new JSONObject(arquivo);
 		JSONObject currencies = obj.getJSONObject("currencies");
 		Iterator<String> keys = currencies.keys();
@@ -39,6 +49,7 @@ public class CambioNegocio {
 
 	/**
 	 * Método que recupera todas as moedas destino possíveis
+	 * 
 	 * @return Um arraylist de strings com as moedas destino
 	 */
 	public ArrayList<String> getMoedasdestino() {
@@ -47,6 +58,7 @@ public class CambioNegocio {
 
 	/**
 	 * Método que realiza a conversão
+	 * 
 	 * @param valor
 	 * @param moedaEscolhida
 	 * @return resultado da conversão
@@ -55,7 +67,8 @@ public class CambioNegocio {
 	 * @throws LimiteDeConvesoesException
 	 * @throws ErroAoReceberConversaoException
 	 */
-	public double realizarCambio(double valor, String moedaEscolhida) throws URISyntaxException, IOException, LimiteDeConvesoesException, ErroAoReceberConversaoException {
+	public double realizarCambio(double valor, String moedaEscolhida)
+			throws URISyntaxException, IOException, LimiteDeConvesoesException, ErroAoReceberConversaoException {
 		String urlStr = "http://api.exchangerate.host/convert?access_key=" + KEY + "&from=BRL&to=" + moedaEscolhida
 				+ "&amount=" + valor;
 		URI uri = new URI(urlStr);
@@ -73,9 +86,9 @@ public class CambioNegocio {
 		JSONObject obj = new JSONObject(json.toString());
 		if (obj.getBoolean("success")) {
 			return obj.getDouble("result");
-		}else if(obj.getJSONObject("error").getInt("code")==104) {
+		} else if (obj.getJSONObject("error").getInt("code") == 104) {
 			throw new LimiteDeConvesoesException("O limite de conversões mensais foi atingido");
-		}else {
+		} else {
 			throw new ErroAoReceberConversaoException("Houve um erro ao tentar converter o valor");
 		}
 	}

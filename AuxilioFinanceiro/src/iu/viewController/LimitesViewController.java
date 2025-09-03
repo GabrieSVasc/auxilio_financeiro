@@ -23,6 +23,12 @@ import negocio.entidades.ValorLista;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ValorNegativoException;
 
+/**
+ * Classe ligada ao fxml da tela de listagem de limites
+ * 
+ * @author Maria Gabriela
+ */
+
 public class LimitesViewController implements Initializable{
 	@FXML
 	private ImageView imgVoltar;

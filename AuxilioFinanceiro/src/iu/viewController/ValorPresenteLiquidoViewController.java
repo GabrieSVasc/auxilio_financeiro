@@ -10,6 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import main.Main;
 
+/**
+ * Classe ligada ao fxml da tela de HUB do VPL
+ * 
+ * @author Maria Gabriela
+ */
+
 public class ValorPresenteLiquidoViewController implements Initializable{
 	@FXML
 	private ImageView imgVoltar;

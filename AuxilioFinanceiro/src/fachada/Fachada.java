@@ -1,5 +1,7 @@
 package fachada;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
+import negocio.CambioNegocio;
 import negocio.CategoriaManager;
 import negocio.GastoManager;
 import negocio.LembreteManager;
@@ -30,7 +33,9 @@ import negocio.entidades.RetornoInvestimento;
 import negocio.entidades.ValorLista;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.CategoriaSemGastosException;
+import negocio.exceptions.ErroAoReceberConversaoException;
 import negocio.exceptions.FormatacaoInvalidaException;
+import negocio.exceptions.LimiteDeConvesoesException;
 import negocio.exceptions.MesSemGastosException;
 import negocio.exceptions.ObjetoJaExisteException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
@@ -47,6 +52,7 @@ import negocio.exceptions.ValorNegativoException;
  */
 
 public class Fachada implements Initializable {
+	private CambioNegocio cambioNegocio;
 	private static NegocioMes negocioMes = new NegocioMes();
 	private static NegocioGrafico negocioGrafico = new NegocioGrafico();
 	private static CategoriaManager categoriaManager = new CategoriaManager();
@@ -84,7 +90,7 @@ public class Fachada implements Initializable {
 	/**
 	 * Método que remove um gasto
 	 * 
-	 * @param id   do gasto
+	 * @param id   Id do gasto
 	 * @param nome (Nome do gasto de acordo com o que foi colocado em ValorLista)
 	 * @throws ObjetoNaoEncontradoException
 	 */
@@ -99,11 +105,11 @@ public class Fachada implements Initializable {
 	/**
 	 * Método que cria um gasto novo
 	 * 
-	 * @param nome
-	 * @param valor
-	 * @param data
-	 * @param categoria
-	 * @param recorrencia para gastos da categoria Mensal
+	 * @param nome        Nome do gasto
+	 * @param valor       Valor do gasto
+	 * @param data        Data de realização do gasto
+	 * @param categoria   Categoria associada ao gasto
+	 * @param recorrencia Para gastos da categoria Mensal
 	 * @throws CampoVazioException
 	 */
 	public void criarGasto(String nome, double valor, LocalDate data, String categoria, String recorrencia)
@@ -121,8 +127,8 @@ public class Fachada implements Initializable {
 	/**
 	 * Método que busca um gasto específico
 	 * 
-	 * @param id   do gasto desejado
-	 * @param nome do gasto na listagem
+	 * @param id   Id do gasto desejado
+	 * @param nome Nome do gasto na listagem
 	 * @return Gasto encontrado ou null
 	 */
 	public Gasto getGasto(int v, String nome) {
@@ -139,7 +145,7 @@ public class Fachada implements Initializable {
 	/**
 	 * Método para edição de um gasto
 	 * 
-	 * @param id              Id
+	 * @param id              Id do gasto
 	 * @param nome            Novo nome
 	 * @param valor           Novo valor
 	 * @param data            Nova data
@@ -176,9 +182,9 @@ public class Fachada implements Initializable {
 	/**
 	 * Método para criar um lembrete
 	 * 
-	 * @param titulo    do lembrete
-	 * @param descricao do lembrete
-	 * @param data      de aviso do lembrete
+	 * @param titulo    Titulo do lembrete
+	 * @param descricao Descricao do lembrete
+	 * @param data      Data de aviso do lembrete
 	 * @throws ObjetoNuloException
 	 */
 	public void criarLembrete(String titulo, String descricao, LocalDate data) throws ObjetoNuloException {
@@ -188,10 +194,10 @@ public class Fachada implements Initializable {
 	/**
 	 * Método para editar lembrete
 	 * 
-	 * @param id   do lembrete a ser editado
-	 * @param novo titulo
-	 * @param nova descricao
-	 * @param nova data
+	 * @param id        Id do lembrete a ser editado
+	 * @param titulo    Novo titulo
+	 * @param descricao Nova descricao
+	 * @param data      Nova data
 	 * @throws ObjetoNaoEncontradoException
 	 * @throws CampoVazioException
 	 */
@@ -213,8 +219,8 @@ public class Fachada implements Initializable {
 	/**
 	 * Método que ativa ou desativa um lembrete
 	 * 
-	 * @param id   do lembrete
-	 * @param novo estado do lembrete
+	 * @param id    Id do lembrete
+	 * @param mudar Novo estado do lembrete
 	 * @throws ObjetoNaoEncontradoException
 	 * @throws CampoVazioException
 	 */
@@ -246,10 +252,10 @@ public class Fachada implements Initializable {
 	/**
 	 * Método para criar metas
 	 * 
-	 * @param descricao     da meta
-	 * @param valorObjetivo
-	 * @param valorAtual
-	 * @param data          máxima da meta
+	 * @param descricao     Descrica da meta
+	 * @param valorObjetivo Valor Objetivo
+	 * @param valorAtual    Valor atual
+	 * @param data          Data máxima da meta
 	 * @throws ObjetoNuloException
 	 * @throws CampoVazioException
 	 */
@@ -278,7 +284,7 @@ public class Fachada implements Initializable {
 	/**
 	 * Método que remove uma meta
 	 * 
-	 * @param id
+	 * @param id Id da meta
 	 * @throws ObjetoNaoEncontradoException
 	 */
 	public void removerMeta(int id) throws ObjetoNaoEncontradoException {
@@ -288,11 +294,11 @@ public class Fachada implements Initializable {
 	/**
 	 * Método que edita uma meta
 	 * 
-	 * @param id   da meta
-	 * @param nova descricao
-	 * @param novo valor de objetivo
-	 * @param novo valor Atual
-	 * @param nova data
+	 * @param id        ID da meta
+	 * @param descricao Nova descricao
+	 * @param valorOb   Novo valor de objetivo
+	 * @param valorAt   Novo valor atual
+	 * @param data      Nova data máxima
 	 * @throws CampoVazioException
 	 * @throws ObjetoNaoEncontradoException
 	 */
@@ -481,11 +487,7 @@ public class Fachada implements Initializable {
 	public GraficoSetores inicializarGraficoSetoresMes(String m) throws MesSemGastosException {
 		String[] valores = m.split("/");
 		Mes mes = new Mes(Integer.valueOf(valores[0]), Integer.valueOf(valores[1]));
-		try {
-			return negocioGrafico.vizualizarGraficoSetores(mes, categoriaManager, gastoManager);
-		} catch (CampoVazioException e) {
-		}
-		return null;
+		return negocioGrafico.vizualizarGraficoSetores(mes, categoriaManager, gastoManager);
 	}
 
 	/**
@@ -518,5 +520,19 @@ public class Fachada implements Initializable {
 		NegocioInvestimentosPrincipal mp = new NegocioInvestimentosPrincipal();
 		return mp.inputMenu(p.getInput1(), p.getInput2(), p.getValor(), p.getTaxa(), p.getNumParcelas(), p.getTipo(),
 				p.getTempo(), p.getArrecadacao());
+	}
+	
+	//Câmbio
+	
+	public void inicializarCambio() {
+		cambioNegocio = new CambioNegocio();
+	}
+	
+	public ArrayList<String> getMoedasDestino(){
+		return cambioNegocio.getMoedasdestino();
+	}
+	
+	public double realizarCambio(double valor, String destino) throws URISyntaxException, IOException, LimiteDeConvesoesException, ErroAoReceberConversaoException {
+		return cambioNegocio.realizarCambio(valor, destino);
 	}
 }

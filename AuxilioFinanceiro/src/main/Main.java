@@ -31,6 +31,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main do sistema, realiza a troca entre as telas
+ * 
+ * @author Maria Gabriela
+ */
+
 public class Main extends Application {
 	private static Stage stage;
 	private static Scene cenaInicial;

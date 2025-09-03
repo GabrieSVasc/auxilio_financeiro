@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
+import fachada.Fachada;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,9 +23,14 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextFormatter;
 import main.Main;
-import negocio.CambioNegocio;
 import negocio.exceptions.ErroAoReceberConversaoException;
 import negocio.exceptions.LimiteDeConvesoesException;
+
+/**
+ * Classe ligada ao fxml da tela de conversão de moedas
+ * 
+ * @author Maria Gabriela
+ */
 
 public class CambioViewController implements Initializable {
 	@FXML
@@ -39,7 +45,7 @@ public class CambioViewController implements Initializable {
 	@FXML
 	private ComboBox<String> cbMoeda;
 
-	private CambioNegocio cambio;
+	private Fachada fachada;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -77,11 +83,8 @@ public class CambioViewController implements Initializable {
 		spinnerValor.getEditor().setTextFormatter(textFormatter);
 		spinnerValor.setEditable(true);
 		valueFactory.valueProperty().bindBidirectional(textFormatter.valueProperty());
-		try {
-			cambio = new CambioNegocio();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		fachada = new Fachada();
+		fachada.inicializarCambio();
 		carregarValores();
 	}
 
@@ -92,7 +95,7 @@ public class CambioViewController implements Initializable {
 
 	@FXML
 	protected void carregarValores() {
-		ArrayList<String> moedas = cambio.getMoedasdestino();
+		ArrayList<String> moedas = fachada.getMoedasDestino();
 		ObservableList<String> l = FXCollections.observableArrayList(moedas);
 		cbMoeda.setItems(l);
 		cbMoeda.setVisibleRowCount(5);
@@ -105,7 +108,7 @@ public class CambioViewController implements Initializable {
 		double resultado = 0;
 		Alert alerta = new Alert(AlertType.INFORMATION);
 		try {
-			resultado = cambio.realizarCambio(valor, destino);
+			resultado = fachada.realizarCambio(valor, destino);
 			alerta.setTitle("Valor convertido: ");
 			String valorStr = String.format("%.2f", valor);
 			String resultadoStr = String.format("%.2f", resultado);

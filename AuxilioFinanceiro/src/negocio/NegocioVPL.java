@@ -7,6 +7,12 @@ import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.TIRImpossivelException;
 import negocio.exceptions.ValorInvalidoException;
 
+/**
+ * Menu que lida com o Valor Presente Liquido
+ * 
+ * @author Divancy Bruno
+ */
+
 public class NegocioVPL {
     public RetornoInvestimento inputMenuVPL(int input2, double custoInicial, double taxa, int tipo, double tempo, String arrecadacao) throws OpcaoInvalidaException, ValorInvalidoException, FormatacaoInvalidaException, TIRImpossivelException{
         ValorPresenteLiquido objeto = new ValorPresenteLiquido(custoInicial, taxa, tipo, tempo, arrecadacao);

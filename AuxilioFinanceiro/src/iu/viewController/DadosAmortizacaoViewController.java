@@ -38,6 +38,12 @@ import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.TIRImpossivelException;
 import negocio.exceptions.ValorInvalidoException;
 
+/**
+ * Classe ligada ao fxml da tela de dados de amortização
+ * 
+ * @author Maria Gabriela
+ */
+
 public class DadosAmortizacaoViewController implements Initializable {
 	@FXML
 	private Button btnVoltar;

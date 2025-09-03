@@ -8,6 +8,12 @@ import negocio.entidades.tiposinvestimentos.JurosSimples;
 import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.ValorInvalidoException;
 
+/**
+ * Menu que lida com a parte de investimento
+ * 
+ * @author Divancy Bruno
+ */
+
 public class NegocioInvestimento {
     public RetornoInvestimento inputMenuInvestimento(int input2, double montante, double taxa, int tipo, double tempo) throws OpcaoInvalidaException, ValorInvalidoException{
         Investimento invest;

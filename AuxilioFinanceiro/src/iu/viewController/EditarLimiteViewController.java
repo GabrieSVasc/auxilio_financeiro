@@ -21,6 +21,12 @@ import negocio.entidades.Limite;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ValorNegativoException;
 
+/**
+ * Classe ligada ao fxml da tela de edição de limites
+ * 
+ * @author Maria Gabriela
+ */
+
 public class EditarLimiteViewController implements Initializable{
 	@FXML
 	private Button btnVoltar;

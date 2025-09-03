@@ -9,6 +9,12 @@ import javafx.scene.control.TextField;
 import main.Main;
 import negocio.exceptions.ObjetoNuloException;
 
+/**
+ * Classe ligada ao fxml da tela de criação de lembreetes
+ * 
+ * @author Maria Gabriela
+ */
+
 public class NovoLembreteViewController {
 	@FXML
 	private Button btnVoltar;

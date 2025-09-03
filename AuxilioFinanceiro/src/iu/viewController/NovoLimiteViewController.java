@@ -28,6 +28,12 @@ import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ObjetoNuloException;
 import negocio.exceptions.ValorNegativoException;
 
+/**
+ * Classe ligada ao fxml da tela de criação de limites
+ * 
+ * @author Maria Gabriela
+ */
+
 public class NovoLimiteViewController implements Initializable {
 	@FXML
 	private Button btnVoltar;

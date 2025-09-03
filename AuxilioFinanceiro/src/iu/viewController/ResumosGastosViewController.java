@@ -28,6 +28,12 @@ import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
 
+/**
+ * Classe ligada ao fxml da tela de resumos de gastos
+ * 
+ * @author Maria Gabriela
+ */
+
 public class ResumosGastosViewController implements Initializable {
 
 	@FXML

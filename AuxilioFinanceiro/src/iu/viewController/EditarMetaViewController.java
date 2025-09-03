@@ -20,6 +20,12 @@ import negocio.entidades.Meta;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 
+/**
+ * Classe ligada ao fxml da tela de edição de meta
+ * 
+ * @author Maria Gabriela
+ */
+
 public class EditarMetaViewController {
 	@FXML
 	private Button btnVoltar;

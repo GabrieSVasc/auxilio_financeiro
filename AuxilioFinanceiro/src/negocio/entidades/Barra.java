@@ -3,7 +3,6 @@ package negocio.entidades;
 import java.util.ArrayList;
 
 import negocio.GastoManager;
-import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
 
@@ -25,10 +24,9 @@ public class Barra {
 	 * @param mes
 	 * @throws MesSemGastosException
 	 * @throws CategoriaSemGastosException
-	 * @throws CampoVazioException
 	 */
 	public Barra(Categoria c, GastoManager gm, Mes mes)
-			throws MesSemGastosException, CategoriaSemGastosException, CampoVazioException {
+			throws MesSemGastosException, CategoriaSemGastosException{
 		this.mes = mes;
 		gastos = gm.getGastosByCategoria(c, mes.getMes(), mes.getAno());
 	}
@@ -42,6 +40,10 @@ public class Barra {
 		return this.mes;
 	}
 
+	/**
+	 * Método que calcula a soma dos valores dos gastos
+	 * @return Retorna a soma dos gastos associados à barra
+	 */
 	public double getValorTotal() {
 		double soma = 0;
 		for (Gasto g : this.gastos) {

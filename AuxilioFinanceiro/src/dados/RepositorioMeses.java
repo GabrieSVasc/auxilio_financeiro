@@ -8,12 +8,16 @@ import negocio.entidades.Mes;
 
 /**
  * Classe que armazena os meses usados na execução do sistema
+ * 
  * @author Maria Gabriela
  */
 
 public class RepositorioMeses {
 	private ArrayList<Mes> meses;
 
+	/**
+	 * Construtor que carrega os meses
+	 */
 	public RepositorioMeses() {
 		carregarMeses();
 	}
@@ -30,10 +34,22 @@ public class RepositorioMeses {
 		}
 	}
 
+	/**
+	 * Método que retorna os meses
+	 * 
+	 * @return Uma lista com os meses
+	 */
 	public ArrayList<Mes> getMeses() {
 		return this.meses;
 	}
 
+	/**
+	 * Método que consulta um mês
+	 * 
+	 * @param m O mes do ano
+	 * @param a O ano
+	 * @return O mes se encontrado ou null se não
+	 */
 	public Mes consultar(int m, int a) {
 		Mes encontrado = null;
 		for (Mes mes : meses) {
@@ -45,6 +61,11 @@ public class RepositorioMeses {
 		return encontrado;
 	}
 
+	/**
+	 * Método que atualiza um mês
+	 * 
+	 * @param mes O mês a ser atualizado
+	 */
 	public void atualizar(Mes mes) {
 		int indice = meses.indexOf(mes);
 		if (indice != -1) {
@@ -52,17 +73,13 @@ public class RepositorioMeses {
 		}
 	}
 
-	public Mes consultar(Mes mes) {
-		Mes mesProcurado = null;
-		for (Mes m : meses) {
-			if (m.equals(mes)) {
-				mesProcurado = m;
-				break;
-			}
-		}
-		return mesProcurado;
-	}
-
+	/**
+	 * Método que verifica se um mês está listado
+	 * 
+	 * @param m O mes do ano
+	 * @param a O ano
+	 * @return true se estiver, false se não
+	 */
 	public boolean existe(int m, int a) {
 		boolean resultado = false;
 		for (Mes mes : meses) {

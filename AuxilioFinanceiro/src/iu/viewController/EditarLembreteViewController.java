@@ -13,6 +13,12 @@ import negocio.entidades.Lembrete;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 
+/**
+ * Classe ligada ao fxml da tela de edição de lembretes
+ * 
+ * @author Maria Gabriela
+ */
+
 public class EditarLembreteViewController {
 	@FXML
 	private Button btnVoltar;

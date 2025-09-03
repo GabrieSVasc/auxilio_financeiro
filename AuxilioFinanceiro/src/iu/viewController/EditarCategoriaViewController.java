@@ -13,6 +13,12 @@ import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ValorNegativoException;
 
+/**
+ * Classe ligada ao fxml da tela de edição de categorias
+ * 
+ * @author Maria Gabriela
+ */
+
 public class EditarCategoriaViewController {
 	@FXML
 	private Button btnVoltar;

@@ -27,6 +27,12 @@ import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.TIRImpossivelException;
 import negocio.exceptions.ValorInvalidoException;
 
+/**
+ * Classe ligada ao fxml da tela que recebe dados para calcular a taxa interna de retorno
+ * 
+ * @author Maria Gabriela
+ */
+
 public class DadosTaxaInternaRetornoViewController implements Initializable {
 	@FXML
 	private Button btnVoltar;
@@ -57,6 +63,9 @@ public class DadosTaxaInternaRetornoViewController implements Initializable {
 
 	private static Fachada fachada = new Fachada();
 
+	/**
+	 * Método que retorna as telas aos valores padrão
+	 */
 	public void inicializandoTela() {
 		spinnerCusto.getValueFactory().setValue(0.0);
 		spinnerTempo.getValueFactory().setValue(0.0);
@@ -80,31 +89,28 @@ public class DadosTaxaInternaRetornoViewController implements Initializable {
 		Parametros p = new Parametros(5, 2, spinnerCusto.getValue().doubleValue(),
 				spinnerTempo.getValue().doubleValue(), spinnerTempo.getValue().doubleValue(), tipoDuracao);
 		p.setArrecadacao(txtArrecadacao.getText());
+		Alert alerta = new Alert(AlertType.ERROR);
 		try {
 			RetornoInvestimento r = fachada.investimentos(p);
-			Alert alerta = new Alert(AlertType.INFORMATION);
+			alerta.setAlertType(AlertType.INFORMATION);
 			alerta.setTitle("Taxa Interna de Retorno");
 			alerta.setContentText("O resultado da simulação foi: " + String.format("%.2f", r.getTIR() * 100));
 			alerta.showAndWait();
 		} catch (OpcaoInvalidaException e1) {
-			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Erro");
-			alerta.setContentText("A opção é inválida");
+			alerta.setContentText(e1.getMessage());
 			alerta.showAndWait();
 		} catch (ValorInvalidoException e1) {
-			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Erro");
-			alerta.setContentText("O valor é inválido");
+			alerta.setContentText(e1.getMessage());
 			alerta.showAndWait();
 		} catch (FormatacaoInvalidaException e1) {
-			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Erro");
-			alerta.setContentText("A formatação é inválida");
+			alerta.setContentText(e1.getMessage());
 			alerta.showAndWait();
 		} catch (TIRImpossivelException e1) {
-			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Taxa Interna de Retorno");
-			alerta.setContentText("Impossível calcular a Taxa Interna de Retorno dos dados apresentados");
+			alerta.setContentText(e1.getMessage());
 			alerta.showAndWait();
 		}
 	}

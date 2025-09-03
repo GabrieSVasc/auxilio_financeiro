@@ -5,6 +5,12 @@ import negocio.entidades.VariacaoDePreco;
 import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.ValorInvalidoException;
 
+/**
+ * Menu que lida com a variação de preço
+ * 
+ * @author Divancy Bruno
+ */
+
 public class NegocioVariacaoPreco {
     public RetornoInvestimento inputMenuVariacaoPreco(int input2, double valor, double taxa) throws OpcaoInvalidaException, ValorInvalidoException{
         VariacaoDePreco preco = new VariacaoDePreco(valor, taxa);

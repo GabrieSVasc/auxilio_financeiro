@@ -23,6 +23,12 @@ import negocio.entidades.ValorLista;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ValorNegativoException;
 
+/**
+ * Classe ligada ao fxml da tela de listagem de categorias
+ * 
+ * @author Maria Gabriela
+ */
+
 public class CategoriasViewController implements Initializable{
 	@FXML
 	private ImageView imgVoltar;

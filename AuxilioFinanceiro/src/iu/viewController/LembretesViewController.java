@@ -28,6 +28,12 @@ import negocio.entidades.ValorLista;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 
+/**
+ * Classe ligada ao fxml da tela de listagem de lembretes
+ * 
+ * @author Maria Gabriela
+ */
+
 public class LembretesViewController implements Initializable {
 	@FXML
 	private ImageView imgVoltar;

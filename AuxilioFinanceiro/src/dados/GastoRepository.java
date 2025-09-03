@@ -36,20 +36,40 @@ public class GastoRepository {
 	// Formato padrão para leitura e escrita das datas
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+	/**
+	 * Construtos que inicializa o ArrayList de gastos
+	 * 
+	 * @param categoriaManager O gerenciador de categorias
+	 */
 	public GastoRepository(CategoriaManager cm) {
 		gastos = new ArrayList<Gasto>();
 		gastos = carregar(cm);
 	}
 
+	/**
+	 * Método que retorna a lista de gastos
+	 * 
+	 * @return Uma lista de gastos
+	 */
 	public List<Gasto> getGastos() {
 		return gastos;
 	}
 
+	/**
+	 * Método que cria um gasto e salva no arquivo
+	 * 
+	 * @param gasto O gasto a ser adicionado
+	 */
 	public void criar(Gasto g) {
 		gastos.add(g);
 		salvar();
 	}
 
+	/**
+	 * Método que remove um gasto e salva o arquivo sem esse gasto
+	 * 
+	 * @param gasto O gasto a ser removido
+	 */
 	public void remover(Gasto g) {
 		int indice = gastos.indexOf(g);
 		if (indice != -1) {
@@ -58,6 +78,15 @@ public class GastoRepository {
 		}
 	}
 
+	/**
+	 * Método que atualiza um gasto
+	 * 
+	 * @param gasto     Gasto a ser atualizado
+	 * @param novoNome  O novo nome do gasto
+	 * @param novoValor O novo valor do gasto
+	 * @param novaData  A nova data do gasto
+	 * @throws CampoVazioException
+	 */
 	public void atualizar(Gasto g, String novoNome, double novoValor, LocalDate novaData) throws CampoVazioException {
 		int indice = gastos.indexOf(g);
 		if (indice != -1) {
@@ -68,6 +97,12 @@ public class GastoRepository {
 		}
 	}
 
+	/**
+	 * Método que busca um gasto de id específico
+	 * 
+	 * @param id Id do gasto desejado
+	 * @return o gasto encontrado ou null se não houver
+	 */
 	public Gasto consultar(int id) {
 		return gastos.stream().filter(g -> g.getId() == id).findFirst().orElse(null);
 	}

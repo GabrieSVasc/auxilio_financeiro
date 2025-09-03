@@ -10,6 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import main.Main;
 
+/**
+ * Classe ligada ao fxml do HUB de investimentos
+ * 
+ * @author Maria Gabriela
+ */
+
 public class InvestimentosViewController implements Initializable{
 	@FXML
 	private ImageView imgVoltar;

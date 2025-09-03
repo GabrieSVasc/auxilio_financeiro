@@ -21,6 +21,12 @@ import negocio.entidades.Setor;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.MesSemGastosException;
 
+/**
+ * Classe ligada ao fxml da tela de gerencia de gastos
+ * 
+ * @author Maria Gabriela
+ */
+
 public class GerenciarGastosViewController implements Initializable{
 	
 	@FXML

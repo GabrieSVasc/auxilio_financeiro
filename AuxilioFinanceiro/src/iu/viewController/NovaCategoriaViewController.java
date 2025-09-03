@@ -11,6 +11,12 @@ import main.Main;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoJaExisteException;
 
+/**
+ * Classe ligada ao fxml da tela de criação de categorias
+ * 
+ * @author Maria Gabriela
+ */
+
 public class NovaCategoriaViewController {
 	@FXML
 	private Button btnVoltar;

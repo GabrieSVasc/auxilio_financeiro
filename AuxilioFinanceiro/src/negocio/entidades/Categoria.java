@@ -4,7 +4,9 @@ import negocio.exceptions.CampoVazioException;
 
 /**
  * Representa uma categoria de gastos ou metas no sistema financeiro. Uma
- * categoria pode agrupar gastos e limites específicos. * @author Pedro Farias
+ * categoria pode agrupar gastos e limites específicos.
+ * 
+ * @author Pedro Farias
  */
 public class Categoria implements Exibivel {
 	private static int contador = 1;
@@ -42,7 +44,7 @@ public class Categoria implements Exibivel {
 	public String exibir() {
 		return "Categoria #" + id + " - " + nome;
 	}
-	
+
 // Método adicionado para resetar o contador, conforme necessário no Main
 	public static void resetarContador() {
 		contador = 1;

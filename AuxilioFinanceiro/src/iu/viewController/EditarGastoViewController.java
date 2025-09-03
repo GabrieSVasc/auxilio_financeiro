@@ -25,6 +25,12 @@ import negocio.entidades.Gasto;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 
+/**
+ * Classe ligada ao fxml da tela de edição de gastos
+ * 
+ * @author Maria Gabriela
+ */
+
 public class EditarGastoViewController implements Initializable{
 	@FXML
 	private Button btnVoltar;

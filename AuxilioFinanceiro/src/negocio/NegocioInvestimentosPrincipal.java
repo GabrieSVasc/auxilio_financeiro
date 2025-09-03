@@ -6,6 +6,12 @@ import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.TIRImpossivelException;
 import negocio.exceptions.ValorInvalidoException;
 
+/**
+ * Menu que lida com toda a parte de investimentos
+ * 
+ * @author Divancy Bruno
+ */
+
 public class NegocioInvestimentosPrincipal {
     public RetornoInvestimento inputMenu(int input1, int input2, double valor, double taxa, int numParcelas, int tipo, double tempo, String arrecadacao) throws OpcaoInvalidaException, ValorInvalidoException, FormatacaoInvalidaException, TIRImpossivelException{
         switch(input1){

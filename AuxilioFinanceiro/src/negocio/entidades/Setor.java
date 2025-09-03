@@ -3,7 +3,6 @@ package negocio.entidades;
 import java.util.ArrayList;
 
 import negocio.GastoManager;
-import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
 
@@ -22,9 +21,8 @@ public class Setor{
 	 * @param GastoManager
 	 * @param Mes
 	 * @throws MesSemGastosException
-	 * @throws CampoVazioException
 	 */
-	public Setor(Categoria c, GastoManager gm, Mes mes) throws MesSemGastosException, CampoVazioException {
+	public Setor(Categoria c, GastoManager gm, Mes mes) throws MesSemGastosException{
 		this.categoria = c;
 		gastos = new ArrayList<Gasto>();
 		try {

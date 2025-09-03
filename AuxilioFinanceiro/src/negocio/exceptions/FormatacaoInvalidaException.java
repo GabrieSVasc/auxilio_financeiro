@@ -1,5 +1,11 @@
 package negocio.exceptions;
 
+/**
+ * Exceção lançada quando o sistema recebe a formatação errada
+ * 
+ * @author Divancy Bruno
+ */
+
 @SuppressWarnings("serial")
 public class FormatacaoInvalidaException extends Exception{
 

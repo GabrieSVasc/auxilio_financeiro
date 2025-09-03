@@ -27,6 +27,12 @@ import negocio.exceptions.OpcaoInvalidaException;
 import negocio.exceptions.TIRImpossivelException;
 import negocio.exceptions.ValorInvalidoException;
 
+/**
+ * Classe ligada ao fxml da tela de dados de desconto
+ * 
+ * @author Maria Gabriela
+ */
+
 public class DadosDescontoViewController implements Initializable{
 	@FXML
 	private Button btnVoltar;

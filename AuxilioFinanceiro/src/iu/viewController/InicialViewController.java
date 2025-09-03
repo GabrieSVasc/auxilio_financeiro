@@ -13,6 +13,12 @@ import javafx.scene.control.Label;
 import main.Main;
 import negocio.entidades.Lembrete;
 
+/**
+ * Classe ligada ao fxml da tela inicial do sistema
+ * 
+ * @author Maria Gabriela
+ */
+
 public class InicialViewController implements Initializable {
 	@FXML
 	private Button btnCambio;
