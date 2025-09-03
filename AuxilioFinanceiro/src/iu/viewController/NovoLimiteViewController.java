@@ -1,6 +1,5 @@
 package iu.viewController;
 
-import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
@@ -24,7 +23,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import main.Main;
 import negocio.entidades.ValorLista;
-import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.ObjetoJaExisteException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ObjetoNuloException;
 import negocio.exceptions.ValorNegativoException;
@@ -135,13 +134,10 @@ public class NovoLimiteViewController implements Initializable {
 			alerta.showAndWait();
 		} catch (ObjetoNuloException e1) {
 			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			//Problema na manipulação de arquivos
-		} catch (CampoVazioException e1) {
+		} catch (ObjetoJaExisteException e1) {
 			Alert alerta = new Alert(AlertType.ERROR);
-			alerta.setTitle("Criando Limite");
-			alerta.setContentText("O campo de valor deve estar preenchido");
+			alerta.setTitle("ERRO");
+			alerta.setContentText("Já existe um limite definido para a categoria "+cbCategoria.getSelectionModel().getSelectedItem().getStringLista());
 			e1.printStackTrace();
 		}
 	}

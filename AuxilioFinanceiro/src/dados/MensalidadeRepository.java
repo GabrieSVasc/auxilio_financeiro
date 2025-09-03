@@ -1,12 +1,14 @@
 package dados;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import negocio.CategoriaManager;
 import negocio.entidades.Categoria;
 import negocio.entidades.Mensalidade;
+import negocio.exceptions.CampoVazioException;
 import util.arquivoUtils;
 
 /**
@@ -21,20 +23,55 @@ import util.arquivoUtils;
  * @author Halina Mochel
  */
 public class MensalidadeRepository {
-
+	private List<Mensalidade> mensalidades;
     // Nome do arquivo onde as mensalidades são armazenadas
     private static final String ARQUIVO_MENSALIDADES = "mensalidades.txt";
     // Formato padrão para leitura e escrita das datas
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+    public MensalidadeRepository(CategoriaManager cm) {
+    	mensalidades = new ArrayList<Mensalidade>();
+    	mensalidades = carregar(cm);
+    }
+    
+    public List<Mensalidade> getMensalidades(){
+    	return mensalidades;
+    }
+    
+    public void criar (Mensalidade m) {
+    	mensalidades.add(m);
+    	salvar();
+    }
+    
+    public void remover(Mensalidade m) {
+    	int indice = mensalidades.indexOf(m);
+    	if(indice!=-1) {
+    		mensalidades.remove(m);
+    		salvar();
+    	}
+    }
+    
+    public void atualizar(Mensalidade m, String novoNome, double novoValor, LocalDate novaDataVencimento, String novaRecorrencia, boolean novoStatusPago) throws CampoVazioException {
+    	int indice = mensalidades.indexOf(m);
+    	if(indice!=-1) {
+    		mensalidades.get(indice).setNome(novoNome);
+    		mensalidades.get(indice).setValor(novoValor);
+    		mensalidades.get(indice).setDataVencimento(novaDataVencimento);
+    		mensalidades.get(indice).setRecorrencia(novaRecorrencia);
+    		mensalidades.get(indice).setPago(novoStatusPago);
+    		salvar();
+    	}
+    }
+    
+    public Mensalidade consultar(int id) {
+		return mensalidades.stream().filter(m -> m.getId() == id).findFirst().orElse(null);
+	}
+    
     /**
      * Salva a lista de mensalidades no arquivo.
      * Converte cada objeto Mensalidade para uma string formatada e delega a escrita para utilitário.
-     * 
-     * @param mensalidades Lista de objetos Mensalidade a serem salvos
-     * @throws IOException Caso ocorra erro na escrita do arquivo
      */
-    public static void salvar(List<Mensalidade> mensalidades) throws IOException {
+    private void salvar(){
         List<String> linhas = new ArrayList<>();
         for (Mensalidade m : mensalidades) {
             linhas.add(m.toFileString()); // Converte o objeto para formato texto
@@ -48,11 +85,11 @@ public class MensalidadeRepository {
      * 
      * Trata erros de parsing e associações inválidas, reportando avisos sem interromper a carga.
      * 
-     * @param categorias Lista de categorias existentes para associação
+     * @param categoriasManager Manager de categorias para associação
      * @return Lista de objetos Mensalidade carregados do arquivo
-     * @throws IOException Caso ocorra erro na leitura do arquivo
      */
-    public static List<Mensalidade> carregar(List<Categoria> categorias) throws IOException {
+    private List<Mensalidade> carregar(CategoriaManager cm){
+    	List<Categoria> categorias = cm.getCategorias();
         List<Mensalidade> mensalidades = new ArrayList<>();
         List<String> linhas = arquivoUtils.lerDoArquivo(ARQUIVO_MENSALIDADES);
 

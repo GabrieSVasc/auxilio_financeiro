@@ -1,9 +1,8 @@
 package negocio.entidades;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import dados.GastoManager;
+import negocio.GastoManager;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
@@ -30,9 +29,7 @@ public class Setor{
 		gastos = new ArrayList<Gasto>();
 		try {
 			gastos = gm.getGastosByCategoria(c, mes.getMes(), mes.getAno());
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (CategoriaSemGastosException e) {
+		}catch (CategoriaSemGastosException e) {
 		}
 	}
 	

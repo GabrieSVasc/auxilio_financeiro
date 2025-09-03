@@ -1,6 +1,5 @@
 package iu.viewController;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -112,11 +111,8 @@ public class MetasViewController implements Initializable{
 					} catch (ObjetoNaoEncontradoException e) {
 						Alert alerta = new Alert(AlertType.ERROR);
 						alerta.setTitle("Erro");
-						alerta.setContentText("Tentando remover uma meta que não está cadastrada");
+						alerta.setContentText("Tentando remover uma meta que não está cadastrada" + e.getTipoObjeto());
 						alerta.showAndWait();
-					} catch (IOException e) {
-						//Problemas ao manipular um arquivo
-						e.printStackTrace();
 					}
 					inicializaValores();
 				});

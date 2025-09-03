@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import main.Main;
 import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.ObjetoJaExisteException;
 
 public class NovaCategoriaViewController {
 	@FXML
@@ -37,6 +38,11 @@ public class NovaCategoriaViewController {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Erro");
 			alerta.setContentText("Campo do nome da categoria está vazio");
+			alerta.showAndWait();
+		} catch (ObjetoJaExisteException e1) {
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("ERRO");
+			alerta.setContentText("Já existe uma categoria com o nome "+txtNome.getText());
 			alerta.showAndWait();
 		}
 	}

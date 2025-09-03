@@ -6,7 +6,13 @@ package negocio.exceptions;
  */
 @SuppressWarnings("serial")
 public class ObjetoNaoEncontradoException extends Exception {
+	private String tipoObjeto;
     public ObjetoNaoEncontradoException(String tipo, int id) {
         super(tipo + " com ID " + id + " não encontrado.");
+        tipoObjeto = tipo;
+    }
+    
+    public String getTipoObjeto() {
+    	return tipoObjeto;
     }
 }

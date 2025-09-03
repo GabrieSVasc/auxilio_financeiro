@@ -1,10 +1,6 @@
 package negocio.entidades;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import negocio.exceptions.CampoVazioException;
-import util.arquivoUtils;
 
 /**
  * Representa uma categoria de gastos ou metas no sistema financeiro. Uma
@@ -18,9 +14,6 @@ public class Categoria implements Exibivel {
 	public Categoria(String nome) throws CampoVazioException {
 		setNome(nome);
 		this.id = contador++;
-		if (!arquivoUtils.existeNoArquivo(nome, "categorias.txt")) {
-			arquivoUtils.salvarEmArquivo("categorias.txt", this.id + ";" + this.nome);
-		}
 	}
 
 	// Construtor para recarga do arquivo
@@ -49,46 +42,7 @@ public class Categoria implements Exibivel {
 	public String exibir() {
 		return "Categoria #" + id + " - " + nome;
 	}
-
-	public static List<Categoria> carregarCategorias() {
-		List<Categoria> categorias = new ArrayList<>();
-		List<String> linhas = arquivoUtils.lerDoArquivo("categorias.txt");
-
-		if (linhas.isEmpty()) {
-			// Criar categorias padrão
-			String[] padrao = { "Comida", "Transporte", "Lazer", "Aluguel", "Saúde", "Educação", "Mensal"};
-			for (String nome : padrao) {
-				try {
-					categorias.add(new Categoria(nome));
-				} catch (CampoVazioException e) {
-					System.out.println("Erro ao criar categoria padrão: " + e.getMessage());
-				}
-			}
-			salvarTodas(categorias);
-			return categorias;
-		}
-
-		for (String linha : linhas) {
-			try {
-				String[] partes = linha.split(";");
-				int id = Integer.parseInt(partes[0]);
-				String nome = partes[1];
-				categorias.add(new Categoria(id, nome));
-			} catch (Exception e) {
-				System.out.println("Erro ao carregar categoria: " + e.getMessage());
-			}
-		}
-		return categorias;
-	}
-
-	public static void salvarTodas(List<Categoria> categorias) {
-		List<String> linhas = new ArrayList<>();
-		for (Categoria c : categorias) {
-			linhas.add(c.getId() + ";" + c.getNome());
-		}
-		arquivoUtils.salvarListaEmArquivo("categorias.txt", linhas);
-	}
-
+	
 // Método adicionado para resetar o contador, conforme necessário no Main
 	public static void resetarContador() {
 		contador = 1;

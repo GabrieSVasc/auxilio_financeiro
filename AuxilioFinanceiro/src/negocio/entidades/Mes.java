@@ -1,7 +1,5 @@
 package negocio.entidades;
 
-import java.io.Serializable;
-
 /**
  * Classe que representa um mês de um ano para utilização na criação de gráficos
  * @author Maria Gabriela

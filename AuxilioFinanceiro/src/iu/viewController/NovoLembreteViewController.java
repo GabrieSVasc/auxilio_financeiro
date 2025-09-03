@@ -1,7 +1,5 @@
 package iu.viewController;
 
-import java.io.IOException;
-
 import fachada.Fachada;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,9 +42,6 @@ public class NovoLembreteViewController {
 		try {
 			fachada.criarLembrete(txtTitulo.getText(), txtDescricao.getText(), dtpData.getValue());
 			Main.mudarTela("lembretes");
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			//Problema ao tentar salvar coisas no arquivo
 		} catch (ObjetoNuloException e1) {
 			e1.printStackTrace();
 		}

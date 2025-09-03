@@ -148,24 +148,7 @@ public class DadosVariacaoViewController implements Initializable{
 						}
 					}
 				}, 10.0, filter);
-		TextFormatter<Double> txtFormatt = new TextFormatter<>(
-				new javafx.util.StringConverter<>() {
-					@Override
-					public String toString(Double value) {
-						return value==null? "":format.format(value);
-					}
-					
-					@Override
-					public Double fromString(String text) {
-						try {
-							return format.parse(text).doubleValue();
-						}catch(Exception e) {
-							return 0.0;
-						}
-					}
-				}, 10.0, filter);
 		
-		SpinnerValueFactory<Double> value = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 0.0, 0.01);
 		spinnerValor.setValueFactory(valueFactory);
 		spinnerValor.getEditor().setTextFormatter(textFormatter);
 		spinnerValor.setEditable(true);

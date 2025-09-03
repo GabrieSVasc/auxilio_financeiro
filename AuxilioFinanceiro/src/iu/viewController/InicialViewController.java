@@ -1,6 +1,5 @@
 package iu.viewController;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -59,58 +58,52 @@ public class InicialViewController implements Initializable {
 	}
 
 	public void inicializarTela() {
-		try {
-			ArrayList<Lembrete> l = fachada.lembretesNotificados();
-			switch (l.size()) {
-			case 0:
-				btnExLembrete1.setText("Nenhum lembrete para ser mostrado");
-				btnExLembrete2.setText("Nenhum lembrete para ser mostrado");
-				btnExLembrete3.setText("Nenhum lembrete para ser mostrado");
-				btnExLembrete4.setText("Nenhum lembrete para ser mostrado");
-				btnExLembrete5.setText("Nenhum lembrete para ser mostrado");
-				break;
-			case 1:
-				btnExLembrete1.setText(l.get(0).gerarNotificacao());
-				btnExLembrete2.setText("Nenhum lembrete para ser mostrado");
-				btnExLembrete3.setText("Nenhum lembrete para ser mostrado");
-				btnExLembrete4.setText("Nenhum lembrete para ser mostrado");
-				btnExLembrete5.setText("Nenhum lembrete para ser mostrado");
-				break;
-			case 2:
-				btnExLembrete1.setText(l.get(0).gerarNotificacao());
-				btnExLembrete2.setText(l.get(1).gerarNotificacao());
-				btnExLembrete3.setText("Nenhum lembrete para ser mostrado");
-				btnExLembrete4.setText("Nenhum lembrete para ser mostrado");
-				btnExLembrete5.setText("Nenhum lembrete para ser mostrado");
-				break;
-			case 3:
-				btnExLembrete1.setText(l.get(0).gerarNotificacao());
-				btnExLembrete2.setText(l.get(1).gerarNotificacao());
-				btnExLembrete3.setText(l.get(2).gerarNotificacao());
-				btnExLembrete4.setText("Nenhum lembrete para ser mostrado");
-				btnExLembrete5.setText("Nenhum lembrete para ser mostrado");
-				break;
-			case 4:
-				btnExLembrete1.setText(l.get(0).gerarNotificacao());
-				btnExLembrete2.setText(l.get(1).gerarNotificacao());
-				btnExLembrete3.setText(l.get(2).gerarNotificacao());
-				btnExLembrete4.setText(l.get(3).gerarNotificacao());
-				btnExLembrete5.setText("Nenhum lembrete para ser mostrado");
-				break;
-			default:
-				btnExLembrete1.setText(l.get(0).gerarNotificacao());
-				btnExLembrete2.setText(l.get(1).gerarNotificacao());
-				btnExLembrete3.setText(l.get(2).gerarNotificacao());
-				btnExLembrete4.setText(l.get(3).gerarNotificacao());
-				btnExLembrete5.setText(l.get(4).gerarNotificacao());
-				break;
+		ArrayList<Lembrete> l = fachada.lembretesNotificados();
+		switch (l.size()) {
+		case 0:
+			btnExLembrete1.setText("Nenhum lembrete para ser mostrado");
+			btnExLembrete2.setText("Nenhum lembrete para ser mostrado");
+			btnExLembrete3.setText("Nenhum lembrete para ser mostrado");
+			btnExLembrete4.setText("Nenhum lembrete para ser mostrado");
+			btnExLembrete5.setText("Nenhum lembrete para ser mostrado");
+			break;
+		case 1:
+			btnExLembrete1.setText(l.get(0).gerarNotificacao());
+			btnExLembrete2.setText("Nenhum lembrete para ser mostrado");
+			btnExLembrete3.setText("Nenhum lembrete para ser mostrado");
+			btnExLembrete4.setText("Nenhum lembrete para ser mostrado");
+			btnExLembrete5.setText("Nenhum lembrete para ser mostrado");
+			break;
+		case 2:
+			btnExLembrete1.setText(l.get(0).gerarNotificacao());
+			btnExLembrete2.setText(l.get(1).gerarNotificacao());
+			btnExLembrete3.setText("Nenhum lembrete para ser mostrado");
+			btnExLembrete4.setText("Nenhum lembrete para ser mostrado");
+			btnExLembrete5.setText("Nenhum lembrete para ser mostrado");
+			break;
+		case 3:
+			btnExLembrete1.setText(l.get(0).gerarNotificacao());
+			btnExLembrete2.setText(l.get(1).gerarNotificacao());
+			btnExLembrete3.setText(l.get(2).gerarNotificacao());
+			btnExLembrete4.setText("Nenhum lembrete para ser mostrado");
+			btnExLembrete5.setText("Nenhum lembrete para ser mostrado");
+			break;
+		case 4:
+			btnExLembrete1.setText(l.get(0).gerarNotificacao());
+			btnExLembrete2.setText(l.get(1).gerarNotificacao());
+			btnExLembrete3.setText(l.get(2).gerarNotificacao());
+			btnExLembrete4.setText(l.get(3).gerarNotificacao());
+			btnExLembrete5.setText("Nenhum lembrete para ser mostrado");
+			break;
+		default:
+			btnExLembrete1.setText(l.get(0).gerarNotificacao());
+			btnExLembrete2.setText(l.get(1).gerarNotificacao());
+			btnExLembrete3.setText(l.get(2).gerarNotificacao());
+			btnExLembrete4.setText(l.get(3).gerarNotificacao());
+			btnExLembrete5.setText(l.get(4).gerarNotificacao());
+			break;
 
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			//Problema ao tentar ler um arquivo
 		}
-
 	}
 
 	@Override

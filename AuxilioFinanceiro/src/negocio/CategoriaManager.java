@@ -1,9 +1,11 @@
-package dados;
+package negocio;
 import java.util.List;
 import java.util.Scanner;
 
+import dados.CategoriaRepository;
 import negocio.entidades.Categoria;
 import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.ObjetoJaExisteException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ValorNegativoException;
 import util.ConsoleIO;
@@ -13,12 +15,11 @@ import util.ConsoleIO;
  * @author Pedro Farias
  */
 public class CategoriaManager implements CrudMenu {
-    private final List<Categoria> categorias; // Lista de categorias carregadas no sistema
+	private CategoriaRepository categoriaRepository;
     private final Scanner scanner = new Scanner(System.in);
 
-    // Recebe lista carregada
-    public CategoriaManager(List<Categoria> categorias) {
-        this.categorias = categorias;
+    public CategoriaManager() {
+    	categoriaRepository = new CategoriaRepository();
     }
 
     @Override
@@ -48,32 +49,34 @@ public class CategoriaManager implements CrudMenu {
         } while (!"0".equals(opcao));
     }
 
-    public void criar(String nome) throws CampoVazioException {
-        categorias.add(new Categoria(nome));
-        Categoria.salvarTodas(categorias);
+    public void criar(String nome) throws CampoVazioException, ObjetoJaExisteException {
+    	if(!categoriaRepository.existe(nome)) {
+            categoriaRepository.criar(new Categoria(nome));
+    	}else {
+    		throw new ObjetoJaExisteException("Categoria com este nome já existe");
+    	}
     }
 
     private void listar() {
-        if (categorias.isEmpty()) { System.out.println("Nenhuma categoria."); return; }
-        categorias.forEach(c -> System.out.println(c.exibir()));
+        if (categoriaRepository.isEmpty()) { System.out.println("Nenhuma categoria."); return; }
+        System.out.println(categoriaRepository.listar());
     }
 
     public void editar(int id, String novoNome) throws ValorNegativoException, ObjetoNaoEncontradoException, CampoVazioException {
         if (id <= 0) throw new ValorNegativoException("ID");
-        Categoria encontrada = categorias.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
+        Categoria encontrada = categoriaRepository.consultar(id);
         if (encontrada == null) throw new ObjetoNaoEncontradoException("Categoria", id);
-        encontrada.setNome(novoNome);
-        Categoria.salvarTodas(categorias);
+        categoriaRepository.atualizar(encontrada, novoNome);
     }
 
     public void deletar(int id) throws ValorNegativoException, ObjetoNaoEncontradoException {
         if (id <= 0) throw new ValorNegativoException("ID");
-        boolean removido = categorias.removeIf(c -> c.getId() == id);
-        if (!removido) throw new ObjetoNaoEncontradoException("Categoria", id);
-        Categoria.salvarTodas(categorias);
+        Categoria encontrada = categoriaRepository.consultar(id);
+        if (encontrada==null) throw new ObjetoNaoEncontradoException("Categoria", id);
+        categoriaRepository.remover(encontrada);
     }
 
-    public List<Categoria> getCategorias() { return categorias; }
+    public List<Categoria> getCategorias() { return categoriaRepository.getCategorias(); }
     
-    public Categoria getCategoria(int id) {return categorias.stream().filter(c -> c.getId() == id).findFirst().orElse(null);}
+    public Categoria getCategoria(int id) {return categoriaRepository.consultar(id);}
 }

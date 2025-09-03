@@ -2,8 +2,8 @@ package negocio.entidades;
 
 import java.util.ArrayList;
 
-import dados.CategoriaManager;
-import dados.GastoManager;
+import negocio.CategoriaManager;
+import negocio.GastoManager;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.MesSemGastosException;
 

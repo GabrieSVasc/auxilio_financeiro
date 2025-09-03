@@ -65,6 +65,7 @@ public class Gasto {
      * @throws CampoVazioException Caso a categoria ou nome sejam inválidos
      */
     public Gasto(int id, String nome, double valor, Categoria categoria, LocalDate dataCriacao) throws CampoVazioException {
+
         if (categoria == null) {
             throw new CampoVazioException("Categoria do gasto");
         }

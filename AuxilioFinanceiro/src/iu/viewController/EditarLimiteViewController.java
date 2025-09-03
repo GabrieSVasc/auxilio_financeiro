@@ -1,6 +1,5 @@
 package iu.viewController;
 
-import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
@@ -93,9 +92,6 @@ public class EditarLimiteViewController implements Initializable{
 			alerta.setTitle("Erro");
 			alerta.setContentText("O valor não pode ser negativo");
 			alerta.showAndWait();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			//Problema ao tentar ler o arquivo
 		}
 	}
 	

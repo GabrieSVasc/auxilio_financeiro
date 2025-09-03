@@ -1,6 +1,5 @@
 package iu.viewController;
 
-import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
@@ -155,9 +154,6 @@ public class NovoGastoViewController implements Initializable{
 			alerta.setTitle("Erro");
 			alerta.setContentText("Todos os campos devem estar preenchidos");
 			alerta.showAndWait();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			//Problema ao tentar salvar coisas no arquivo
 		}
 	}
 }

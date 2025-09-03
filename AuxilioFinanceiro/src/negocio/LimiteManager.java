@@ -1,31 +1,34 @@
-package dados;
+package negocio;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+import dados.LimiteRepository;
 import negocio.entidades.Categoria;
 import negocio.entidades.Gasto;
 import negocio.entidades.LembreteLimite;
 import negocio.entidades.Limite;
-import negocio.exceptions.CampoVazioException;
+import negocio.exceptions.ObjetoJaExisteException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ObjetoNuloException;
 import negocio.exceptions.ValorNegativoException;
 import util.ConsoleIO;
 
 public class LimiteManager implements CrudMenu {
-    private final List<Limite> limites;
-    private final List<Categoria> categorias;
+	private LimiteRepository limiteRepository;
+    private CategoriaManager categoriaManager;
     private final GastoManager gastoManager;
     private LembreteManager lembreteManager;
     private final Scanner scanner = new Scanner(System.in);
 
-    public LimiteManager(List<Categoria> categorias, List<Limite> limites, LembreteManager lembreteManager) {
-        this.categorias = categorias;
-        this.limites = limites;
-        this.lembreteManager = lembreteManager;
-        this.gastoManager = new GastoManager(new CategoriaManager(categorias));
+    public LimiteManager(CategoriaManager cm, GastoManager gm) {
+    	limiteRepository = new LimiteRepository(cm);
+    	categoriaManager = cm;
+        this.gastoManager = gm;
+    }
+    
+    public void setLembreteManager(LembreteManager lm) {
+    	lembreteManager = lm;
     }
     
     public void atualizarTotais(Categoria cat) {
@@ -37,7 +40,7 @@ public class LimiteManager implements CrudMenu {
                 .mapToDouble(Gasto::getValor)
                 .sum();
 
-            Limite lim = limites.stream()
+            Limite lim = limiteRepository.getLimites().stream()
                 .filter(l -> l.getCategoria().getId() == cat.getId())
                 .findFirst()
                 .orElse(null);
@@ -63,7 +66,8 @@ public class LimiteManager implements CrudMenu {
                     lembrete.getId(), 
                     lembrete.getTitulo(), 
                     lembrete.getDescricao(), 
-                    lembrete.getDataAlerta()
+                    lembrete.getDataAlerta(),
+                    lembrete.isAtivo()
                 );
             }
         } catch (Exception e) {
@@ -96,39 +100,37 @@ public class LimiteManager implements CrudMenu {
         } while (!"0".equals(opcao));
     }
 
-    public void criar(int idCat, double valor) throws ObjetoNaoEncontradoException, ValorNegativoException, ObjetoNuloException, IOException, CampoVazioException {
-        if (categorias.isEmpty()) { System.out.println("Crie categorias primeiro."); return; }
+    public void criar(int idCat, double valor) throws ObjetoNaoEncontradoException, ValorNegativoException, ObjetoNuloException, ObjetoJaExisteException {
+        if (categoriaManager.getCategorias().isEmpty()) { System.out.println("Crie categorias primeiro."); return; }
         if (idCat <= 0) throw new ValorNegativoException("ID da categoria");
-        Categoria categoriaSelecionada = categorias.stream().filter(c -> c.getId() == idCat).findFirst().orElse(null);
+        Categoria categoriaSelecionada = categoriaManager.getCategoria(idCat);
         if (categoriaSelecionada == null) throw new ObjetoNaoEncontradoException("Categoria", idCat);
-        Limite lim = new Limite(categoriaSelecionada, valor);
-        limites.add(lim);
-        Limite.salvarTodos(limites);
+        if(limiteRepository.existe(categoriaSelecionada.getNome())) { throw new ObjetoJaExisteException("Já foi definido um limite para esta categoria"); }
+        limiteRepository.criar(new Limite(categoriaSelecionada, valor));
     }
 
     private void listar() {
-        if (limites.isEmpty()) { System.out.println("Nenhum limite cadastrado."); return; }
-        limites.forEach(l -> System.out.println(l.exibir()));
+        if (limiteRepository.isEmpty()) { System.out.println("Nenhum limite cadastrado."); return; }
+        System.out.println(limiteRepository.listar());
     }
 
-    public void editar(int id, double novoValor) throws ObjetoNaoEncontradoException, ValorNegativoException, IOException {
+    public void editar(int id, double novoValor) throws ObjetoNaoEncontradoException, ValorNegativoException{
         if (id <= 0) throw new ValorNegativoException("ID");
-        Limite limite = limites.stream().filter(l -> l.getId() == id).findFirst().orElse(null);
+        Limite limite = limiteRepository.consultar(id);
         if (limite == null) throw new ObjetoNaoEncontradoException("Limite", id);
-        limite.setValor(novoValor);
-        Limite.salvarTodos(limites);
+        limiteRepository.atualizar(limite, novoValor);
     }
 
-    public void deletar(int id) throws ObjetoNaoEncontradoException, ValorNegativoException, IOException {
+    public void deletar(int id) throws ObjetoNaoEncontradoException, ValorNegativoException{
         if (id <= 0) throw new ValorNegativoException("ID");
-        boolean removido = limites.removeIf(l -> l.getId() == id);
-        if (!removido) throw new ObjetoNaoEncontradoException("Limite", id);
-        Limite.salvarTodos(limites);
+        Limite encontrado = limiteRepository.consultar(id);
+        if (encontrado == null) throw new ObjetoNaoEncontradoException("Limite", id);
+        limiteRepository.remover(encontrado);
     }
 
-    public List<Limite> getLimites() { return limites; }
+    public List<Limite> getLimites() { return limiteRepository.getLimites(); }
     
     public Limite getLimite(int id) {
-    	return limites.stream().filter(l -> l.getId()==id).findFirst().orElse(null);
+    	return limiteRepository.consultar(id);
     }
 }

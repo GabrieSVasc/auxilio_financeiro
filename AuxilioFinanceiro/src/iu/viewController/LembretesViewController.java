@@ -1,6 +1,5 @@
 package iu.viewController;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -14,12 +13,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -113,7 +113,13 @@ public class LembretesViewController implements Initializable {
 					try {
 						fachada.setLembreteAtivo(tl.getId(), !tl.isAtivo());
 						tl.setAtivo(!tl.isAtivo());
-					} catch (ObjetoNaoEncontradoException | IOException | CampoVazioException e) {
+					} catch (ObjetoNaoEncontradoException e) {
+						Alert alerta = new Alert(AlertType.ERROR);
+						alerta.setTitle("ERRO");
+						alerta.setContentText(e.getTipoObjeto()+ " não encontrado");
+						alerta.showAndWait();
+						e.printStackTrace();
+					}catch (CampoVazioException e) {
 						e.printStackTrace();
 					}
 				});
@@ -163,8 +169,10 @@ public class LembretesViewController implements Initializable {
 					try {
 						fachada.removerLembrete(tl.getId());
 					} catch (ObjetoNaoEncontradoException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
+						Alert alerta = new Alert(AlertType.ERROR);
+						alerta.setTitle("ERRO");
+						alerta.setContentText(e.getTipoObjeto()+ " não encontrado");
+						alerta.showAndWait();
 						e.printStackTrace();
 					}
 					inicializaValores();

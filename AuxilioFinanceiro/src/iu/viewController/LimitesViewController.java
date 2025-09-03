@@ -1,6 +1,5 @@
 package iu.viewController;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -113,8 +112,6 @@ public class LimitesViewController implements Initializable{
 					} catch (ObjetoNaoEncontradoException e) {
 						e.printStackTrace();
 					} catch (ValorNegativoException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				});

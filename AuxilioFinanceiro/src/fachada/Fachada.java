@@ -1,19 +1,18 @@
 package fachada;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import dados.CategoriaManager;
-import dados.GastoManager;
-import dados.LembreteManager;
-import dados.LimiteManager;
-import dados.MensalidadeManager;
-import dados.MetaManager;
 import javafx.fxml.Initializable;
+import negocio.CategoriaManager;
+import negocio.GastoManager;
+import negocio.LembreteManager;
+import negocio.LimiteManager;
+import negocio.MensalidadeManager;
+import negocio.MetaManager;
 import negocio.NegocioGrafico;
 import negocio.NegocioInvestimentosPrincipal;
 import negocio.NegocioMes;
@@ -33,6 +32,7 @@ import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.FormatacaoInvalidaException;
 import negocio.exceptions.MesSemGastosException;
+import negocio.exceptions.ObjetoJaExisteException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
 import negocio.exceptions.ObjetoNuloException;
 import negocio.exceptions.OpcaoInvalidaException;
@@ -49,22 +49,22 @@ import negocio.exceptions.ValorNegativoException;
 public class Fachada implements Initializable {
 	private static NegocioMes negocioMes = new NegocioMes();
 	private static NegocioGrafico negocioGrafico = new NegocioGrafico();
-	private static CategoriaManager categoriaManager = new CategoriaManager(Categoria.carregarCategorias());
+	private static CategoriaManager categoriaManager = new CategoriaManager();
 	private static GastoManager gastoManager = new GastoManager(categoriaManager);
 	private static MensalidadeManager mensalidadeManager = new MensalidadeManager(categoriaManager);
-	private static LembreteManager lembreteManager = new LembreteManager(mensalidadeManager);
-	private static LimiteManager limiteManager = new LimiteManager(Categoria.carregarCategorias(),
-			Limite.carregarLimites(Categoria.carregarCategorias()), lembreteManager);
-	private static MetaManager metaManager = new MetaManager(Meta.carregarMetas(), lembreteManager);
+	private static LimiteManager limiteManager = new LimiteManager(categoriaManager, gastoManager);
+	private static LembreteManager lembreteManager = new LembreteManager(mensalidadeManager, limiteManager);
+	private static MetaManager metaManager = new MetaManager(lembreteManager);
 
 	@Override
- 	public void initialize(URL arg0, ResourceBundle arg1) {
-		lembreteManager.setLimiteManager(limiteManager);
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		limiteManager.setLembreteManager(lembreteManager);
 	}
 
 	// Gastos
 	/**
 	 * Inicializa para a tela todos os gastos
+	 * 
 	 * @return ArrayList de Valor Lista contendo um String e o id do gasto
 	 */
 	public ArrayList<ValorLista> inicializarGastos() {
@@ -80,17 +80,15 @@ public class Fachada implements Initializable {
 		}
 		return gastos;
 	}
-	
+
 	/**
 	 * Método que remove um gasto
-	 * @param id do gasto
+	 * 
+	 * @param id   do gasto
 	 * @param nome (Nome do gasto de acordo com o que foi colocado em ValorLista)
-	 * @throws IOException
-	 * @throws CampoVazioException
 	 * @throws ObjetoNaoEncontradoException
 	 */
-	public void removerGasto(int id, String nome)
-			throws IOException, CampoVazioException, ObjetoNaoEncontradoException {
+	public void removerGasto(int id, String nome) throws ObjetoNaoEncontradoException {
 		if (nome.contains("MENSALIDADE")) {
 			mensalidadeManager.removerMensalidade(id);
 		} else {
@@ -100,33 +98,30 @@ public class Fachada implements Initializable {
 
 	/**
 	 * Método que cria um gasto novo
+	 * 
 	 * @param nome
 	 * @param valor
 	 * @param data
 	 * @param categoria
 	 * @param recorrencia para gastos da categoria Mensal
 	 * @throws CampoVazioException
-	 * @throws IOException
 	 */
 	public void criarGasto(String nome, double valor, LocalDate data, String categoria, String recorrencia)
-			throws CampoVazioException, IOException {
-		Categoria c = Categoria.carregarCategorias().stream().filter(x -> x.getNome().equals(categoria)).findFirst()
+			throws CampoVazioException {
+		Categoria c = categoriaManager.getCategorias().stream().filter(x -> x.getNome().equals(categoria)).findFirst()
 				.orElse(null);
 		if (c.getNome().equals("Mensal")) {
 			mensalidadeManager
 					.adicionarMensalidade(new Mensalidade(nome, valor, data.plusMonths(1), c, data, recorrencia));
 		} else {
-			try {
-				gastoManager.adicionarGasto(new Gasto(nome, valor, c, data));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			gastoManager.adicionarGasto(new Gasto(nome, valor, c, data));
 		}
 	}
-	
+
 	/**
 	 * Método que busca um gasto específico
-	 * @param id do gasto desejado
+	 * 
+	 * @param id   do gasto desejado
 	 * @param nome do gasto na listagem
 	 * @return Gasto encontrado ou null
 	 */
@@ -140,35 +135,34 @@ public class Fachada implements Initializable {
 		}
 		return retorno;
 	}
-	
+
 	/**
 	 * Método para edição de um gasto
-	 * @param id do gasto a ser editado
-	 * @param Novo nome
-	 * @param Novo valor
-	 * @param Nova data
-	 * @param Categoria do gasto
+	 * 
+	 * @param id              Id
+	 * @param nome            Novo nome
+	 * @param valor           Novo valor
+	 * @param data            Nova data
+	 * @param novaRecorrencia Recorrencia caso seja uma mensalidade
+	 * @param c               Categoria associada ao gasto
 	 * @throws CampoVazioException
-	 * @throws IOException
 	 * @throws ObjetoNaoEncontradoException
 	 */
-	public void editarGasto(int id, String nome, Double valor, LocalDate data, Categoria c)
-			throws CampoVazioException, IOException, ObjetoNaoEncontradoException {
+	public void editarGasto(int id, String nome, double valor, LocalDate data, String novaRecorrencia, Categoria c)
+			throws CampoVazioException, ObjetoNaoEncontradoException {
 		if (c.getNome().equals("Mensal")) {
-			mensalidadeManager.editarMensalidade(id, nome, valor, nome, c, nome, false);
+			mensalidadeManager.editarMensalidade(id, nome, valor, data, novaRecorrencia, false);
 		} else {
-			try {
-				gastoManager.editarGasto(id, nome, valor, data);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			gastoManager.editarGasto(id, nome, valor, data);
 		}
 	}
 
 	// Lembretes
 	/**
 	 * Método que lista os lembretes cadastrados
-	 * @return ArrayList<ValorLista> com os Strings que serão listados e os ids de cada lembrete
+	 * 
+	 * @return ArrayList<ValorLista> com os Strings que serão listados e os ids de
+	 *         cada lembrete
 	 */
 	public ArrayList<ValorLista> inicializarLembretes() {
 		ArrayList<ValorLista> lembretes = new ArrayList<>();
@@ -178,138 +172,143 @@ public class Fachada implements Initializable {
 		}
 		return lembretes;
 	}
-	
+
 	/**
 	 * Método para criar um lembrete
-	 * @param titulo do lembrete
+	 * 
+	 * @param titulo    do lembrete
 	 * @param descricao do lembrete
-	 * @param data de aviso do lembrete
-	 * @throws IOException
+	 * @param data      de aviso do lembrete
 	 * @throws ObjetoNuloException
 	 */
-	public void criarLembrete(String titulo, String descricao, LocalDate data) throws IOException, ObjetoNuloException {
+	public void criarLembrete(String titulo, String descricao, LocalDate data) throws ObjetoNuloException {
 		lembreteManager.criarLembrete(new Lembrete(titulo, descricao, data));
 	}
 
 	/**
 	 * Método para editar lembrete
-	 * @param id do lembrete a ser editado
+	 * 
+	 * @param id   do lembrete a ser editado
 	 * @param novo titulo
 	 * @param nova descricao
 	 * @param nova data
 	 * @throws ObjetoNaoEncontradoException
-	 * @throws IOException
 	 * @throws CampoVazioException
 	 */
-	public void atualizarLembrete(int id, String titulo, String descricao, LocalDate data)
-			throws ObjetoNaoEncontradoException, IOException, CampoVazioException {
-		lembreteManager.atualizarLembrete(id, titulo, descricao, data);
+	public void atualizarLembrete(int id, String titulo, String descricao, LocalDate data, boolean ativo)
+			throws ObjetoNaoEncontradoException, CampoVazioException {
+		lembreteManager.atualizarLembrete(id, titulo, descricao, data, ativo);
 	}
 
 	/**
 	 * Método para remover um lembrete
+	 * 
 	 * @param id do lembrete
 	 * @throws ObjetoNaoEncontradoException
-	 * @throws IOException
 	 */
-	public void removerLembrete(int id) throws ObjetoNaoEncontradoException, IOException {
+	public void removerLembrete(int id) throws ObjetoNaoEncontradoException {
 		lembreteManager.removerLembrete(id);
 	}
-	
+
 	/**
 	 * Método que ativa ou desativa um lembrete
-	 * @param id do lembrete
+	 * 
+	 * @param id   do lembrete
 	 * @param novo estado do lembrete
 	 * @throws ObjetoNaoEncontradoException
-	 * @throws IOException
 	 * @throws CampoVazioException
 	 */
-	public void setLembreteAtivo(int id, boolean mudar)
-			throws ObjetoNaoEncontradoException, IOException, CampoVazioException {
+	public void setLembreteAtivo(int id, boolean mudar) throws ObjetoNaoEncontradoException, CampoVazioException {
 		Lembrete l = lembreteManager.buscarPorId(id);
-		lembreteManager.ativarDesativarLembrete(l.getId(), mudar);
+		lembreteManager.atualizarLembrete(id, l.getTitulo(), l.getDescricao(), l.getDataAlerta(), mudar);
 	}
-	
+
 	/**
 	 * Método que recupera um lembrete
+	 * 
 	 * @param id do lembrete
 	 * @return Lembrete encontrado ou null se não houver esse lembrete
 	 */
 	public Lembrete getLembrete(int id) {
 		return lembreteManager.buscarPorId(id);
 	}
-	
+
 	/**
 	 * Método que busca os lembretes próximos da data de aviso
+	 * 
 	 * @return ArrayList<Lembrete> com os lembretes notificados
-	 * @throws IOException
 	 */
-	public ArrayList<Lembrete> lembretesNotificados() throws IOException {
+	public ArrayList<Lembrete> lembretesNotificados() {
 		return lembreteManager.getLembreteDia();
 	}
 
 	// Metas
 	/**
 	 * Método para criar metas
-	 * @param descricao da meta
+	 * 
+	 * @param descricao     da meta
 	 * @param valorObjetivo
 	 * @param valorAtual
-	 * @param data máxima da meta
-	 * @throws ObjetoNuloException 
-	 * @throws IOException 
-	 * @throws CampoVazioException 
+	 * @param data          máxima da meta
+	 * @throws ObjetoNuloException
+	 * @throws CampoVazioException
 	 */
-	public void criarMeta(String descricao, double valorObjetivo, double valorAtual, LocalDate data) throws CampoVazioException, IOException, ObjetoNuloException {
+	public void criarMeta(String descricao, double valorObjetivo, double valorAtual, LocalDate data)
+			throws CampoVazioException, ObjetoNuloException {
 		metaManager.criar(descricao, valorObjetivo, valorAtual, data);
 	}
-	
+
 	/**
 	 * Método que lista todas as metas
-	 * @return ArrayList<ValorLista> que possui o texto que será exibido na listagem e o id do lembrete
+	 * 
+	 * @return ArrayList<ValorLista> que possui o texto que será exibido na listagem
+	 *         e o id do lembrete
 	 */
 	public ArrayList<ValorLista> inicializarMetas() {
 		ArrayList<ValorLista> metas = new ArrayList<>();
 
-		for (Meta m : Meta.carregarMetas()) {
+		for (Meta m : metaManager.getMetas()) {
 			metas.add(new ValorLista(m.getDescricao() + " - (" + m.getValorAtual() + "/" + m.getValorObjetivo() + ")",
 					m.getId()));
 		}
 
 		return metas;
 	}
-	
+
 	/**
 	 * Método que remove uma meta
+	 * 
 	 * @param id
-	 * @throws IOException 
 	 * @throws ObjetoNaoEncontradoException
 	 */
-	public void removerMeta(int id) throws ObjetoNaoEncontradoException, IOException {
+	public void removerMeta(int id) throws ObjetoNaoEncontradoException {
 		metaManager.deletar(id);
 	}
-	
+
 	/**
 	 * Método que edita uma meta
-	 * @param id da meta
+	 * 
+	 * @param id   da meta
 	 * @param nova descricao
 	 * @param novo valor de objetivo
 	 * @param novo valor Atual
 	 * @param nova data
-	 * @throws CampoVazioException 
-	 * @throws IOException 
-	 * @throws ObjetoNaoEncontradoException 
+	 * @throws CampoVazioException
+	 * @throws ObjetoNaoEncontradoException
 	 */
-	public void editarMeta(int id, String descricao, double valorOb,double valorAt,  LocalDate data) throws ObjetoNaoEncontradoException, IOException, CampoVazioException {
+	public void editarMeta(int id, String descricao, double valorOb, double valorAt, LocalDate data)
+			throws ObjetoNaoEncontradoException, CampoVazioException {
 		metaManager.editar(id, descricao, valorOb, valorAt, data);
 	}
-	
+
 	/**
 	 * Método que recupera uma meta pelo id
+	 * 
 	 * @param id da meta
 	 * @return Meta encontrada ou null se não foi encontrada
 	 */
 	public Meta getMeta(int id) {
-		List<Meta> metas = Meta.carregarMetas();
+		List<Meta> metas = metaManager.getMetas();
 		Meta m = metas.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
 		return m;
 	}
@@ -317,7 +316,9 @@ public class Fachada implements Initializable {
 	// Categorias
 	/**
 	 * Método que inicializa as categorias para a interface
-	 * @return ArrayList<ValorLista> que contem o texto referente a cada categoria e o id de cada uma
+	 * 
+	 * @return ArrayList<ValorLista> que contem o texto referente a cada categoria e
+	 *         o id de cada uma
 	 */
 	public ArrayList<ValorLista> inicializarCategorias() {
 		ArrayList<ValorLista> categorias = new ArrayList<ValorLista>();
@@ -330,16 +331,19 @@ public class Fachada implements Initializable {
 
 	/**
 	 * Método que cria uma categoria
+	 * 
 	 * @param nome
 	 * @throws CampoVazioException
+	 * @throws ObjetoJaExisteException
 	 */
-	public void criarCategoria(String nome) throws CampoVazioException {
+	public void criarCategoria(String nome) throws ObjetoJaExisteException, CampoVazioException {
 		categoriaManager.criar(nome);
 	}
-	
+
 	/**
 	 * Método que edita uma categoria
-	 * @param id da categoria
+	 * 
+	 * @param id   da categoria
 	 * @param novo nome
 	 * @throws ValorNegativoException
 	 * @throws ObjetoNaoEncontradoException
@@ -349,9 +353,10 @@ public class Fachada implements Initializable {
 			throws ValorNegativoException, ObjetoNaoEncontradoException, CampoVazioException {
 		categoriaManager.editar(id, novoNome);
 	}
-	
+
 	/**
 	 * Método que remove uma categoria
+	 * 
 	 * @param id da categoria
 	 * @throws ValorNegativoException
 	 * @throws ObjetoNaoEncontradoException
@@ -359,9 +364,10 @@ public class Fachada implements Initializable {
 	public void removerCategoria(int id) throws ValorNegativoException, ObjetoNaoEncontradoException {
 		categoriaManager.deletar(id);
 	}
-	
+
 	/**
 	 * Método que recupera uma categoria
+	 * 
 	 * @param id da categoria
 	 * @return Uma categoria ou null se não existir
 	 */
@@ -370,10 +376,12 @@ public class Fachada implements Initializable {
 	}
 
 	// Limites
-	
+
 	/**
 	 * Método que inicializa limites
-	 * @return Um ArrayList<ValorLista> com todos os textos para a listagem dos limites e os ids dos limites
+	 * 
+	 * @return Um ArrayList<ValorLista> com todos os textos para a listagem dos
+	 *         limites e os ids dos limites
 	 */
 	public ArrayList<ValorLista> inicializarLimites() {
 		ArrayList<ValorLista> limites = new ArrayList<>();
@@ -386,45 +394,47 @@ public class Fachada implements Initializable {
 
 	/**
 	 * Método que cria um limite
-	 * @param id da categoria
+	 * 
+	 * @param id    da categoria
 	 * @param valor
 	 * @throws ObjetoNaoEncontradoException
 	 * @throws ValorNegativoException
 	 * @throws ObjetoNuloException
-	 * @throws IOException
-	 * @throws CampoVazioException
+	 * @throws ObjetoJaExisteException
 	 */
-	public void criarLimite(int idCat, double valor) throws ObjetoNaoEncontradoException, ValorNegativoException,
-			ObjetoNuloException, IOException, CampoVazioException {
+	public void criarLimite(int idCat, double valor)
+			throws ObjetoNaoEncontradoException, ValorNegativoException, ObjetoNuloException, ObjetoJaExisteException {
 		limiteManager.criar(idCat, valor);
 	}
-	
+
 	/**
 	 * Método que edita um limite
-	 * @param id do limites
+	 * 
+	 * @param id   do limites
 	 * @param novo valor
 	 * @throws ObjetoNaoEncontradoException
 	 * @throws ValorNegativoException
 	 * @throws IOException
 	 */
-	public void editarLimite(int id, double valor)
-			throws ObjetoNaoEncontradoException, ValorNegativoException, IOException {
+	public void editarLimite(int id, double valor) throws ObjetoNaoEncontradoException, ValorNegativoException {
 		limiteManager.editar(id, valor);
 	}
-	
+
 	/**
 	 * Método que remove um limite
+	 * 
 	 * @param id do limite
 	 * @throws ObjetoNaoEncontradoException
 	 * @throws ValorNegativoException
 	 * @throws IOException
 	 */
-	public void removerLimite(int id) throws ObjetoNaoEncontradoException, ValorNegativoException, IOException {
+	public void removerLimite(int id) throws ObjetoNaoEncontradoException, ValorNegativoException {
 		limiteManager.deletar(id);
 	}
 
 	/**
 	 * Método que recupera um limite
+	 * 
 	 * @param id do limite
 	 * @return Limite encontrado ou null se não for encontrado
 	 */
@@ -435,6 +445,7 @@ public class Fachada implements Initializable {
 	// Graficos
 	/**
 	 * Método que inicializa os meses para serem listados na interfaca
+	 * 
 	 * @return ArrayList<String> com os meses
 	 */
 	public ArrayList<String> inicializarMeses() {
@@ -444,33 +455,34 @@ public class Fachada implements Initializable {
 		}
 		return meses;
 	}
-	
+
 	/**
-	 * Método que inicializa o gráfico de setores do mês atual 
+	 * Método que inicializa o gráfico de setores do mês atual
+	 * 
 	 * @return GraficoSetores com os dados do mês atual
 	 * @throws MesSemGastosException
+	 * @throws CampoVazioException
 	 */
-	public GraficoSetores inicializarGraficoSetores() throws MesSemGastosException{
+	public GraficoSetores inicializarGraficoSetores() throws MesSemGastosException, CampoVazioException {
 		LocalDate lD = LocalDate.now();
 		GraficoSetores gs = null;
-		try {
-			gs = negocioGrafico.vizualizarGraficoSetores(new Mes(lD.getMonthValue(), lD.getYear()));
-		} catch (CampoVazioException e) {
-		}
+		gs = negocioGrafico.vizualizarGraficoSetores(new Mes(lD.getMonthValue(), lD.getYear()), categoriaManager,
+				gastoManager);
 		return gs;
 	}
 
 	/**
 	 * Método que inicializa um gráfico de setores para diferentes meses
+	 * 
 	 * @param string referente ao mês
 	 * @return GraficoSetores gerado
 	 * @throws MesSemGastosException
 	 */
-	public GraficoSetores inicializarGraficoSetoresMes(String m) throws MesSemGastosException{
+	public GraficoSetores inicializarGraficoSetoresMes(String m) throws MesSemGastosException {
 		String[] valores = m.split("/");
 		Mes mes = new Mes(Integer.valueOf(valores[0]), Integer.valueOf(valores[1]));
 		try {
-			return negocioGrafico.vizualizarGraficoSetores(mes);
+			return negocioGrafico.vizualizarGraficoSetores(mes, categoriaManager, gastoManager);
 		} catch (CampoVazioException e) {
 		}
 		return null;
@@ -478,6 +490,7 @@ public class Fachada implements Initializable {
 
 	/**
 	 * Método que inicializa um gráfico de barras para diferentes categorias
+	 * 
 	 * @param nome da categoria
 	 * @return GraficoBarras gerado
 	 * @throws CampoVazioException
@@ -486,12 +499,13 @@ public class Fachada implements Initializable {
 	public GraficoBarras inicializarGraficoBarrasCategoria(String nome)
 			throws CampoVazioException, CategoriaSemGastosException {
 		Categoria c = new Categoria(nome);
-		return negocioGrafico.vizualizarGraficoBarras(c);
+		return negocioGrafico.vizualizarGraficoBarras(c, gastoManager, negocioMes);
 	}
 
 	// Investimentos
 	/**
 	 * Método único para lidar com os investimentos
+	 * 
 	 * @param Parametros com os parametros de investimento
 	 * @return RetornoInvestimento com os retornos da simulação
 	 * @throws OpcaoInvalidaException

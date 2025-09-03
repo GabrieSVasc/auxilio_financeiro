@@ -1,6 +1,5 @@
 package iu.viewController;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
 import java.util.function.UnaryOperator;
@@ -124,11 +123,8 @@ public class EditarMetaViewController {
 		} catch (ObjetoNaoEncontradoException e1) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Erro");
-			alerta.setContentText("Tentando editar uma meta que não existe");
+			alerta.setContentText("Tentando editar uma meta que não existe" + e1.getTipoObjeto());
 			alerta.showAndWait();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			// Problemas ao manipular um arquivo
 		} catch (CampoVazioException e1) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Erro");

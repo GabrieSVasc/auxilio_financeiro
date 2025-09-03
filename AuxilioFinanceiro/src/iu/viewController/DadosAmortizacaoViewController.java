@@ -81,7 +81,7 @@ public class DadosAmortizacaoViewController implements Initializable {
 		try {
 			RetornoInvestimento r = fachada.investimentos(p);
 
-			Dialog dialog = new Dialog();
+			Dialog<TableView<ValorAmortizacao>> dialog = new Dialog<TableView<ValorAmortizacao>>();
 			dialog.setTitle(tipoAmortStr);
 			ButtonType fecharBtn = new ButtonType("Fechar", ButtonData.CANCEL_CLOSE);
 			dialog.getDialogPane().getButtonTypes().add(fecharBtn);

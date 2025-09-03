@@ -49,7 +49,7 @@ public class ResumosGastosViewController implements Initializable {
 	private Button btnVerMudancaMes;
 
 	@FXML
-	private BarChart bcPorCategoria;
+	private BarChart<String, Double> bcPorCategoria;
 
 	@FXML
 	private Button btnVerMudancaCategoria;
@@ -120,15 +120,16 @@ public class ResumosGastosViewController implements Initializable {
 		GraficoBarras grafico = null;
 		try {
 			grafico = fachada.inicializarGraficoBarrasCategoria(cbCategorias.getSelectionModel().getSelectedItem());
-			XYChart.Series categoria = new XYChart.Series<>();
+			XYChart.Series<String, Double> categoria = new XYChart.Series<String, Double>();
 			categoria.setName(grafico.getCategoria().getNome());
 			int qtBarras = 0;
 			for (Barra b : grafico.getBarras()) {
-				categoria.getData().add(new XYChart.Data(b.getMes().toString(), b.getValorTotal()));
+				categoria.getData().add(new XYChart.Data<String, Double>(b.getMes().toString(), b.getValorTotal()));
 				qtBarras++;
 			}
-			for (qtBarras = qtBarras; qtBarras < 12; qtBarras++) {
-				categoria.getData().add(new XYChart.Data<>(meses.get(qtBarras), 0));
+			int aux = qtBarras;
+			for (qtBarras = aux; qtBarras < 12; qtBarras++) {
+				categoria.getData().add(new XYChart.Data<String, Double>(meses.get(qtBarras), Double.valueOf(0)));
 			}
 			if (bcPorCategoria.getData().size() > 0) {
 				bcPorCategoria.getData().remove(0);

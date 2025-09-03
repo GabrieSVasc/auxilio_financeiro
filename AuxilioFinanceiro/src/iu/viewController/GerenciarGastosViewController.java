@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import main.Main;
 import negocio.entidades.GraficoSetores;
 import negocio.entidades.Setor;
+import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.MesSemGastosException;
 
 public class GerenciarGastosViewController implements Initializable{
@@ -76,6 +77,8 @@ public class GerenciarGastosViewController implements Initializable{
 				pcMesAtual.getData().add(new PieChart.Data("Vazio", 10));
 				pcMesAtual.setTitle("Gráfico do mês");
 			}
+		} catch (CampoVazioException e) {
+			e.printStackTrace();
 		}
 	}
 	

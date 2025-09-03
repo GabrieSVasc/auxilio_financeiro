@@ -1,8 +1,5 @@
 package negocio;
 
-import dados.CategoriaManager;
-import dados.GastoManager;
-import dados.RepositorioMeses;
 import negocio.entidades.Categoria;
 import negocio.entidades.GraficoBarras;
 import negocio.entidades.GraficoSetores;
@@ -15,7 +12,6 @@ import negocio.exceptions.MesSemGastosException;
  * @author Maria Gabriela
  */
 public class NegocioGrafico {
-	
 	/**
 	 * Método que inicializa um gráfico de setores
 	 * @param Mês desejado
@@ -23,9 +19,8 @@ public class NegocioGrafico {
 	 * @throws MesSemGastosException
 	 * @throws CampoVazioException
 	 */
-	public GraficoSetores vizualizarGraficoSetores(Mes m) throws MesSemGastosException, CampoVazioException {
-		CategoriaManager cm = new CategoriaManager(Categoria.carregarCategorias());
-		return new GraficoSetores(m, cm, new GastoManager(cm));
+	public GraficoSetores vizualizarGraficoSetores(Mes m, CategoriaManager cm, GastoManager gm) throws MesSemGastosException, CampoVazioException {
+		return new GraficoSetores(m, cm, gm);
 	}
 	
 	/**
@@ -35,7 +30,7 @@ public class NegocioGrafico {
 	 * @throws CategoriaSemGastosException
 	 * @throws CampoVazioException
 	 */
-	public GraficoBarras vizualizarGraficoBarras(Categoria c) throws CategoriaSemGastosException, CampoVazioException {
-		return new GraficoBarras(c, new RepositorioMeses(), new GastoManager(new CategoriaManager(Categoria.carregarCategorias())));
+	public GraficoBarras vizualizarGraficoBarras(Categoria c, GastoManager gm, NegocioMes nm) throws CategoriaSemGastosException, CampoVazioException {
+		return new GraficoBarras(c, nm, gm);
 	}
 }

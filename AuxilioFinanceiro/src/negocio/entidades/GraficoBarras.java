@@ -2,8 +2,8 @@ package negocio.entidades;
 
 import java.util.ArrayList;
 
-import dados.GastoManager;
-import dados.RepositorioMeses;
+import negocio.GastoManager;
+import negocio.NegocioMes;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
@@ -17,10 +17,10 @@ public class GraficoBarras {
 	private Categoria categoria;
 	private ArrayList<Barra> barras;
 
-	public GraficoBarras(Categoria c, RepositorioMeses rm, GastoManager gm) throws CategoriaSemGastosException, CampoVazioException {
+	public GraficoBarras(Categoria c, NegocioMes nm,GastoManager gm) throws CategoriaSemGastosException, CampoVazioException {
 		this.categoria = c;
 		barras = new ArrayList<Barra>();
-		for(Mes m: rm.getMeses()) {
+		for(Mes m: nm.getMeses()) {
 			try {
 				barras.add(new Barra(c, gm, m));
 			}catch(MesSemGastosException e) {

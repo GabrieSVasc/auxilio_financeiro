@@ -1,1 +1,0 @@
-MENSALIDADE;2;Pagar Spotify;Valor: R$ 21,90;21-08-2025;01-08-2025;true;3

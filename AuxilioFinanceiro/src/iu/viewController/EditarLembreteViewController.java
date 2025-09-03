@@ -1,7 +1,5 @@
 package iu.viewController;
 
-import java.io.IOException;
-
 import fachada.Fachada;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,6 +30,7 @@ public class EditarLembreteViewController {
 	private Button btnConfirmar;
 	
 	private int idLembrete;
+	private Lembrete l;
 	
 	private static Fachada fachada = new Fachada();
 	
@@ -42,7 +41,7 @@ public class EditarLembreteViewController {
 	
 	public void lembreteEscolhido(int v) {
 		idLembrete = v;
-		Lembrete l = fachada.getLembrete(v);
+		l = fachada.getLembrete(v);
 		txtTitulo.setText(l.getTitulo());
 		txtDescricao.setText(l.getDescricao());
 		dtpData.setValue(l.getDataAlerta());
@@ -50,16 +49,13 @@ public class EditarLembreteViewController {
 	@FXML
 	protected void btnConfirmarAction(ActionEvent e) {
 		try {
-			fachada.atualizarLembrete(idLembrete, txtTitulo.getText(), txtDescricao.getText(), dtpData.getValue());
+			fachada.atualizarLembrete(idLembrete, txtTitulo.getText(), txtDescricao.getText(), dtpData.getValue(), l.isAtivo());
 			Main.mudarTela("lembretes");
 		} catch (ObjetoNaoEncontradoException e1) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Erro");
 			alerta.setContentText("Tentando editar lembrete inexistente");
 			alerta.showAndWait();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			//Problema ao tentar ler um arquivo
 		} catch (CampoVazioException e1) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Erro");

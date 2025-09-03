@@ -1,6 +1,5 @@
 package iu.viewController;
 
-import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
@@ -12,13 +11,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.control.Alert.AlertType;
 import main.Main;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNuloException;
@@ -58,9 +57,6 @@ public class NovaMetaViewController implements Initializable{
 			alerta.setTitle("Erro");
 			alerta.setContentText("Todos os campos devem estar preenchidos");
 			alerta.showAndWait();
-		} catch (IOException e1) {
-			// Problemas ao manipular um arquivo
-			e1.printStackTrace();
 		} catch (ObjetoNuloException e1) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Erro");

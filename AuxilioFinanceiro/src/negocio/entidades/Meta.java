@@ -1,10 +1,6 @@
 package negocio.entidades;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
-import util.arquivoUtils;
 /**
  * Representa uma meta financeira do usuário.
  * Pode ter um valor alvo e acompanhamento de progresso.
@@ -20,7 +16,6 @@ public class Meta {
     private LocalDate dataPrazo;
 
     private static final DateTimeFormatter FORMATO = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private static final String ARQUIVO = "metas.txt";
 
     public Meta(String descricao, double valorObjetivo, double valorAtual, LocalDate dataPrazo) {
         this.id = contador++;
@@ -70,31 +65,8 @@ public class Meta {
         return new Meta(id, desc, objetivo, atual, prazo);
     }
 
-    /** Salva todas as metas no arquivo */
-    public static void salvarLista(List<Meta> metas) {
-        if (metas.isEmpty()) {
-            arquivoUtils.salvarEmArquivo(ARQUIVO, "", false);
-            return;
-        }
-        arquivoUtils.salvarEmArquivo(ARQUIVO, metas.get(0).toArquivo(), false);
-        for (int i = 1; i < metas.size(); i++) {
-            arquivoUtils.salvarEmArquivo(ARQUIVO, metas.get(i).toArquivo(), true);
-        }
-    }
 
-    /** Carrega todas as metas do arquivo */
-    public static List<Meta> carregarMetas() {
-        List<String> linhas = arquivoUtils.lerDoArquivo(ARQUIVO);
-        List<Meta> metas = new ArrayList<>();
-        for (String ln : linhas) {
-            try {
-                metas.add(Meta.fromArquivo(ln));
-            } catch (Exception e) {
-                System.out.println("Falha ao carregar meta: " + e.getMessage());
-            }
-        }
-        return metas;
-    }
+    
 
     @Override
     public String toString() {
