@@ -1,4 +1,4 @@
-package negocio.entidades;
+package negocio;
 
 import java.io.IOException;
 

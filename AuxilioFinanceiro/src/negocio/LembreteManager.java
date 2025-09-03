@@ -27,7 +27,7 @@ import negocio.exceptions.ObjetoNuloException;
  * @author Halina Mochel
  */
 public class LembreteManager {
-	LembreteRepository lembreteRepository;
+	private LembreteRepository lembreteRepository;
 
 	/**
 	 * Construtor que recebe o gerenciador de mensalidades e carrega os lembretes

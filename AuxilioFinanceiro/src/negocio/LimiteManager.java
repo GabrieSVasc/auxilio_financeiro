@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import dados.LimiteRepository;
 import negocio.entidades.Categoria;
-import negocio.entidades.CrudMenu;
 import negocio.entidades.Gasto;
 import negocio.entidades.LembreteLimite;
 import negocio.entidades.Limite;

@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import dados.CategoriaRepository;
 import negocio.entidades.Categoria;
-import negocio.entidades.CrudMenu;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoJaExisteException;
 import negocio.exceptions.ObjetoNaoEncontradoException;

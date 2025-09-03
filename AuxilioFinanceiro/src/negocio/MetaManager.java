@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import dados.MetaRepository;
-import negocio.entidades.CrudMenu;
 import negocio.entidades.LembreteMeta;
 import negocio.entidades.Meta;
 import negocio.exceptions.CampoVazioException;
