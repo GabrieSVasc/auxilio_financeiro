@@ -37,8 +37,8 @@ public class LembreteManager {
 	 * @param mensalidadeManager Gerenciador de mensalidades para associação
 	 * @param limiteManager      Gerenciador de limites para associação
 	 */
-	public LembreteManager(MensalidadeManager mensalidadeManager, LimiteManager limiteManager) {
-		lembreteRepository = new LembreteRepository(mensalidadeManager, limiteManager);
+	public LembreteManager(MensalidadeManager mensalidadeManager, LimiteManager limiteManager, MetaManager metaManager) {
+		lembreteRepository = new LembreteRepository(mensalidadeManager, limiteManager, metaManager);
 	}
 
 	/**

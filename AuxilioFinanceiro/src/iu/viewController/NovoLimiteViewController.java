@@ -60,7 +60,7 @@ public class NovoLimiteViewController implements Initializable {
 		btnNovaCategoria.setGraphic(imgMais);
 
 		SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0,
-				Double.MAX_VALUE, 10.0, 0.1);
+				Double.MAX_VALUE, 0.0, 0.1);
 		DecimalFormat format = new DecimalFormat("#.##");
 		UnaryOperator<TextFormatter.Change> filter = change -> {
 			String newText = change.getControlNewText();
@@ -103,7 +103,7 @@ public class NovoLimiteViewController implements Initializable {
 	}
 
 	public void atualizandoTela() {
-		spinnerValorLimite.getValueFactory().setValue(10.0);
+		spinnerValorLimite.getValueFactory().setValue(0.0);
 		cbCategoria.getSelectionModel().select(0);
 		
 		ArrayList<ValorLista> categoria = fachada.inicializarCategorias();

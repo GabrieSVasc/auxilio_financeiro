@@ -1,0 +1,77 @@
+1;Supermercado Zona Sul;142.75;29-08-2025;1
+2;Recarga Bilhete Único;80.0;27-08-2025;2
+3;Cinema com amigos;58.0;25-08-2025;3
+4;Aluguel Apartamento;1200.0;01-08-2025;4
+5;Consulta médica particular;250.0;18-08-2025;5
+6;Mensalidade Faculdade;900.0;05-08-2025;6
+8;Padaria São João;23.5;30-08-2025;1
+9;Uber para o trabalho;32.8;28-08-2025;2
+10;Jantar delivery;67.4;23-08-2025;1
+12;Compra remédio;34.9;22-08-2025;5
+14;Livro para curso;56.0;10-08-2025;6
+15;Combústivel;150.0;26-08-2025;2
+16;Pizzaria Bella Itália;84.2;17-08-2025;3
+17;Feira Orgânica;45.3;24-08-2025;1
+18;Ônibus Intermunicipal;25.5;16-08-2025;2
+19;Restaurante Japonês;122.0;15-08-2025;3
+21;Curso de inglês online;200.0;06-08-2025;6
+22;Mecânico;450.0;12-08-2025;2
+23;Sorveteria;18.5;20-08-2025;3
+24;Aplicativo de meditação;29.9;09-08-2025;5
+26;Marmita Diária;25.0;26-08-2025;1
+27;Estacionamento shopping;15.0;21-08-2025;2
+28;Parque de Diversões;120.0;19-08-2025;3
+29;Material Escolar;74.8;08-08-2025;6
+31;Aluguel Apartamento;1200.0;01-09-2025;4
+33;Padaria da Esquina;18.9;03-09-2025;1
+34;Recarga Bilhete Único;80.0;02-09-2025;2
+35;Supermercado Central;235.7;01-09-2025;1
+37;Consulta com dermatologista;220.0;02-09-2025;5
+39;Marmita no trabalho;22.0;03-09-2025;1
+40;Ônibus para faculdade;15.0;02-09-2025;2
+41;Mensalidade da Faculdade;900.0;01-09-2025;6
+42;Compra de remédio na farmácia;45.7;15-10-2024;5
+43;Consulta clínica geral;180.0;27-10-2024;5
+44;Exame de sangue;120.0;08-11-2024;5
+45;Compra de vitaminas;68.5;20-11-2024;5
+46;Consulta com dentista;200.0;05-12-2024;5
+47;Farmácia São José;39.9;22-12-2024;5
+48;Vacina particular;150.0;10-01-2025;5
+49;Exame oftamológico;210.0;28-01-2025;5
+50;Remédio para alergia;32.8;12-02-2025;5
+51;Consulta com nutricionista;220.0;25-02-2025;5
+52;Check-up anual;320.0;04-03-2025;5
+53;Compra de colírio;24.9;17-03-2025;5
+54;Sessão de fisioterapia;95.0;09-04-2025;5
+55;Remédio para dor;18.5;25-04-2025;5
+56;Consulta psiquiátrica;280.0;06-05-2025;5
+57;Farmácia Popular;55.9;20-05-2025;5
+58;Consulta dermatológica;240.0;07-06-2025;5
+59;Compra de protetor solar;49.9;18-06-2025;5
+62;Consulta médica particular;250.0;18-08-2025;5
+63;Compra remédio;34.9;22-08-2025;5
+64;Psicoterapia;180.0;05-07-2025;5
+65;Farmácia do bairro;30.0;26-07-2025;5
+66;Supermercado Extra;245.8;03-10-2024;1
+67;Lanche no Subway;29.9;19-10-2024;1
+68;Padaria São João;18.5;07-11-2024;1
+69;Feira livre;42.0;21-11-2024;1
+70;Jantar no restaurante italiano;132.0;13-12-2024;1
+71;Supermercado Guanabara;198.75;27-12-2024;1
+72;Marmita no trabalho;22.0;08-01-2025;1
+73;Açougue do bairro;86.9;24-01-2025;1
+74;Supermercado Zona Sul;213.45;10-02-2025;1
+75;Lanche rápido;15.0;27-02-2025;1
+76;Delivery de comida japonesa;98.6;02-03-2025;1
+77;Café e croissant;19.8;19-03-2025;1
+78;Restaurante por quilo;39.9;04-04-2025;1
+79;Feira orgânica;54.2;22-04-2025;1
+80;Almoço no centro;32.5;07-05-2025;1
+81;Supermercado Mundial;176.2;28-05-2025;1
+82;Padaria Bela Vista;21.3;09-06-2025;1
+83;Jantar delivery;66.0;25-06-2025;1
+84;Compras no hortifruti;47.6;03-07-2025;1
+85;Marmita da Dona Maria;25.0;22-07-2025;1
+86;Supermercado Central;235.7;01-08-2025;1
+87;Almoço no restaurante local;48.9;12-07-2025;1
+88;Sorveteria Gelato & Cia;16.5;29-07-2025;1

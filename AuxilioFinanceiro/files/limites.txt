@@ -1,0 +1,7 @@
+Comida;800.0
+Transporte;350.0
+Lazer;400.0
+Aluguel;1200.0
+Saúde;500.0
+Educação;700.0
+Mensal;450.0

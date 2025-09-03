@@ -3,6 +3,7 @@ package negocio.entidades;
 import java.util.ArrayList;
 
 import negocio.GastoManager;
+import negocio.MensalidadeManager;
 import negocio.NegocioMes;
 import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
@@ -25,12 +26,12 @@ public class GraficoBarras {
 	 * @param gm
 	 * @throws CategoriaSemGastosException
 	 */
-	public GraficoBarras(Categoria c, NegocioMes nm, GastoManager gm) throws CategoriaSemGastosException {
+	public GraficoBarras(Categoria c, NegocioMes nm, GastoManager gm, MensalidadeManager mm) throws CategoriaSemGastosException {
 		this.categoria = c;
 		barras = new ArrayList<Barra>();
 		for (Mes m : nm.getMeses()) {
 			try {
-				barras.add(new Barra(c, gm, m));
+				barras.add(new Barra(c, gm, m, mm));
 			} catch (MesSemGastosException e) {
 			}
 		}

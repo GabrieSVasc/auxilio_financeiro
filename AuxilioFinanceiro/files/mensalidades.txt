@@ -1,0 +1,9 @@
+89;Spotify Premium;19.9;02-08-2025;7;02-09-2025;Mensal;false
+90;Netflix;39.9;01-08-2025;7;01-09-2025;Mensal;false
+91;Academia Mensalidade;99.9;03-08-2025;7;03-09-2025;Mensal;false
+92;Plano de saúde;320.0;01-08-2025;7;01-09-2025;Mensal;false
+93;Conta de água;89.0;05-08-2025;7;05-09-2025;Mensal;false
+94;Internet residencial;119.9;04-08-2025;7;04-09-2025;Mensal;false
+96;Conta de luz;142.6;02-09-2025;7;02-10-2025;Mensal;false
+97;Spotify Premium;19.9;01-09-2025;7;01-10-2025;Mensal;false
+98;Netflix;39.9;01-09-2025;7;01-10-2025;Mensal;false

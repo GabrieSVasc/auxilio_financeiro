@@ -1,9 +1,11 @@
 package negocio;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import dados.MensalidadeRepository;
+import negocio.entidades.Gasto;
 import negocio.entidades.Mensalidade;
 import negocio.exceptions.CampoVazioException;
 import negocio.exceptions.ObjetoNaoEncontradoException;
@@ -106,5 +108,18 @@ public class MensalidadeManager {
 	 */
 	public Mensalidade buscarPorId(int id) {
 		return listarMensalidades().stream().filter(m -> m.getId() == id).findFirst().orElse(null);
+	}
+	
+	public ArrayList<Gasto> getMensalidadeByMes(int mes, int a){
+		List<Mensalidade> mensalidade = mensalidadeRepository.getMensalidades();
+		ArrayList<Gasto> mensalidadesMes = new ArrayList<>();
+		
+		for(Mensalidade m: mensalidade) {
+			if(m.getDataCriacao().getMonthValue() == mes && m.getDataCriacao().getYear() ==a) {
+				mensalidadesMes.add(m);
+			}
+		}
+		
+		return mensalidadesMes;
 	}
 }

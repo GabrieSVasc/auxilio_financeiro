@@ -20,9 +20,9 @@ public class NegocioGrafico {
 	 * @return Grafico gerado
 	 * @throws MesSemGastosException
 	 */
-	public GraficoSetores vizualizarGraficoSetores(Mes m, CategoriaManager cm, GastoManager gm)
+	public GraficoSetores vizualizarGraficoSetores(Mes m, CategoriaManager cm, GastoManager gm, MensalidadeManager mm)
 			throws MesSemGastosException {
-		return new GraficoSetores(m, cm, gm);
+		return new GraficoSetores(m, cm, gm, mm);
 	}
 
 	/**
@@ -32,8 +32,8 @@ public class NegocioGrafico {
 	 * @return GraficoBarras gerado
 	 * @throws CategoriaSemGastosException
 	 */
-	public GraficoBarras vizualizarGraficoBarras(Categoria c, GastoManager gm, NegocioMes nm)
+	public GraficoBarras vizualizarGraficoBarras(Categoria c, GastoManager gm, NegocioMes nm, MensalidadeManager mm)
 			throws CategoriaSemGastosException {
-		return new GraficoBarras(c, nm, gm);
+		return new GraficoBarras(c, nm, gm, mm);
 	}
 }

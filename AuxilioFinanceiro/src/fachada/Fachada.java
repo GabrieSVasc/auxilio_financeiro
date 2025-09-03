@@ -2,13 +2,10 @@ package fachada;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-import javafx.fxml.Initializable;
 import negocio.CambioNegocio;
 import negocio.CategoriaManager;
 import negocio.GastoManager;
@@ -51,7 +48,7 @@ import negocio.exceptions.ValorNegativoException;
  * @author Maria Gabriela
  */
 
-public class Fachada implements Initializable {
+public class Fachada {
 	private CambioNegocio cambioNegocio;
 	private static NegocioMes negocioMes = new NegocioMes();
 	private static NegocioGrafico negocioGrafico = new NegocioGrafico();
@@ -59,14 +56,14 @@ public class Fachada implements Initializable {
 	private static GastoManager gastoManager = new GastoManager(categoriaManager);
 	private static MensalidadeManager mensalidadeManager = new MensalidadeManager(categoriaManager);
 	private static LimiteManager limiteManager = new LimiteManager(categoriaManager, gastoManager);
-	private static LembreteManager lembreteManager = new LembreteManager(mensalidadeManager, limiteManager);
-	private static MetaManager metaManager = new MetaManager(lembreteManager);
+	private static MetaManager metaManager = new MetaManager();
+	private static LembreteManager lembreteManager = new LembreteManager(mensalidadeManager, limiteManager, metaManager);
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public Fachada() {
 		limiteManager.setLembreteManager(lembreteManager);
+		metaManager.setLembreteManager(lembreteManager);
 	}
-
+	
 	// Gastos
 	/**
 	 * Inicializa para a tela todos os gastos
@@ -77,11 +74,11 @@ public class Fachada implements Initializable {
 		ArrayList<ValorLista> gastos = new ArrayList<>();
 
 		for (Gasto g : gastoManager.listarGastos()) {
-			String strG = "R$ " + g.getValor() + " - " + g.getNome();
+			String strG = "R$ " + g.getValor() + " - " + g.getNome() + " (" + g.getDataCriacao() + ")";
 			gastos.add(new ValorLista(strG, g.getId()));
 		}
 		for (Mensalidade m : mensalidadeManager.listarMensalidades()) {
-			String strM = "MENSALIDADE R$ " + m.getValor() + " - " + m.getNome();
+			String strM = "MENSALIDADE R$ " + m.getValor() + " - " + m.getNome() + " (" + m.getDataCriacao() + ")";
 			gastos.add(new ValorLista(strM, m.getId()));
 		}
 		return gastos;
@@ -473,7 +470,7 @@ public class Fachada implements Initializable {
 		LocalDate lD = LocalDate.now();
 		GraficoSetores gs = null;
 		gs = negocioGrafico.vizualizarGraficoSetores(new Mes(lD.getMonthValue(), lD.getYear()), categoriaManager,
-				gastoManager);
+				gastoManager, mensalidadeManager);
 		return gs;
 	}
 
@@ -487,7 +484,7 @@ public class Fachada implements Initializable {
 	public GraficoSetores inicializarGraficoSetoresMes(String m) throws MesSemGastosException {
 		String[] valores = m.split("/");
 		Mes mes = new Mes(Integer.valueOf(valores[0]), Integer.valueOf(valores[1]));
-		return negocioGrafico.vizualizarGraficoSetores(mes, categoriaManager, gastoManager);
+		return negocioGrafico.vizualizarGraficoSetores(mes, categoriaManager, gastoManager, mensalidadeManager);
 	}
 
 	/**
@@ -501,7 +498,7 @@ public class Fachada implements Initializable {
 	public GraficoBarras inicializarGraficoBarrasCategoria(String nome)
 			throws CampoVazioException, CategoriaSemGastosException {
 		Categoria c = new Categoria(nome);
-		return negocioGrafico.vizualizarGraficoBarras(c, gastoManager, negocioMes);
+		return negocioGrafico.vizualizarGraficoBarras(c, gastoManager, negocioMes, mensalidadeManager);
 	}
 
 	// Investimentos
@@ -521,18 +518,19 @@ public class Fachada implements Initializable {
 		return mp.inputMenu(p.getInput1(), p.getInput2(), p.getValor(), p.getTaxa(), p.getNumParcelas(), p.getTipo(),
 				p.getTempo(), p.getArrecadacao());
 	}
-	
-	//Câmbio
-	
+
+	// Câmbio
+
 	public void inicializarCambio() {
 		cambioNegocio = new CambioNegocio();
 	}
-	
-	public ArrayList<String> getMoedasDestino(){
+
+	public ArrayList<String> getMoedasDestino() {
 		return cambioNegocio.getMoedasdestino();
 	}
-	
-	public double realizarCambio(double valor, String destino) throws URISyntaxException, IOException, LimiteDeConvesoesException, ErroAoReceberConversaoException {
+
+	public double realizarCambio(double valor, String destino)
+			throws URISyntaxException, IOException, LimiteDeConvesoesException, ErroAoReceberConversaoException {
 		return cambioNegocio.realizarCambio(valor, destino);
 	}
 }

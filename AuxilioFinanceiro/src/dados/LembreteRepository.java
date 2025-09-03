@@ -14,11 +14,14 @@ import java.util.Optional;
 
 import negocio.LimiteManager;
 import negocio.MensalidadeManager;
+import negocio.MetaManager;
 import negocio.entidades.Lembrete;
 import negocio.entidades.LembreteLimite;
+import negocio.entidades.LembreteMeta;
 import negocio.entidades.Limite;
 import negocio.entidades.Mensalidade;
 import negocio.entidades.MensalidadeLembrete;
+import negocio.entidades.Meta;
 
 /**
  * Classe de repositório responsável pela persistência dos objetos Lembrete.
@@ -44,9 +47,9 @@ public class LembreteRepository {
 	 * @param mm O manager de mensalidade
 	 * @param lm O manager de limite
 	 */
-	public LembreteRepository(MensalidadeManager mm, LimiteManager lm) {
+	public LembreteRepository(MensalidadeManager mm, LimiteManager lm, MetaManager metaM) {
 		lembretes = new ArrayList<Lembrete>();
-		lembretes = carregar(mm, lm);
+		lembretes = carregar(mm, lm, metaM);
 	}
 
 	/**
@@ -159,10 +162,11 @@ public class LembreteRepository {
 	 * @param lm Manager de limites
 	 * @return Lista de objetos Lembrete carregados do arquivo
 	 */
-	private List<Lembrete> carregar(MensalidadeManager mm, LimiteManager lm) {
+	private List<Lembrete> carregar(MensalidadeManager mm, LimiteManager lm, MetaManager metaM) {
 		garantirArquivo();
 		List<Limite> limites = lm.getLimites();
 		List<Mensalidade> mensalidades = mm.listarMensalidades();
+		List<Meta> metas = metaM.getMetas();
 
 		try (BufferedReader reader = Files.newBufferedReader(Paths.get(CAMINHO_ARQUIVO))) {
 			String linha;
@@ -212,6 +216,19 @@ public class LembreteRepository {
 					case "LEMBRETE":
 						// Lembrete genérico sem associação extra
 						lembretes.add(new Lembrete(id, titulo, descricao, dataCriacao, dataAlerta, ativo));
+						break;
+					case "META":
+						int metaId = Integer.parseInt(partes[7].trim());
+						Optional<Meta> meta = metas.stream()
+								.filter(m -> m.getId() == metaId).findFirst();
+						if (meta.isPresent()) {
+							// Note que aqui é passado o ID da meta, pode ser que o construtor use
+							// isso para buscar a mensalidade
+							lembretes.add(new LembreteMeta(id, titulo, descricao, dataCriacao, dataAlerta, ativo, metaId, metaM));
+						} else {
+							System.err.println("Erro ao carregar MetaLembrete: Meta ID " + metaId
+									+ " não encontrada.");
+						}
 						break;
 					// Caso surjam outros tipos de lembretes, podem ser adicionados aqui
 					default:

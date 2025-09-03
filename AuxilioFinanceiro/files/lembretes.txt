@@ -1,0 +1,8 @@
+META;1;Reserva de Emergência;Acompanhamento da meta Reserva de Emergência;03-09-2025;31-12-2025;true;1
+META;2;Viagem de Férias;Acompanhamento da meta Viagem de Férias;03-09-2025;15-01-2026;true;2
+META;3;Troca de Notebook;Acompanhamento da meta Troca de Notebook;03-09-2025;30-11-2025;true;3
+META;4;Curso de Especialização;Acompanhamento da meta Curso de Especialização;03-09-2025;28-02-2026;true;4
+META;5;Reforma do Quarto;Acompanhamento da meta Reforma do Quarto;03-09-2025;30-10-2025;true;5
+META;6;Compra de Bicicleta;Acompanhamento da meta Compra de Bicicleta;03-09-2025;30-09-2025;true;6
+META;7;Presentear um amigo;Acompanhamento da meta Presentear um amigo;03-09-2025;08-09-2025;true;7
+META;8;Comprar material de arte;Acompanhamento da meta Comprar material de arte;03-09-2025;09-09-2025;true;8

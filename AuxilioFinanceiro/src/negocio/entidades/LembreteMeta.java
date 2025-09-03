@@ -2,7 +2,8 @@ package negocio.entidades;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
+
+import negocio.MetaManager;
 
 /**
  * Representa um lembrete para monitorar o progresso de uma meta.
@@ -42,22 +43,10 @@ public class LembreteMeta extends Lembrete {
      * @param ativo Estado ativo/inativo do lembrete
      * @param metas Lista de metas para busca da meta associada
      */
-    public LembreteMeta(int id, int metaId, String descricao, boolean ativo, List<Meta> metas) {
+    public LembreteMeta(int id, String titulo, String descricao, LocalDate dataCriacao, LocalDate dataAlerta, boolean ativo, int idMeta, MetaManager mm) {
         // Busca a meta pelo ID; se não encontrada, meta será null (pode causar NullPointerException se não tratado)
-        super(descricao, descricao, metas.stream()
-                .filter(m -> m.getId() == metaId)
-                .findFirst()
-                .orElse(null)
-                .getDataPrazo());
-        this.meta = metas.stream()
-                .filter(m -> m.getId() == metaId)
-                .findFirst()
-                .orElse(null);
-        if (id >= contadorId) {
-            contadorId = id + 1;
-        }
-        this.ativo = ativo;
-        this.id = id;
+        super(id, titulo, descricao, dataCriacao, dataAlerta, ativo);
+        this.meta = mm.getMeta(idMeta);
     }
 
     // --- Getters e Setters ---
@@ -119,27 +108,15 @@ public class LembreteMeta extends Lembrete {
     @Override
     public String toFileString() {
         int metaId = (meta == null ? -1 : meta.getId());
-        return getId() + ";" + metaId + ";" + getDescricao().replace(";", ",") + ";" + isAtivo();
-    }
-
-    /**
-     * Método estático para reconstruir um LembreteMeta a partir de uma linha de arquivo.
-     * 
-     * @param linha Linha de texto contendo os dados
-     * @param metas Lista de metas para associação
-     * @return Novo objeto LembreteMeta
-     * @throws IllegalArgumentException Caso o formato da linha seja inválido
-     */
-    public static LembreteMeta fromArquivo(String linha, List<Meta> metas) {
-        String[] p = linha.split(";", 4);
-        if (p.length < 4) {
-            throw new IllegalArgumentException("Formato inválido: " + linha);
-        }
-        int id = Integer.parseInt(p[0].trim());
-        int metaId = Integer.parseInt(p[1].trim());
-        String desc = p[2].trim();
-        boolean ativo = Boolean.parseBoolean(p[3].trim());
-        return new LembreteMeta(id, metaId, desc, ativo, metas);
+        return String.join(";", 
+        		"META",
+        		String.valueOf(id),
+        		titulo,
+        		descricao.replace(";", ","),
+        		dataCriacao.format(DATE_FORMATTER),
+        		dataAlerta.format(DATE_FORMATTER),
+        		String.valueOf(ativo),
+        		String.valueOf(metaId));
     }
 
     /**

@@ -20,7 +20,7 @@ import util.ConsoleIO;
  */
 public class MetaManager implements CrudMenu {
 	private MetaRepository metaRepository;
-	private final LembreteManager lembreteManager; // Injeção do LembreteManager
+	private LembreteManager lembreteManager; // Injeção do LembreteManager
 	private final Scanner sc = new Scanner(System.in);
 
 	/**
@@ -28,9 +28,12 @@ public class MetaManager implements CrudMenu {
 	 * 
 	 * @param lembreteManager
 	 */
-	public MetaManager(LembreteManager lembreteManager) {
-		metaRepository = new MetaRepository();
-		this.lembreteManager = lembreteManager; // Inicializa o LembreteManager
+	public MetaManager() {
+		metaRepository = new MetaRepository(); // Inicializa o LembreteManager
+	}
+	
+	public void setLembreteManager(LembreteManager lm) {
+		this.lembreteManager = lm;
 	}
 
 	/**

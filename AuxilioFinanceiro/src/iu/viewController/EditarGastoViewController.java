@@ -3,7 +3,6 @@ package iu.viewController;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
@@ -19,7 +18,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.control.TextInputDialog;
 import main.Main;
 import negocio.entidades.Gasto;
 import negocio.exceptions.CampoVazioException;
@@ -105,16 +103,8 @@ public class EditarGastoViewController implements Initializable{
 	
 	@FXML
 	protected void btnConfirmarAction(ActionEvent e) {
-		Optional<String> resultado = Optional.ofNullable("");
-		if(g.getCategoria().getNome().equals("Mensal")) {
-			TextInputDialog dialog = new TextInputDialog();
-			dialog.setTitle("Recorrencia");
-			dialog.setHeaderText("Digite a recorrência: ");
-			dialog.setContentText("Recorrencia: ");
-			 resultado = dialog.showAndWait();
-		}
 		try {
-			fachada.editarGasto(idGasto, txtNome.getText(), spinnerValor.getValue(), dateData.getValue(), resultado.get() ,g.getCategoria());
+			fachada.editarGasto(idGasto, txtNome.getText(), spinnerValor.getValue(), dateData.getValue(), g.getCategoria().getNome(),g.getCategoria());
 			Main.mudarTela("gastos");
 		} catch (CampoVazioException e1) {
 			Alert alerta = new Alert(AlertType.INFORMATION);

@@ -75,8 +75,8 @@ public class NovaMetaViewController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		fachada = new Fachada();
-		SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 10.0, 0.1);
-		SpinnerValueFactory<Double> vlFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 10.0, 0.1);
+		SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 0.0, 0.1);
+		SpinnerValueFactory<Double> vlFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE, 0.0, 0.1);
 		DecimalFormat format = new DecimalFormat("#.##");
 		UnaryOperator<TextFormatter.Change> filter = change->{
 			String newText = change.getControlNewText();
@@ -134,8 +134,8 @@ public class NovaMetaViewController implements Initializable{
 	
 	public void atualizandoTela() {
 		txtDescricao.setText("");
-		spinnerValorObjetivo.getValueFactory().setValue(10.0);
-		spinnerValorAtual.getValueFactory().setValue(10.0);
+		spinnerValorObjetivo.getValueFactory().setValue(0.0);
+		spinnerValorAtual.getValueFactory().setValue(0.0);
 		dtpPrazo.setValue(null);
 	}
 }

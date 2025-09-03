@@ -3,6 +3,7 @@ package negocio.entidades;
 import java.util.ArrayList;
 
 import negocio.GastoManager;
+import negocio.MensalidadeManager;
 import negocio.exceptions.CategoriaSemGastosException;
 import negocio.exceptions.MesSemGastosException;
 
@@ -22,11 +23,15 @@ public class Setor{
 	 * @param Mes
 	 * @throws MesSemGastosException
 	 */
-	public Setor(Categoria c, GastoManager gm, Mes mes) throws MesSemGastosException{
+	public Setor(Categoria c, GastoManager gm, Mes mes, MensalidadeManager mm) throws MesSemGastosException{
 		this.categoria = c;
 		gastos = new ArrayList<Gasto>();
 		try {
-			gastos = gm.getGastosByCategoria(c, mes.getMes(), mes.getAno());
+			if(c.getNome().equals("Mensal")) {
+				gastos = mm.getMensalidadeByMes(mes.getMes(), mes.getAno());
+			}else {
+				gastos = gm.getGastosByCategoria(c, mes.getMes(), mes.getAno());
+			}
 		}catch (CategoriaSemGastosException e) {
 		}
 	}

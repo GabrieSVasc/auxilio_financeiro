@@ -1,12 +1,15 @@
 package iu.viewController;
 
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
+import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import fachada.Fachada;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -26,7 +29,7 @@ import negocio.exceptions.ObjetoNaoEncontradoException;
  * @author Maria Gabriela
  */
 
-public class EditarMetaViewController {
+public class EditarMetaViewController implements Initializable{
 	@FXML
 	private Button btnVoltar;
 
@@ -62,10 +65,36 @@ public class EditarMetaViewController {
 		Meta m = fachada.getMeta(meta);
 		idMeta = m.getId();
 		txtDescricao.setText(m.getDescricao());
+		dtpPrazo.setValue(m.getDataPrazo());
+		spinnerValorObjetivo.getValueFactory().setValue(m.getValorObjetivo());
+		spinnerValorAtual.getValueFactory().setValue(m.getValorAtual());
+	}
+
+	@FXML
+	protected void btnConfirmarAction(ActionEvent e) {
+		try {
+			fachada.editarMeta(idMeta, txtDescricao.getText(), spinnerValorObjetivo.getValue().doubleValue(),
+					spinnerValorAtual.getValue().doubleValue(), dtpPrazo.getValue());
+			Main.mudarTela("metas");
+		} catch (ObjetoNaoEncontradoException e1) {
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("Tentando editar uma meta que não existe" + e1.getTipoObjeto());
+			alerta.showAndWait();
+		} catch (CampoVazioException e1) {
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Erro");
+			alerta.setContentText("Todos os campos devem estar preenchidos");
+			alerta.showAndWait();
+		}
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		SpinnerValueFactory<Double> valueFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0,
-				Double.MAX_VALUE, m.getValorObjetivo(), 0.1);
+				Double.MAX_VALUE, 0.0, 0.1);
 		SpinnerValueFactory<Double> vlFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.0, Double.MAX_VALUE,
-				m.getValorAtual(), 0.1);
+				0.0, 0.1);
 		DecimalFormat format = new DecimalFormat("#.##");
 		UnaryOperator<TextFormatter.Change> filter = change -> {
 			String newText = change.getControlNewText();
@@ -117,26 +146,5 @@ public class EditarMetaViewController {
 		spinnerValorAtual.getEditor().setTextFormatter(txtForm);
 		spinnerValorAtual.setEditable(true);
 		valueFactory.valueProperty().bindBidirectional(textFormatter.valueProperty());
-		dtpPrazo.setValue(m.getDataPrazo());
 	}
-
-	@FXML
-	protected void btnConfirmarAction(ActionEvent e) {
-		try {
-			fachada.editarMeta(idMeta, txtDescricao.getText(), spinnerValorObjetivo.getValue().doubleValue(),
-					spinnerValorAtual.getValue().doubleValue(), dtpPrazo.getValue());
-			Main.mudarTela("metas");
-		} catch (ObjetoNaoEncontradoException e1) {
-			Alert alerta = new Alert(AlertType.ERROR);
-			alerta.setTitle("Erro");
-			alerta.setContentText("Tentando editar uma meta que não existe" + e1.getTipoObjeto());
-			alerta.showAndWait();
-		} catch (CampoVazioException e1) {
-			Alert alerta = new Alert(AlertType.ERROR);
-			alerta.setTitle("Erro");
-			alerta.setContentText("Todos os campos devem estar preenchidos");
-			alerta.showAndWait();
-		}
-	}
-
 }

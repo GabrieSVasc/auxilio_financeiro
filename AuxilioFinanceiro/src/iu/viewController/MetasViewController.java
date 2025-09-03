@@ -117,7 +117,7 @@ public class MetasViewController implements Initializable{
 					} catch (ObjetoNaoEncontradoException e) {
 						Alert alerta = new Alert(AlertType.ERROR);
 						alerta.setTitle("Erro");
-						alerta.setContentText("Tentando remover uma meta que não está cadastrada" + e.getTipoObjeto());
+						alerta.setContentText("Tentando remover uma meta que não está cadastrada");
 						alerta.showAndWait();
 					}
 					inicializaValores();
