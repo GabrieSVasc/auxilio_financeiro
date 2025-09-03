@@ -102,6 +102,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			stage = primaryStage;
+			primaryStage.setTitle("Auxílio Financeiro");
 			FXMLLoader loaderInicial = new FXMLLoader(getClass().getResource("/iu/view/inicial.fxml"));
 			Parent inicial = loaderInicial.load();
 			cenaInicial = new Scene(inicial);
