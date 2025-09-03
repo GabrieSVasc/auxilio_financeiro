@@ -193,6 +193,12 @@ public class LimiteManager implements CrudMenu {
 	 * @return Uma lista com todos os limites
 	 */
 	public List<Limite> getLimites() {
+		for (Categoria c : categoriaManager.getCategorias()) {
+			this.atualizarTotais(c);
+		}
+		for(Limite l: limiteRepository.getLimites()) {
+			this.atualizarLembretesLimite(l);
+		}
 		return limiteRepository.getLimites();
 	}
 
