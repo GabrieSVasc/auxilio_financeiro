@@ -263,8 +263,8 @@ public class Main extends Application {
 	public static void mudarTela(String nome) {
 		switch (nome) {
 		case "inicial":
-			stage.setScene(cenaInicial);
 			iVC.inicializarTela();
+			stage.setScene(cenaInicial);
 			break;
 		case "cambio":
 			stage.setScene(cenaCambio);
@@ -274,45 +274,45 @@ public class Main extends Application {
 			ggVC.criarGrafico();
 			break;
 		case "resumosGastos":
-			stage.setScene(cenaResumosGastos);
+			stage.setScene(cenaResumosGastos);			
 			rgVC.criarGraficos();
 			rgVC.carregarValores();
 			break;
 		case "limitesGastos":
-			stage.setScene(cenaLimites);
 			lgVC.inicializaValores();
+			stage.setScene(cenaLimites);
 			break;
 		case "lembretes":
-			stage.setScene(cenaLembretes);
 			lVC.inicializaValores();
+			stage.setScene(cenaLembretes);
 			break;
 		case "metas":
-			stage.setScene(cenaMetas);
 			mVC.inicializaValores();
+			stage.setScene(cenaMetas);
 			break;
 		case "gastos":
-			stage.setScene(cenaGastos);
 			gVC.inicializaValores();
+			stage.setScene(cenaGastos);
 			break;
 		case "categorias":
-			stage.setScene(cenaCategorias);
 			cVC.inicializaValores();
+			stage.setScene(cenaCategorias);
 			break;
 		case "novoLembrete":
-			stage.setScene(cenaNovoLembrete);
 			nlembreteVC.atualizandoTela();
+			stage.setScene(cenaNovoLembrete);
 			break;
 		case "novoGasto":
-			stage.setScene(cenaNovoGasto);
 			ngVC.atualizandoTela();
+			stage.setScene(cenaNovoGasto);
 			break;
 		case "novoLimite":
-			stage.setScene(cenaNovoLimite);
 			nlVC.atualizandoTela();
+			stage.setScene(cenaNovoLimite);
 			break;
 		case "novaMeta":
-			stage.setScene(cenaNovaMeta);
 			nmVC.atualizandoTela();
+			stage.setScene(cenaNovaMeta);
 			break;
 		case "novaCategoria":
 			ncVC.atualizandoTela(telaAtual);

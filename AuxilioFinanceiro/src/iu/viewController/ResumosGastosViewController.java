@@ -106,11 +106,11 @@ public class ResumosGastosViewController implements Initializable {
 			grafico = fachada.inicializarGraficoSetoresMes(cbMeses.getSelectionModel().getSelectedItem());
 			ArrayList<PieChart.Data> array = new ArrayList<>();
 			for (Setor s : grafico.getSetores()) {
-				array.add(new PieChart.Data(s.getTituloSetor(), s.getValorTotal()));
+				array.add(new PieChart.Data(s.getTituloSetor()+" ("+String.format("%.2f", s.getValorTotal())+")", s.getValorTotal()));
 			}
 			ObservableList<PieChart.Data> pcData = FXCollections.observableArrayList(array);
 			pcPorMes.setData(pcData);
-			pcPorMes.setPrefSize(300, 300);
+			pcPorMes.setPrefSize(400, 400);
 			pcPorMes.setTitle("Gráfico do mês: " + grafico.getMes());
 		} catch (MesSemGastosException e) {
 			Alert alerta = new Alert(AlertType.INFORMATION);

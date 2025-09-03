@@ -73,10 +73,9 @@ public class LembretesViewController implements Initializable {
 		ativo.setPrefWidth(50);
 		ativo.setCellValueFactory(data -> new SimpleBooleanProperty(data.getValue().isAtivo()));
 		ativo.setEditable(true);
-		
+
 		lembrete = new TableColumn<ValorLista, String>("Lembretes");
 		lembrete.setPrefWidth(805);
-		lembrete.setStyle("-fx-font-size: 20px");
 		lembrete.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStringLista()));
 		editar = new TableColumn<ValorLista, Void>("Editar");
 		editar.setPrefWidth(100);
@@ -108,7 +107,7 @@ public class LembretesViewController implements Initializable {
 		ObservableList<ValorLista> dados = FXCollections.observableArrayList(lembretes);
 		lembrete.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStringLista()));
 		tblLembretes.setItems(dados);
-		
+
 		ativo.setCellFactory(col -> new TableCell<>() {
 			private final CheckBox btn = new CheckBox();
 			{
@@ -122,10 +121,10 @@ public class LembretesViewController implements Initializable {
 					} catch (ObjetoNaoEncontradoException e) {
 						Alert alerta = new Alert(AlertType.ERROR);
 						alerta.setTitle("ERRO");
-						alerta.setContentText(e.getTipoObjeto()+ " não encontrado");
+						alerta.setContentText(e.getTipoObjeto() + " não encontrado");
 						alerta.showAndWait();
 						e.printStackTrace();
-					}catch (CampoVazioException e) {
+					} catch (CampoVazioException e) {
 						e.printStackTrace();
 					}
 				});
@@ -172,16 +171,22 @@ public class LembretesViewController implements Initializable {
 				HBox.setHgrow(btn, Priority.ALWAYS);
 				btn.setOnAction(event -> {
 					ValorLista tl = getTableView().getItems().get(getIndex());
-					try {
-						fachada.removerLembrete(tl.getId());
-					} catch (ObjetoNaoEncontradoException e) {
+					if (tl.getStringLista().contains("Lembrete Comum")) {
+						try {
+							fachada.removerLembrete(tl.getId());
+						} catch (ObjetoNaoEncontradoException e) {
+							Alert alerta = new Alert(AlertType.ERROR);
+							alerta.setTitle("ERRO");
+							alerta.setContentText(e.getTipoObjeto() + " não encontrado");
+							alerta.showAndWait();
+						}
+						inicializaValores();
+					}else {
 						Alert alerta = new Alert(AlertType.ERROR);
 						alerta.setTitle("ERRO");
-						alerta.setContentText(e.getTipoObjeto()+ " não encontrado");
+						alerta.setContentText("Impossível remover lembrete associado a metas, mesalidades ou limites");
 						alerta.showAndWait();
-						e.printStackTrace();
 					}
-					inicializaValores();
 				});
 			}
 

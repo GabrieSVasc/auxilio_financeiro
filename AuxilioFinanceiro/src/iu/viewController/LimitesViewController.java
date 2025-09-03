@@ -58,12 +58,9 @@ public class LimitesViewController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle rb) {
 		btnVoltar.setGraphic(imgVoltar);
-		limites = fachada.inicializarLimites();
-		
-		ObservableList<ValorLista> dados = FXCollections.observableArrayList(limites);
+
 		limite = new TableColumn<ValorLista, String>("Limites");
 		limite.setPrefWidth(855);
-		limite.setStyle("-fx-font-size: 20px");
 		limite.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStringLista()));
 		editar = new TableColumn<ValorLista, Void>("Editar");
 		editar.setPrefWidth(100);
@@ -74,7 +71,6 @@ public class LimitesViewController implements Initializable{
 		tblLimites.getColumns().add(editar);
 		tblLimites.getColumns().add(remover);
 		
-		tblLimites.setItems(dados);
 	}
 	
 	public void inicializaValores() {

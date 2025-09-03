@@ -61,14 +61,13 @@ public class GerenciarGastosViewController implements Initializable{
 		fachada = new Fachada();
 	}
 	
-	@FXML
 	public void criarGrafico() {
 		GraficoSetores grafico = null;
 		try {
 			grafico = fachada.inicializarGraficoSetores();
 			ArrayList<PieChart.Data> array = new ArrayList<>();
 			for(Setor s : grafico.getSetores()) {
-				array.add(new PieChart.Data(s.getTituloSetor(), s.getValorTotal()));
+				array.add(new PieChart.Data(s.getTituloSetor() +" ("+String.format("%.2f", s.getValorTotal())+")", s.getValorTotal()));
 			}
 			ObservableList<PieChart.Data> pcData = FXCollections.observableArrayList(array);
 			pcMesAtual.setData(pcData);

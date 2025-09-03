@@ -63,7 +63,6 @@ public class GastosViewController implements Initializable {
 		ObservableList<ValorLista> dados = FXCollections.observableArrayList(gastos);
 		gasto = new TableColumn<ValorLista, String>("Gastos");
 		gasto.setPrefWidth(855);
-		gasto.setStyle("-fx-font-size: 20px");
 		gasto.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStringLista()));
 		editar = new TableColumn<ValorLista, Void>("Editar");
 		editar.setPrefWidth(100);

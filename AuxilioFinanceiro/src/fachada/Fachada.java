@@ -2,10 +2,13 @@ package fachada;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import javafx.fxml.Initializable;
 import negocio.CambioNegocio;
 import negocio.CategoriaManager;
 import negocio.GastoManager;
@@ -48,7 +51,7 @@ import negocio.exceptions.ValorNegativoException;
  * @author Maria Gabriela
  */
 
-public class Fachada {
+public class Fachada implements Initializable{
 	private CambioNegocio cambioNegocio;
 	private static NegocioMes negocioMes = new NegocioMes();
 	private static NegocioGrafico negocioGrafico = new NegocioGrafico();
@@ -59,11 +62,13 @@ public class Fachada {
 	private static MetaManager metaManager = new MetaManager();
 	private static LembreteManager lembreteManager = new LembreteManager(mensalidadeManager, limiteManager, metaManager);
 
-	public Fachada() {
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		limiteManager.setLembreteManager(lembreteManager);
 		metaManager.setLembreteManager(lembreteManager);
 	}
-	
+
 	// Gastos
 	/**
 	 * Inicializa para a tela todos os gastos

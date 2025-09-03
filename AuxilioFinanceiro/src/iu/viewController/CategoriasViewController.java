@@ -62,7 +62,6 @@ public class CategoriasViewController implements Initializable{
 		categorias = fachada.inicializarCategorias();
 		categoria = new TableColumn<ValorLista, String>("Categorias");
 		categoria.setPrefWidth(855);
-		categoria.setStyle("-fx-font-size: 20px");
 		ObservableList<ValorLista> dados = FXCollections.observableArrayList(categorias);
 		categoria.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStringLista()));
 		editar = new TableColumn<ValorLista, Void>("Editar");

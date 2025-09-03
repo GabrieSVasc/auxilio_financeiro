@@ -7,3 +7,44 @@
 96;Conta de luz;142.6;02-09-2025;7;02-10-2025;Mensal;false
 97;Spotify Premium;19.9;01-09-2025;7;01-10-2025;Mensal;false
 98;Netflix;39.9;01-09-2025;7;01-10-2025;Mensal;false
+105;Netflix;39.9;01-07-2025;7;01-08-2025;Mensal;false
+110;Spotify Premium;19.9;01-07-2025;7;01-08-2025;Mensal;false
+113;Plano de saúde;450.0;05-07-2025;7;05-08-2025;Mensal;false
+117;Academia;89.9;01-07-2025;7;01-08-2025;Mensal;false
+124;Assinatura Amazon Prime;19.90;01-06-2025;7;01-08-2025;Mensal;false
+130;Spotify Premium;19.90;01-06-2025;7;01-08-2025;Mensal;false
+131;Plano de saúde;450.00;05-06-2025;7;01-08-2025;Mensal;false
+136;Assinatura HBO Max;34.90;01-06-2025;7;01-08-2025;Mensal;false
+141;Plano de saúde;450.00;05-05-2025;7;01-08-2025;Mensal;false
+142;Assinatura Netflix;39.90;01-05-2025;7;01-08-2025;Mensal;false
+149;Spotify Premium;19.90;01-05-2025;7;01-08-2025;Mensal;false
+152;Assinatura Disney+;33.90;01-05-2025;7;01-08-2025;Mensal;false
+161;Plano de saúde;450.00;05-04-2025;7;01-08-2025;Mensal;false
+162;Assinatura HBO Max;34.90;01-04-2025;7;01-08-2025;Mensal;false
+169;Spotify Premium;19.90;01-04-2025;7;01-08-2025;Mensal;false
+172;Assinatura Netflix;39.90;01-04-2025;7;01-08-2025;Mensal;false
+181;Plano de saúde;450.00;05-03-2025;7;01-08-2025;Mensal;false
+182;Assinatura Disney+;33.90;01-03-2025;7;01-08-2025;Mensal;false
+189;Spotify Premium;19.90;01-03-2025;7;01-08-2025;Mensal;false
+192;Assinatura Netflix;39.90;01-03-2025;7;01-08-2025;Mensal;false
+201;Plano de saúde;450.00;05-02-2025;7;01-08-2025;Mensal;false
+202;Assinatura Spotify;19.90;01-02-2025;7;01-08-2025;Mensal;false
+209;Netflix;39.90;01-02-2025;7;01-08-2025;Mensal;false
+212;Assinatura HBO Max;34.90;01-02-2025;7;01-08-2025;Mensal;false
+221;Plano de saúde;450.00;05-01-2025;7;01-08-2025;Mensal;false
+222;Assinatura Netflix;39.90;01-01-2025;7;01-08-2025;Mensal;false
+229;Spotify Premium;19.90;01-01-2025;7;01-08-2025;Mensal;false
+232;Assinatura Amazon Prime;19.90;01-01-2025;7;01-08-2025;Mensal;false
+241;Plano de saúde;450.00;05-12-2024;7;01-08-2025;Mensal;false
+242;Assinatura Netflix;39.90;01-12-2024;7;01-08-2025;Mensal;false
+249;Spotify Premium;19.90;01-12-2024;7;01-08-2025;Mensal;false
+252;Assinatura HBO Max;34.90;01-12-2024;7;01-08-2025;Mensal;false
+261;Plano de saúde;450.00;05-11-2024;7;01-08-2025;Mensal;false
+262;Assinatura Spotify;19.90;01-11-2024;7;01-08-2025;Mensal;false
+269;Netflix;39.90;01-11-2024;7;01-08-2025;Mensal;false
+272;Assinatura HBO Max;34.90;01-11-2024;7;01-08-2025;Mensal;false
+281;Plano de saúde;450.00;05-10-2024;7;01-08-2025;Mensal;false
+282;Assinatura Netflix;39.90;01-10-2024;7;01-08-2025;Mensal;false
+289;Spotify Premium;19.90;01-10-2024;7;01-08-2025;Mensal;false
+292;Assinatura HBO Max;34.90;01-10-2024;7;01-08-2025;Mensal;false
+311;Plano de saúde;450.00;05-09-2024;7;01-08-2025;Mensal;false

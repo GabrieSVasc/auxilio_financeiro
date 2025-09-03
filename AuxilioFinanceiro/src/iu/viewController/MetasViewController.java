@@ -65,7 +65,6 @@ public class MetasViewController implements Initializable{
 		ObservableList<ValorLista> dados = FXCollections.observableArrayList(metas);
 		meta.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStringLista()));
 		meta.setPrefWidth(855);
-		meta.setStyle("-fx-font-size: 20px");
 		editar = new TableColumn<ValorLista, Void>("Editar");
 		editar.setPrefWidth(100);
 		remover = new TableColumn<ValorLista, Void>("Remover");

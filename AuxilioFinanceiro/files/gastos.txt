@@ -75,3 +75,163 @@
 86;Supermercado Central;235.7;01-08-2025;1
 87;Almoço no restaurante local;48.9;12-07-2025;1
 88;Sorveteria Gelato & Cia;16.5;29-07-2025;1
+99;Supermercado Extra;315.4;03-07-2025;1
+100;Uber para trabalho;22.5;04-07-2025;2
+101;Cinema - Missão Impossível;38.0;06-07-2025;3
+102;Aluguel apartamento;1200.0;01-07-2025;4
+103;Consulta dentista;150.0;09-07-2025;5
+104;Curso online Python;299.0;10-07-2025;6
+106;Farmácia Drogasil;68.25;12-07-2025;5
+107;Restaurante Japonês;128.0;14-07-2025;1
+108;Bilhete único;48.0;16-07-2025;2
+109;Show ao vivo;120.0;17-07-2025;3
+111;Feira orgânica;64.3;20-07-2025;1
+112;Gasolina;230.0;21-07-2025;2
+114;Livro de finanças;45.0;22-07-2025;6
+115;Pizza delivery;78.0;23-07-2025;1
+116;Manutenção bicicleta;95.0;25-07-2025;2
+118;Ingresso parque aquático;110.0;27-07-2025;3
+119;Supermercado Carrefour;289.9;02-06-2025;1
+120;Bilhete único (recarga);48.0;03-06-2025;2
+121;Aluguel apartamento;1200.0;01-06-2025;4
+122;Consulta oftalmologista;230.0;05-06-2025;5
+123;Curso de inglês;320.00;06-06-2025;6  
+125;Lanche no shopping;42.75;08-06-2025;1  
+126;Cinema - Aventura Espacial;36.00;09-06-2025;3  
+127;Posto de gasolina;210.00;11-06-2025;2  
+128;Farmácia Pague Menos;55.30;12-06-2025;5  
+129;Feira livre;70.10;13-06-2025;1  
+132;Show de stand-up;95.00;15-06-2025;3  
+133;Oficina - troca de óleo;120.00;17-06-2025;2  
+134;Curso de design;299.00;18-06-2025;6  
+135;Restaurante italiano;134.00;20-06-2025;1  
+137;Parque de diversões;85.00;22-06-2025;3  
+138;Livro de psicologia;49.90;24-06-2025;6
+139;Aluguel apartamento;1200.00;01-05-2025;4  
+140;Supermercado Assaí;305.60;03-05-2025;1  
+143;Uber para reunião;26.50;06-05-2025;2  
+144;Farmácia São João;62.80;07-05-2025;5  
+145;Curso de fotografia online;280.00;08-05-2025;6  
+146;Show de música indie;110.00;10-05-2025;3  
+147;Gasolina posto Shell;198.00;12-05-2025;2  
+148;Restaurante mexicano;89.50;14-05-2025;1  
+150;Feira de bairro;56.70;16-05-2025;1  
+151;Consulta dermatologista;220.00;17-05-2025;5  
+153;Passeio zoológico;74.00;18-05-2025;3  
+154;Curso Excel avançado;310.00;20-05-2025;6  
+155;Troca de pneu bicicleta;95.00;22-05-2025;2  
+156;Padaria São Pedro;41.20;24-05-2025;1  
+157;Cinema - Comédia Romântica;32.00;25-05-2025;3  
+158;Livro de história;58.90;27-05-2025;6
+159;Aluguel apartamento;1200.00;01-04-2025;4  
+160;Supermercado Extra;298.40;02-04-2025;1  
+163;Ônibus mensal;150.00;03-04-2025;2  
+164;Consulta cardiologista;210.00;06-04-2025;5  
+165;Curso de marketing digital;320.00;07-04-2025;6  
+166;Show de rock;130.00;10-04-2025;3  
+167;Posto de gasolina Ipiranga;205.00;12-04-2025;2  
+168;Restaurante francês;115.00;14-04-2025;1  
+170;Feira orgânica;63.40;16-04-2025;1  
+171;Consulta psicólogo;230.00;17-04-2025;5  
+173;Parque aquático;90.00;18-04-2025;3  
+174;Curso fotografia;300.00;20-04-2025;6  
+175;Manutenção moto;180.00;22-04-2025;2  
+176;Padaria Pão & Cia;45.20;24-04-2025;1  
+177;Cinema - Drama;33.00;25-04-2025;3  
+178;Livro de filosofia;55.00;27-04-2025;6
+179;Aluguel apartamento;1200.00;01-03-2025;4  
+180;Supermercado Pão de Açúcar;310.50;02-03-2025;1  
+183;Passe mensal metrô;150.00;03-03-2025;2  
+184;Consulta clínica geral;200.00;06-03-2025;5  
+185;Curso inglês avançado;350.00;07-03-2025;6  
+186;Show de jazz;120.00;10-03-2025;3  
+187;Posto de gasolina BR;210.00;12-03-2025;2  
+188;Restaurante chinês;100.00;14-03-2025;1  
+190;Feira municipal;65.00;16-03-2025;1  
+191;Consulta odontológica;180.00;17-03-2025;5  
+193;Parque estadual;80.00;18-03-2025;3  
+194;Curso de programação;320.00;20-03-2025;6  
+195;Revisão carro;250.00;22-03-2025;2  
+196;Padaria Central;40.00;24-03-2025;1  
+197;Cinema - Ação;35.00;25-03-2025;3  
+198;Livro de matemática;50.00;27-03-2025;6
+199;Aluguel apartamento;1200.00;01-02-2025;4  
+200;Supermercado Zona Sul;295.00;02-02-2025;1  
+203;Bilhete ônibus;150.00;03-02-2025;2  
+204;Consulta médica;210.00;06-02-2025;5  
+205;Curso de design gráfico;310.00;07-02-2025;6  
+206;Show de música;125.00;10-02-2025;3  
+207;Posto de gasolina Ipiranga;205.00;12-02-2025;2  
+208;Restaurante italiano;110.00;14-02-2025;1  
+210;Feira local;60.00;16-02-2025;1  
+211;Farmácia Drogaria São Paulo;55.00;17-02-2025;5  
+213;Parque da cidade;85.00;18-02-2025;3  
+214;Curso de programação;320.00;20-02-2025;6  
+215;Manutenção carro;200.00;22-02-2025;2  
+216;Padaria Central;42.00;24-02-2025;1  
+217;Cinema - Comédia;33.00;25-02-2025;3  
+218;Livro de história;48.00;27-02-2025;6
+219;Aluguel apartamento;1200.00;01-01-2025;4  
+220;Supermercado Extra;300.00;02-01-2025;1  
+223;Bilhete único;150.00;03-01-2025;2  
+224;Consulta médica geral;200.00;06-01-2025;5  
+225;Curso inglês básico;300.00;07-01-2025;6  
+226;Show de música ao vivo;120.00;10-01-2025;3  
+227;Posto de gasolina Shell;210.00;12-01-2025;2  
+228;Restaurante brasileiro;100.00;14-01-2025;1  
+230;Feira de frutas;60.00;16-01-2025;1  
+231;Consulta dentista;180.00;17-01-2025;5  
+233;Parque municipal;80.00;18-01-2025;3  
+234;Curso de fotografia;300.00;20-01-2025;6  
+235;Revisão de carro;250.00;22-01-2025;2  
+236;Padaria Central;40.00;24-01-2025;1  
+237;Cinema - Drama;35.00;25-01-2025;3  
+238;Livro de filosofia;50.00;27-01-2025;6
+239;Aluguel apartamento;1200.00;01-12-2024;4  
+240;Supermercado Carrefour;310.00;02-12-2024;1  
+243;Bilhete único;150.00;03-12-2024;2  
+244;Consulta médica;200.00;06-12-2024;5  
+245;Curso de inglês;320.00;07-12-2024;6  
+246;Show de Natal;130.00;10-12-2024;3  
+247;Posto de gasolina Ipiranga;210.00;12-12-2024;2  
+248;Restaurante italiano;115.00;14-12-2024;1  
+250;Feira local;65.00;16-12-2024;1  
+251;Farmácia Drogaria São Paulo;60.00;17-12-2024;5  
+253;Parque da cidade;90.00;18-12-2024;3  
+254;Curso de programação;320.00;20-12-2024;6  
+255;Manutenção carro;200.00;22-12-2024;2  
+256;Padaria Central;45.00;24-12-2024;1  
+257;Cinema - Ação;35.00;25-12-2024;3  
+258;Livro de história;50.00;27-12-2024;6
+259;Aluguel apartamento;1200.00;01-11-2024;4  
+260;Supermercado Extra;305.00;02-11-2024;1  
+263;Bilhete ônibus;150.00;03-11-2024;2  
+264;Consulta médica;210.00;06-11-2024;5  
+265;Curso de design gráfico;310.00;07-11-2024;6  
+266;Show de música;125.00;10-11-2024;3  
+267;Posto de gasolina Ipiranga;205.00;12-11-2024;2  
+268;Restaurante italiano;110.00;14-11-2024;1  
+270;Feira local;60.00;16-11-2024;1  
+271;Farmácia Drogaria São Paulo;55.00;17-11-2024;5  
+273;Parque da cidade;85.00;18-11-2024;3  
+274;Curso de programação;320.00;20-11-2024;6  
+275;Manutenção carro;200.00;22-11-2024;2  
+276;Padaria Central;42.00;24-11-2024;1  
+277;Cinema - Comédia;33.00;25-11-2024;3  
+278;Livro de história;48.00;27-11-2024;6
+279;Aluguel apartamento;1200.00;01-10-2024;4  
+280;Supermercado Extra;298.50;02-10-2024;1  
+283;Bilhete ônibus;150.00;03-10-2024;2  
+284;Consulta médica;210.00;06-10-2024;5  
+285;Curso de marketing digital;320.00;07-10-2024;6  
+286;Show de rock;130.00;10-10-2024;3  
+287;Posto de gasolina Ipiranga;205.00;12-10-2024;2  
+288;Restaurante francês;115.00;14-10-2024;1  
+290;Feira orgânica;63.40;16-10-2024;1  
+291;Consulta psicólogo;230.00;17-10-2024;5  
+293;Parque aquático;90.00;18-10-2024;3  
+294;Curso fotografia;300.00;20-10-2024;6  
+295;Manutenção moto;180.00;22-10-2024;2  
+296;Padaria Pão & Cia;45.20;24-10-2024;1  
+297;Cinema - Drama;33.00;25-10-2024;3  
+298;Livro de filosofia;55.00;27-10-2024;6
