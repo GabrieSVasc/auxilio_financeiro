@@ -62,9 +62,6 @@ public class DadosInvestimentoViewController implements Initializable{
 	private CheckBox chAnos;
 	
 	@FXML
-	private CheckBox chInflacao;
-	
-	@FXML
 	private Button btnConfirmar;
 	
 	private int tipoInvestimentoInt;
@@ -95,7 +92,6 @@ public class DadosInvestimentoViewController implements Initializable{
 		spinnerValor.getValueFactory().setValue(0.0);
 		spinnerTaxa.getValueFactory().setValue(0.0);
 		spinnerTempo.getValueFactory().setValue(0.0);
-		chInflacao.setSelected(false);;
 		chMeses.setSelected(true);
 		chAnos.setSelected(false);
 		

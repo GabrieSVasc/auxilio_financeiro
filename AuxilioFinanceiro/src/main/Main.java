@@ -34,7 +34,11 @@ import javafx.stage.Stage;
 /**
  * Main do sistema, realiza a troca entre as telas
  * 
- * @author Maria Gabriela
+ * Projeto feito por:
+ *  Divancy Bruno
+ *  Halina Mochel
+ *  Maria Gabriela
+ *  Pedro Farias
  */
 
 public class Main extends Application {
